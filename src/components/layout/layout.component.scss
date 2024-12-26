@@ -1,0 +1,77 @@
+.toolbar {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+  
+    background-color: whitesmoke;
+    padding: 0 25px;
+  
+    h3 {
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+  
+  .spacing {
+    flex: 1 1 auto;
+  }
+  
+  .body {
+    display: flex;
+    height: calc(100vh - 70px);
+    overflow: hidden;
+  }
+  
+  .sidebar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #ccc;
+    overflow: hidden;
+  }
+  
+  .content {
+    width: calc(100vw - 80px);
+    height: 100%;
+    overflow: auto;
+    padding: 20px;
+  }
+  
+  .sidemenus {
+    height: calc(100vh - 70px);
+    padding: 15px;
+  }
+  
+  .center {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+  
+    &:hover {
+      background-color: #ccc;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  }
+  
+  .label {
+    font-size: medium;
+    font-weight: 500;
+    margin: 0 15px 0 10px;
+  }
+  
+  .f-1 {
+    font-size: 0.9rem;
+  }
+  
+  .submenu {
+    margin-left: 15px;
+  }
+  
+  .submenusmenu {
+    margin-left: 45px;
+  }
+  
