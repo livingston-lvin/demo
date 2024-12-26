@@ -31,7 +31,7 @@ export class AppComponent {
   }
 
   sideMenuOpened = signal(true);
-  sideMenusWidth = computed(() => (this.sideMenuOpened() ? 250 : 80));
+  sideMenusWidth = computed(() => (this.sideMenuOpened() ? 300 : 80));
 
   items: any[] = [
     {
@@ -39,32 +39,34 @@ export class AppComponent {
       label: 'Dashboard',
       route: 'menu',
       showSubItem: signal(false),
-      subItems: [
-        {
-          icon: 'looks_one',
-          label: 'Dashboard 1',
-          route: 'menu',
-          showSubItemsItems: signal(false),
-          subItemsItems: [
-            { icon: 'counter_1', label: 'Dashboard 1', route: 'menu' },
-            { icon: 'counter_2', label: 'Dashboard 2', route: 'menu' },
-            { icon: 'counter_3', label: 'Dashboard 3', route: 'menu' },
-          ],
-        },
-        { icon: 'looks_two', label: 'Dashboard 2', route: 'menu' },
-        { icon: 'timer_3', label: 'Dashboard 3', route: 'menu' },
-      ],
-    },
-    {
-      icon: 'home',
-      label: 'Home Page',
-      route: 'menu',
-      showSubItem: signal(false),
       subItems: [],
     },
     {
-      icon: 'list_alt',
-      label: 'Orders',
+      icon: 'star_rate',
+      label: 'Masters',
+      route: 'menu',
+      showSubItem: signal(false),
+      subItems: [
+        {
+          icon: 'account_circle',
+          label: 'AOS User',
+          route: 'menu',
+          showSubItemsItem: signal(false),
+          subItemsItems: [
+            { icon: 'person', label: 'User Master', route: 'menu' },
+            { icon: 'local_activity', label: 'Item Master', route: 'menu' },
+            { icon: 'category', label: 'Item Category Master', route: 'menu' },
+            { icon: 'currency_rupee', label: 'GST Rate Master', route: 'menu' },
+            { icon: 'local_shipping', label: 'Courier Company Master', route: 'menu' },
+          ],
+        },
+        { icon: 'account_box', label: 'Customer', route: 'menu' },
+        { icon: 'password', label: 'Login Page', route: 'menu' },
+      ],
+    },
+    {
+      icon: 'app_registration',
+      label: 'Actions',
       route: 'menu',
       showSubItem: signal(false),
       subItems: [],
