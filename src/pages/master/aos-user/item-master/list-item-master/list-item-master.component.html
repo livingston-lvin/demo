@@ -1,5 +1,22 @@
 <div class="container">
-    <div class="header"></div>
+    <header>
+        <div class="center">
+            <select>
+                @for (row of rows; track row) {
+                <option [value]="row">{{row}}</option>
+                }
+            </select>
+        </div>
+        <div class="center">
+            <button class="add" mat-fab extended>
+                <mat-icon>add</mat-icon>
+                Add
+              </button>
+            <input class="search" type="text" placeholder="Enter search term ...">
+            <button class="btn-sm" >search</button>
+        </div>
+    </header>
+    <br>
     <div class="body">
         <div class="data">
             <table>

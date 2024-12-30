@@ -1,16 +1,20 @@
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Item } from '../../../../../interfaces/item';
 import { MatIconModule } from '@angular/material/icon';
 import { PaginatorComponent } from '../../../../../components/paginator/paginator.component';
+import {MatSelectModule} from '@angular/material/select';
 @Component({
   selector: 'app-list-item-master',
   templateUrl: './list-item-master.component.html',
   styleUrl: './list-item-master.component.scss',
-  imports: [MatInputModule, MatButtonModule, MatIconModule, PaginatorComponent],
+  imports: [MatInputModule, MatButtonModule, MatIconModule, PaginatorComponent,MatSelectModule,MatIconButton],
 })
 export class ListItemMasterComponent {
+loadData() {
+throw new Error('Method not implemented.');
+}
   items: Item[] = [
     {
       id: 1,
@@ -73,24 +77,26 @@ export class ListItemMasterComponent {
     },
   ];
   rows: number[] = [5, 10, 20];
-  selectedRow: number = this.rows[2];
-  from: number = 0;
+  limit: number = this.rows[2];
+  offset: number = 0;
+  // how many pages to be displayed in paginator component
   size: number = 0;
+  // indicates current page in the paginator component
   page: number = 0;
   searchTxt!: string;
 
   constructor() {
-    this.size = 50;
+    this.size = 11;
     this.page = 1;
   }
 
   onSelectRow() {
-    this.from = (this.page - 1) * this.selectedRow;
-    console.log(this.selectedRow, this.from);
+    this.offset = (this.page - 1) * this.limit;
+    console.log(this.limit, this.offset);
   }
 
   navigate(targetPage: any) {
     this.page = targetPage;
-    this.from = (targetPage - 1) * this.selectedRow;
+    this.offset = (targetPage - 1) * this.limit;
   }
 }

@@ -17,9 +17,11 @@ import { Paginator } from '../../interfaces/paginator';
   imports: [CommonModule],
 })
 export class PaginatorComponent implements OnInit, OnChanges {
-  @Input('from') from!: number;
+  @Input('from') offset!: number;
   @Input('to') to!: number;
   @Input('records') records!: number;
+  // total no of pages to be shown (list.size() / limit)
+  // size sholud be greater than 0 (assumption)
   @Input('size') size!: number;
   @Output('page') page: EventEmitter<any> = new EventEmitter<any>();
 
@@ -33,29 +35,30 @@ export class PaginatorComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    // if size changes, ie) the user selected different row size then recalculate
     if (changes['size']) {
       this.initData();
     }
   }
 
   initData() {
+    // empty the array
     this.pages.splice(0);
+    // currentPage is not known yet
     this.currentPage = undefined;
     // if size is less than 10, then create pages for that size
-    // else create page pages of size 10
-    if (this.size > 0) {
-      if (this.size <= 10) this.push(this.size);
-      else this.push(10);
+    // else create pages of size 10, since size is > 10 we need to display pages upto length 10 in UI
+    if (this.size <= 10) this.createPages(this.size);
+    else this.createPages(10);
 
-      // set first page to active
-      this.pages[0]['active'] = true;
-      this.currentPage = this.pages[0];
-    }
+    // set first page to active
+    this.pages[0]['active'] = true;
+    this.currentPage = this.pages[0];
   }
 
-  push(length: number) {
+  createPages(length: number) {
     for (let i = 0; i < length; i++)
-      this.pages.push({ pageNo: i + 1, active: false, index: i });
+      this.pages.push({ index: i, pageNo: i + 1, active: false });
   }
 
   previous(emit: boolean, targetIndex: number) {

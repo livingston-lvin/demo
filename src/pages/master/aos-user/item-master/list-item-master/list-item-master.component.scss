@@ -1,24 +1,74 @@
 @use "../../../../../constants/colors.scss" as color;
 
-table{
-    width: 100%;
-    border-collapse: collapse;
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    tr>th,tr>td{
-        border: 1px solid #ccc;
-        text-align: center;
-    }
-    
-    tr>th{
-        font-family: ROBOTO-LIGHT;
-        font-size: medium;
-        text-transform: uppercase;
-        padding: 10px;
-        color: color.$tableHeaderColor;
-        background-color: color.$tableHeaderBackgroundColor;
-    }
+table {
+  width: 100%;
+  border-collapse: collapse;
 
-    tr>td{
-        font-family: ROBOTO-MEDIUM;
-    }
+  tr > th,
+  tr > td {
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+
+  tr > th {
+    font-family: ROBOTO-LIGHT;
+    font-size: medium;
+    text-transform: uppercase;
+    padding: 10px;
+    color: color.$tableHeaderColor;
+    background-color: color.$tableHeaderBackgroundColor;
+  }
+
+  tr > td {
+    font-family: ROBOTO-MEDIUM;
+  }
+}
+
+select {
+  width: 55px;
+  padding: 5px 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: #000;
+  font-size: medium;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url(color.$carat);
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.search{
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.center{
+    display: flex;
+    align-items: center;
+}
+
+.btn-sm{
+    background-color: color.$btnSmallColor;
+    color: #fff;
+    padding: 3px 7px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.add{
+    font-weight: 500;
 }
