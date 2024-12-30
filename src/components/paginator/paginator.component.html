@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="title">Showing {{from + 1}} to {{to}} of {{records}} entries</div>
+    <div class="flex">
+        <button class="title" (click)="previous(true,currentPage!.index-1)">
+            << Previous</button>
+                <button class="page" *ngFor="let page of pages;let i = index" [style.display]="i>=10?'none':''"
+                    [style.background-color]="page.active?'#054272':''" [style.color]="page.active?'#fff':''"
+                    (click)="navigate(page.pageNo,page.index)">{{page.pageNo}}</button>
+                <button class="title" (click)="next(true,currentPage!.index+1)"> Next >> </button>
+    </div>
+    <br>
+</div>

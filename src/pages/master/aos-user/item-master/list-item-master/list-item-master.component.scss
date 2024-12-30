@@ -1,0 +1,24 @@
+@use "../../../../../constants/colors.scss" as color;
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+
+    tr>th,tr>td{
+        border: 1px solid #ccc;
+        text-align: center;
+    }
+    
+    tr>th{
+        font-family: ROBOTO-LIGHT;
+        font-size: medium;
+        text-transform: uppercase;
+        padding: 10px;
+        color: color.$tableHeaderColor;
+        background-color: color.$tableHeaderBackgroundColor;
+    }
+
+    tr>td{
+        font-family: ROBOTO-MEDIUM;
+    }
+}

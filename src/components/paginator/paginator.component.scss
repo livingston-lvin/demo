@@ -1,0 +1,38 @@
+.container {
+    width: 100%;
+  }
+  
+  .title{
+    margin: 10px;
+    font-weight: 500;
+    font-size: medium;
+  }
+  
+  .flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    .title{
+      margin: 0 25px;
+    }
+  
+    button {
+      padding: 5px 10px;
+      font-size: medium;
+      font-weight: 500;
+      margin: 0 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  
+    .page {
+      font-size: large;
+    }
+  
+    button:hover {
+      background-color: #ccc;
+      color: #000;
+      cursor: pointer;
+    }
+  }

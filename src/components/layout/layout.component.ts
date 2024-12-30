@@ -3,7 +3,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { environment } from '../../environments/environment.development';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-layout',
@@ -12,7 +11,7 @@ import { NgClass } from '@angular/common';
   imports: [MatButtonModule, MatIconModule, RouterModule, ],
 })
 export class LayoutComponent {
-  sideMenuOpened = signal(true);
+  sideMenuOpened = signal(false);
   sideMenusWidth = computed(() => (this.sideMenuOpened() ? 350 : 80));
 
   items: any[] = [
