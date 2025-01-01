@@ -16,4 +16,5 @@ export interface Item {
   minimumOrderQty: number;
   brand: string;
   saveDt: string;
+  attribute: string;
 }

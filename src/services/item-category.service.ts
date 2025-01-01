@@ -19,6 +19,10 @@ export class ItemCategoryService {
     return this.http.get<any>(`${this.url}/${limit}/${offset}`);
   }
 
+  getAll(): Observable<any> {
+    return this.http.get<any>(`${this.url}`);
+  }
+
   getItemCategory(id: number): Observable<ItemCategory> {
     return this.http.get<ItemCategory>(`${this.url}/${id}`);
   }

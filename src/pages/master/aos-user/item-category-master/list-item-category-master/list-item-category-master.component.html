@@ -52,6 +52,7 @@
       </table>
     </div>
     <div class="paginator">
+      @if(items.length){
       <app-paginator
         (page)="navigate($event)"
         [size]="size"
@@ -59,6 +60,9 @@
         [from]="offset * limit + 1"
         [to]="offset * 2 * limit"
       ></app-paginator>
+      } @else {
+      <h2>No Data in the table...</h2>
+      }
     </div>
   </div>
 </div>

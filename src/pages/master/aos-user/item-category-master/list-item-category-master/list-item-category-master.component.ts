@@ -126,8 +126,12 @@ export class ListItemCategoryMasterComponent implements OnInit {
   }
 
   editCategory(id: number) {
-    const dialog =  this.openDialog('0ms', '0ms', EditItemCategoryMasterComponent, id);
-    
+    const dialog = this.openDialog(
+      '0ms',
+      '0ms',
+      EditItemCategoryMasterComponent,
+      id
+    );
   }
 
   deleteCategory(id: number) {
