@@ -52,13 +52,12 @@ export class CreateItemCategoryMasterComponent {
       const value = this.form.value;
       this.itemCategoryService.createItemCategory(value).subscribe(
         (res) => {
-          console.log(res);
+          this.dialogRef.close();
         },
         (err) => {
           console.log(err);
         }
       );
-      // this.dialogRef.close();
     } else {
       alert('Please fill all mandetory fields...');
     }

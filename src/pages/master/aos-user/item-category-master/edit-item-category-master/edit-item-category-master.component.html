@@ -1,1 +1,14 @@
-<p>edit-item-category-master works!</p>
+<h2 mat-dialog-title>Edit Category</h2>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <br>
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name">
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close type="button">Cancel</button>
+  <button mat-button (click)="submit()" type="submit">Submit</button>
+</mat-dialog-actions>

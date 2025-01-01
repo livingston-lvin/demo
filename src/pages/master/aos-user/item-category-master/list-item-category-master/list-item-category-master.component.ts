@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -7,8 +7,13 @@ import { PaginatorComponent } from '../../../../../components/paginator/paginato
 import { Item } from '../../../../../interfaces/item';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment.development';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateItemCategoryMasterComponent } from '../create-item-category-master/create-item-category-master.component';
+import { ItemCategoryService } from '../../../../../services/item-category.service';
+import { ItemCategory } from '../../../../../interfaces/item-category';
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { EditItemCategoryMasterComponent } from '../edit-item-category-master/edit-item-category-master.component';
 
 @Component({
   selector: 'app-list-item-category-master',
@@ -21,96 +26,64 @@ import { CreateItemCategoryMasterComponent } from '../create-item-category-maste
     PaginatorComponent,
     MatSelectModule,
     MatIconButton,
-    MatDialogModule
+    MatDialogModule,
+    CommonModule,
   ],
 })
-export class ListItemCategoryMasterComponent {
-  loadData() {
-    throw new Error('Method not implemented.');
-  }
-  items: Item[] = [
-    {
-      id: 1,
-      name: 'Sample Item 1',
-      code: 'ITEM001',
-      category: { id: 1, name: 'Electronics', saveDt: '2024-12-30T10:00:00Z' },
-      subCategory: {
-        id: 11,
-        name: 'Mobile Phones',
-        saveDt: '2024-12-30T10:00:00Z',
-      },
-      imgUrls: [new File([''], 'image1.jpg'), new File([''], 'image2.jpg')],
-      size: '10*10',
-      sizeUnit: 'cm',
-      weight: 0.5,
-      weightUnit: 'kg',
-      packingQty: 10,
-      packingUnit: 'pcs',
-      minimumOrderQty: 5,
-      brand: 'Brand A',
-      saveDt: '2024-12-30T10:00:00Z',
-    },
-    {
-      id: 2,
-      name: 'Sample Item 2',
-      code: 'ITEM002',
-      category: { id: 2, name: 'Furniture', saveDt: '2024-12-30T10:00:00Z' },
-      subCategory: { id: 21, name: 'Chairs', saveDt: '2024-12-30T10:00:00Z' },
-      imgUrls: [new File([''], 'image3.jpg')],
-      size: '10*10',
-      sizeUnit: 'cm',
-      weight: 10,
-      weightUnit: 'kg',
-      packingQty: 2,
-      packingUnit: 'set',
-      minimumOrderQty: 1,
-      brand: 'Brand B',
-      saveDt: '2024-12-29T15:30:00Z',
-    },
-    {
-      id: 3,
-      name: 'Sample Item 3',
-      code: 'ITEM003',
-      category: { id: 3, name: 'Stationery', saveDt: '2024-12-30T10:00:00Z' },
-      subCategory: {
-        id: 31,
-        name: 'Notebooks',
-        saveDt: '2024-12-30T10:00:00Z',
-      },
-      imgUrls: [new File([''], 'image4.jpg'), new File([''], 'image5.jpg')],
-      size: '10*10',
-      sizeUnit: 'cm',
-      weight: 0.2,
-      weightUnit: 'kg',
-      packingQty: 50,
-      packingUnit: 'pcs',
-      minimumOrderQty: 10,
-      brand: 'Brand C',
-      saveDt: '2024-12-28T08:45:00Z',
-    },
-  ];
+export class ListItemCategoryMasterComponent implements OnInit {
+  items: ItemCategory[] = [];
   rows: number[] = [5, 10, 20];
-  limit: number = this.rows[2];
+  limit: number = this.rows[0];
   offset: number = 0;
   // how many pages to be displayed in paginator component
   size: number = 0;
   // indicates current page in the paginator component
   page: number = 0;
+  records: number = 0;
   searchTxt!: string;
 
-  constructor(private router: Router,private dialog:MatDialog) {
-    this.size = 11;
-    this.page = 1;
+  constructor(
+    private router: Router,
+    private dialog: MatDialog,
+    private itemCategoryService: ItemCategoryService
+  ) {}
+
+  // reset() {
+  //   this.items = [];
+  //   this.offset = 0;
+  //   this.size = 0;
+  //   this.page = 0;
+  //   this.records = 0;
+  //   this.searchTxt = '';
+  // }
+
+  ngOnInit(): void {
+    this.loadData();
   }
 
-  onSelectRow() {
-    this.offset = (this.page - 1) * this.limit;
-    console.log(this.limit, this.offset);
+  loadData() {
+    this.itemCategoryService
+      .getItemCategories(this.limit, this.offset)
+      .subscribe(
+        (res) => {
+          this.items = res.content;
+          this.size = +res.totalPages;
+          this.records = +res.totalElements;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  }
+
+  onSelectRow(event: any) {
+    this.limit = +event.target.value;
   }
 
   navigate(targetPage: any) {
     this.page = targetPage;
-    this.offset = (targetPage - 1) * this.limit;
+    this.offset = targetPage - 1;
+    this.loadData();
   }
 
   navigateToCreateItemCategory() {
@@ -123,12 +96,49 @@ export class ListItemCategoryMasterComponent {
     ]);
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(CreateItemCategoryMasterComponent, {
+  openDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string,
+    component: any | null,
+    id: number | null
+  ): void {
+    if (component === null) {
+      component = CreateItemCategoryMasterComponent;
+    }
+    this.dialog.open(component, {
       width: '500px',
-      height:'250px',
+      height: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
+      data: { id },
     });
+  }
+
+  viewCategory(id: number) {
+    this.router.navigate([
+      environment.servletPath,
+      environment.master,
+      environment.aosUser,
+      environment.itemCategory,
+      environment.view,
+      id,
+    ]);
+  }
+
+  editCategory(id: number) {
+    const dialog =  this.openDialog('0ms', '0ms', EditItemCategoryMasterComponent, id);
+    
+  }
+
+  deleteCategory(id: number) {
+    this.itemCategoryService.deleteItemCategory(id).subscribe(
+      (res) => {
+        console.log(res);
+        this.loadData();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }
