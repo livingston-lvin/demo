@@ -5,9 +5,9 @@ export interface Item {
   name: string;
   code: string;
   category: ItemCategory;
-  subCategory: ItemCategory;
+  subCategory?: ItemCategory;
   imgUrls: File[];
-  size: number;
+  size: string;
   sizeUnit: string;
   weight: number;
   weightUnit: string;

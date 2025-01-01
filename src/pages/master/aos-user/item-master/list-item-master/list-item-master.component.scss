@@ -12,7 +12,8 @@ table {
 
   tr > th,
   tr > td {
-    border: 1px solid #ccc;
+    border: 1px solid;
+    border-color: color.$borderColor;
     text-align: center;
   }
 
@@ -33,7 +34,7 @@ table {
 select {
   width: 55px;
   padding: 5px 8px;
-  border: 1px solid #ccc;
+  border: 1px solid color.$borderColor;
   border-radius: 3px;
   color: #000;
   font-size: medium;
@@ -50,10 +51,10 @@ select {
 }
 
 .search{
-    border: 1px solid #ccc;
+    border: 1px solid color.$borderColor;
     padding: 10px;
     border-radius: 5px;
-    margin-right: 15px;
+    margin: 0 15px;
 }
 
 .center{
