@@ -2,32 +2,32 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../environments/environment.development';
 import { HttpClient, HttpResponseBase } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Item } from '../interfaces/item';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ItemService {
-  private url: string = `${environment.url}/${environment.item}`;
+export class UserService {
+  private url: string = `${environment.url}/${environment.user}`;
   private http: HttpClient = inject(HttpClient);
 
-  create(payload: any): Observable<HttpResponseBase> {
+  create(payload: User): Observable<HttpResponseBase> {
     return this.http.post<HttpResponseBase>(this.url, payload);
   }
 
-  getAll(limit: number, offset: number): Observable<any> {
+  getUsers(limit: number, offset: number): Observable<any> {
     return this.http.get<any>(`${this.url}/${limit}/${offset}`);
   }
 
-  get(id: number): Observable<any> {
-    return this.http.get<any>(`${this.url}/${id}`);
+  getUser(id: number): Observable<User> {
+    return this.http.get<User>(`${this.url}/${id}`);
   }
 
-  update(payload: any): Observable<Item> {
-    return this.http.put<Item>(`${this.url}`, payload);
+  updateUser(payload: User): Observable<User> {
+    return this.http.put<User>(`${this.url}`, payload);
   }
 
-  delete(id: number): Observable<HttpResponseBase> {
+  deleteUser(id: number): Observable<HttpResponseBase> {
     return this.http.delete<HttpResponseBase>(`${this.url}/${id}`);
   }
 }

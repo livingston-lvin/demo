@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment.development';
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
-  imports: [MatButtonModule, MatIconModule, RouterModule, ],
+  imports: [MatButtonModule, MatIconModule, RouterModule],
 })
 export class LayoutComponent {
   sideMenuOpened = signal(false);
@@ -37,7 +37,12 @@ export class LayoutComponent {
           selected: signal(false),
           showSubItemsItem: signal(false),
           subItemsItems: [
-            { icon: 'person', label: 'User Master', route: 'menu' },
+            {
+              icon: 'person',
+              label: 'User Master',
+              route: 'user/list',
+              selected: signal(false),
+            },
             {
               icon: 'local_activity',
               label: 'Item Master',
@@ -53,13 +58,13 @@ export class LayoutComponent {
             {
               icon: 'currency_rupee',
               label: 'GST Rate Master',
-              route: 'menu',
+              route: 'gst-master/list',
               selected: signal(false),
             },
             {
               icon: 'local_shipping',
               label: 'Courier Company Master',
-              route: 'menu',
+              route: 'courier-master/list',
               selected: signal(false),
             },
           ],

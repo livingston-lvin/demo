@@ -58,6 +58,7 @@ export class EditItemMasterComponent implements OnInit {
   ) {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.form = this.fb.group({
+      id: [null, Validators.required],
       name: [null, Validators.required],
       code: [null, Validators.required],
       category: [null, Validators.required],
@@ -93,6 +94,7 @@ export class EditItemMasterComponent implements OnInit {
           (category) => category.id === res.category.id
         )[0];
         this.form.patchValue({
+          id: res.id,
           name: res.name,
           code: res.code,
           category: category,
@@ -122,7 +124,7 @@ export class EditItemMasterComponent implements OnInit {
         new Blob([JSON.stringify(value)], { type: 'application/json' })
       );
       formData.append('file', this.selectedFile!);
-      this.itemService.create(formData).subscribe(
+      this.itemService.update(formData).subscribe(
         (res) => {
           this.navigateToListItemPage();
         },
