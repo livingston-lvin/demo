@@ -13,6 +13,8 @@ import { ItemService } from '../../../../../services/item.service';
 import { MatInputModule } from '@angular/material/input';
 import { ItemCategory } from '../../../../../interfaces/item-category';
 import { ItemCategoryService } from '../../../../../services/item-category.service';
+import { Router } from '@angular/router';
+import { environment } from '../../../../../environments/environment.development';
 
 @Component({
   selector: 'app-create-item-master',
@@ -48,7 +50,8 @@ export class CreateItemMasterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private itemService: ItemService,
-    private itemCategoryService: ItemCategoryService
+    private itemCategoryService: ItemCategoryService,
+    private router: Router
   ) {
     this.form = this.fb.group({
       name: [null, Validators.required],
@@ -60,7 +63,7 @@ export class CreateItemMasterComponent implements OnInit {
       weightUnit: [null, Validators.required],
       packingQty: [null, Validators.required],
       packingUnit: [null, Validators.required],
-      minimumOrderQty: [null, Validators.required],
+      minOrderQty: [null, Validators.required],
       brand: [null, Validators.required],
       attribute: [null, Validators.required],
     });
@@ -84,11 +87,14 @@ export class CreateItemMasterComponent implements OnInit {
     if (this.form.valid) {
       const value = this.form.value;
       const formData: FormData = new FormData();
-      formData.append('data', JSON.stringify(value));
+      formData.append(
+        'data',
+        new Blob([JSON.stringify(value)], { type: 'application/json' })
+      );
       formData.append('file', this.selectedFile!);
       this.itemService.create(formData).subscribe(
         (res) => {
-          console.log(res);
+          this.navigateToListItemPage();
         },
         (err) => {
           console.log(err);
@@ -109,5 +115,15 @@ export class CreateItemMasterComponent implements OnInit {
 
   removeFile() {
     this.selectedFile = undefined;
+  }
+
+  navigateToListItemPage() {
+    this.router.navigate([
+      environment.servletPath,
+      environment.master,
+      environment.aosUser,
+      environment.item,
+      environment.list,
+    ]);
   }
 }

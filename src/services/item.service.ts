@@ -19,8 +19,8 @@ export class ItemService {
     return this.http.get<any>(`${this.url}/${limit}/${offset}`);
   }
 
-  get(id: number): Observable<Item> {
-    return this.http.get<Item>(`${this.url}/${id}`);
+  get(id: number): Observable<any> {
+    return this.http.get<any>(`${this.url}/${id}`);
   }
 
   update(payload: Item): Observable<Item> {

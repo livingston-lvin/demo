@@ -32,7 +32,7 @@
         <tbody>
           @for (item of items; track $index) {
           <tr>
-            <td>{{ $index + 1 + offset * limit }}.</td>
+            <td>{{ $index + 1 + offset() * limit() }}.</td>
             <td>{{ item.name }}</td>
             <td>{{ item.saveDt }}</td>
             <td>
@@ -57,8 +57,8 @@
         (page)="navigate($event)"
         [size]="size"
         [records]="records"
-        [from]="offset * limit + 1"
-        [to]="offset * 2 * limit"
+        [from]="from()"
+        [to]="to()"
       ></app-paginator>
       } @else {
       <h2>No Data in the table...</h2>

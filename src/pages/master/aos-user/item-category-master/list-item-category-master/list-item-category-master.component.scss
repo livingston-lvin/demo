@@ -6,6 +6,12 @@ header {
   align-items: center;
 }
 
+.data{
+  height: auto;
+  max-height: 450px;
+  overflow-y: scroll;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -72,4 +78,8 @@ select {
 
 .add {
   font-weight: 500;
+}
+
+.paginator > h2 {
+  text-align: center;
 }

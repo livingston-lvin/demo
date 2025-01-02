@@ -1,1 +1,101 @@
-<p>edit-item-master works!</p>
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Item Name</mat-label>
+          <input matInput formControlName="name" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Item Code</mat-label>
+          <input matInput formControlName="code" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Item Category</mat-label>
+          <mat-select formControlName="category">
+            @for (category of categories; track category.id) {
+            <mat-option [value]="category">{{ category.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <div class="flex">
+          <label for="">Item Picture (Fileupload/Image Link)</label>
+          <input
+            type="file"
+            #fileInput
+            hidden
+            (change)="onFileSelected($event)"
+          />
+          @if(selectedFile){
+          <p>
+            {{ selectedFile.name }}
+            <span class="remove" (click)="removeFile()">x</span>
+          </p>
+          }
+          <button mat-button type="button" (click)="fileInput.click()">
+            Select File
+          </button>
+        </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Item Attribute(Color/Size)</mat-label>
+          <input matInput formControlName="attribute" />
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Size</mat-label>
+          <input matInput formControlName="size" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Size Unit</mat-label>
+          <mat-select formControlName="sizeUnit">
+            @for (sizeUnit of sizeUnits; track sizeUnit) {
+            <mat-option [value]="sizeUnit">{{ sizeUnit }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Weight</mat-label>
+          <input matInput formControlName="weight" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Weight Unit</mat-label>
+          <mat-select formControlName="weightUnit">
+            @for (weightUnit of weightUnits; track weightUnit) {
+            <mat-option [value]="weightUnit">{{ weightUnit }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Packing Quantity</mat-label>
+          <input matInput formControlName="packingQty" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Packing Quantity Unit</mat-label>
+          <mat-select formControlName="packingUnit">
+            @for (packingUnit of packingUnits; track packingUnit) {
+            <mat-option [value]="packingUnit">{{ packingUnit }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Minimum Order Quantity</mat-label>
+          <input matInput formControlName="minOrderQty" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Item Brand</mat-label>
+          <input matInput formControlName="brand" />
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <button mat-flat-button type="submit">Submit</button>
+        <button mat-button type="button" (click)="navigateToListItemPage()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+  

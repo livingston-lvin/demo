@@ -1,3 +1,4 @@
+import { FileData } from './file-data';
 import { ItemCategory } from './item-category';
 
 export interface Item {
@@ -6,7 +7,7 @@ export interface Item {
   code: string;
   category: ItemCategory;
   subCategory?: ItemCategory;
-  imgUrls: File[];
+  fileData: FileData;
   size: string;
   sizeUnit: string;
   weight: number;

@@ -33,13 +33,25 @@
           </tr>
         </thead>
         <tbody>
-          @for (item of items; track $index) {
+          @if(items.length){ @for (item of items; track $index) {
           <tr>
-            <td>{{ $index + 1 + offset * limit }}.</td>
+            <td>{{ $index + 1 + offset() * limit() }}.</td>
             <td>{{ item.name }}</td>
             <td>{{ item.code }}</td>
             <td>{{ item.category.name }}</td>
-            <td>{{ item.name }}</td>
+            <td>
+              <!-- {{ item.fileName }} -->
+              <!-- <img
+                *ngIf="item.resourceUrl"
+                [src]="item.resourceUrl"
+                alt="{{ item.name }}"
+              /> -->
+              <img
+                *ngIf="item.encodedResource"
+                [src]="'data:image/jpeg;base64,' + item.encodedResource"
+                alt="{{ item.name }}"
+              />
+            </td>
             <td>{{ item.saveDt }}</td>
             <td>
               <button mat-icon-button (click)="editItem(item.id)">
@@ -50,6 +62,12 @@
               </button>
             </td>
           </tr>
+          } } @else {
+          <!-- <mat-progress-spinner
+            mode="determinate"
+            value="100"
+          >
+          </mat-progress-spinner> -->
           }
         </tbody>
       </table>
@@ -60,13 +78,12 @@
         (page)="navigate($event)"
         [size]="size"
         [records]="records"
-        [from]="offset * limit + 1"
-        [to]="offset * 2 * limit"
+        [from]="from()"
+        [to]="to()"
       ></app-paginator>
-    }
-    @else {
+      } @else {
       <h2>No Data in the table...</h2>
-    }
+      }
     </div>
   </div>
 </div>

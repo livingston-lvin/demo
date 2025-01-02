@@ -99,7 +99,6 @@ export class LayoutComponent {
         routes.push(newRoutes[j]);
       }
     }
-    console.log(routes);
     this.router.navigate(routes);
   }
 }

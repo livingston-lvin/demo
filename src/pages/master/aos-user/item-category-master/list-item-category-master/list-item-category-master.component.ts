@@ -1,17 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { PaginatorComponent } from '../../../../../components/paginator/paginator.component';
-import { Item } from '../../../../../interfaces/item';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment.development';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateItemCategoryMasterComponent } from '../create-item-category-master/create-item-category-master.component';
 import { ItemCategoryService } from '../../../../../services/item-category.service';
 import { ItemCategory } from '../../../../../interfaces/item-category';
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { EditItemCategoryMasterComponent } from '../edit-item-category-master/edit-item-category-master.component';
 
@@ -33,14 +31,16 @@ import { EditItemCategoryMasterComponent } from '../edit-item-category-master/ed
 export class ListItemCategoryMasterComponent implements OnInit {
   items: ItemCategory[] = [];
   rows: number[] = [5, 10, 20];
-  limit: number = this.rows[0];
-  offset: number = 0;
+  limit = signal(this.rows[0]);
+  offset = signal(0);
   // how many pages to be displayed in paginator component
   size: number = 0;
   // indicates current page in the paginator component
   page: number = 0;
   records: number = 0;
   searchTxt!: string;
+  from = computed(() => this.offset() * this.limit() + 1);
+  to = computed(() => this.offset() * this.limit() + this.limit());
 
   constructor(
     private router: Router,
@@ -63,7 +63,7 @@ export class ListItemCategoryMasterComponent implements OnInit {
 
   loadData() {
     this.itemCategoryService
-      .getItemCategories(this.limit, this.offset)
+      .getItemCategories(this.limit(), this.offset())
       .subscribe(
         (res) => {
           this.items = res.content;
@@ -77,12 +77,13 @@ export class ListItemCategoryMasterComponent implements OnInit {
   }
 
   onSelectRow(event: any) {
-    this.limit = +event.target.value;
+    this.limit.set(+event.target.value);
+    this.loadData();
   }
 
   navigate(targetPage: any) {
     this.page = targetPage;
-    this.offset = targetPage - 1;
+    this.offset.set(targetPage - 1);
     this.loadData();
   }
 
