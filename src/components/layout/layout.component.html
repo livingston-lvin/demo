@@ -3,7 +3,7 @@
         <button mat-icon-button (click)="sideMenuOpened.set(!sideMenuOpened())"><mat-icon>menu</mat-icon></button>
         <div class="spacing"></div>
         <div class="user">
-            <h3>Livingston</h3>
+            <h3>AOS User</h3>
         </div>
     </div>
     <div class="body">
@@ -14,7 +14,7 @@
 
                 <!-- if side menu closed, show only icons with center position -->
                 <div class="center" [style.justify-content]="!sideMenuOpened() ? 'center' : ''">
-                    <mat-icon>{{item.icon}}</mat-icon>
+                    <mat-icon (click)="navigate([item.route], 'first')">{{item.icon}}</mat-icon>
                     <!-- show item label, arrow only if sidemenu opened -->
                     @if(sideMenuOpened()){
                     <span class="label">{{item.label}}</span>
@@ -46,7 +46,7 @@
                     <ul class="center submenusmenu">
                         <mat-icon>{{subItemsItem.icon}}</mat-icon>
                         <span class="label f-1"
-                            (click)="navigate([item.route, subItem.route, subItemsItem.route])">{{subItemsItem.label}}</span>
+                            (click)="navigate([item.route, subItem.route, subItemsItem.route], 'third')">{{subItemsItem.label}}</span>
                     </ul>
                 </div>
                 }

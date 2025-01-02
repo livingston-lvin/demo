@@ -1,1 +1,36 @@
-<p>create-courier-company-master works!</p>
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Courier Company Name</mat-label>
+        <input matInput formControlName="companyName" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Mobile No</mat-label>
+        <input matInput formControlName="mobileNo" />
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Courier Contact Person</mat-label>
+        <input matInput formControlName="contactPerson" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Tracking Website</mat-label>
+        <input matInput formControlName="trackingWebsite" />
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <button mat-flat-button type="submit">Submit</button>
+      <button mat-button type="button" (click)="navigateToListCourierPage()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

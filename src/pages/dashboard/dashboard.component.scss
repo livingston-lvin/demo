@@ -1,0 +1,25 @@
+@use "../../constants/colors.scss" as color;
+
+.container {
+  width: 100%;
+}
+
+.title-animation {
+  color: color.$titleAnimationColor;
+  font-family: ROBOTO-MEDIUM;
+  display: inline-block;
+  white-space: nowrap;
+  position: relative;
+  animation: moveLeft 50s linear infinite;
+}
+
+
+
+@keyframes moveLeft {
+  0% {
+    transform: translateX(25%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

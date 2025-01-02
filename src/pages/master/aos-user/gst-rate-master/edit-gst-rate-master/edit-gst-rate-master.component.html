@@ -1,1 +1,25 @@
-<p>edit-gst-rate-master works!</p>
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>GST Rate(in %)</mat-label>
+          <input matInput formControlName="rate" />
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>GST Applicable from</mat-label>
+          <input matInput [matDatepicker]="dp" formControlName="applicableDt" />
+          <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <button mat-flat-button type="submit">Submit</button>
+        <button mat-button type="button" (click)="navigateToListGstPage()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+  

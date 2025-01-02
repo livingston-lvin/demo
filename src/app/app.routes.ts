@@ -21,6 +21,7 @@ import { ListCourierCompanyMasterComponent } from '../pages/master/aos-user/cour
 import { CreateCourierCompanyMasterComponent } from '../pages/master/aos-user/courier-company-master/create-courier-company-master/create-courier-company-master.component';
 import { ViewCourierCompanyMasterComponent } from '../pages/master/aos-user/courier-company-master/view-courier-company-master/view-courier-company-master.component';
 import { EditCourierCompanyMasterComponent } from '../pages/master/aos-user/courier-company-master/edit-courier-company-master/edit-courier-company-master.component';
+import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: environment.servletPath, pathMatch: 'full' },
@@ -28,6 +29,10 @@ export const routes: Routes = [
     path: environment.servletPath,
     component: LayoutComponent,
     children: [
+      {
+        path: environment.dashboard,
+        component: DashboardComponent,
+      },
       {
         path: environment.master,
         children: [

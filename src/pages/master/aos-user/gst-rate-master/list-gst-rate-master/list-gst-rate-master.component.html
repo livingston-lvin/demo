@@ -1,1 +1,71 @@
-<p>list-gst-rate-master works!</p>
+<div class="container">
+    <header>
+      <div class="center">
+        <select (change)="onSelectRow($event)">
+          @for (row of rows; track row) {
+          <option [value]="row">{{ row }}</option>
+          }
+        </select>
+        &nbsp;&nbsp;&nbsp;
+        <button class="btn-sm" (click)="loadData()">show</button>
+      </div>
+      <div class="center">
+        <button class="btn-sm" (click)="navigateToCreateGst()">Add GST</button>
+        <input class="search" type="text" placeholder="Enter search term ..." />
+        <button class="btn-sm">search</button>
+      </div>
+    </header>
+    <br />
+    <div class="body">
+      <div class="data">
+        <table>
+          <thead>
+            <tr>
+              <th>S.No.</th>
+              <th>GST Rate</th>
+              <th>Applicable Date</th>
+              <th>Is Active</th>
+              <th>Date Added</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of items; track $index) {
+            <tr>
+              <td>{{ $index + 1 + offset() * limit() }}.</td>
+              <td>{{ item.rate + ' %' }}</td>
+              <td>{{ item.applicableDt | date: 'dd-MM-yyyy'  }}</td>
+              <td><mat-icon>{{ item.isActive ? 'check' : 'close' }}</mat-icon></td>
+              <td>{{ item.saveDt }}</td>
+              <td>
+                <!-- <button mat-icon-button (click)="viewCategory(item.id)">
+                  <mat-icon>visibility</mat-icon>
+                </button> -->
+                <button mat-icon-button (click)="editGst(item.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="deleteGst(item.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="paginator">
+        @if(items.length){
+        <app-paginator
+          (page)="navigate($event)"
+          [size]="size"
+          [records]="records"
+          [from]="from()"
+          [to]="to()"
+        ></app-paginator>
+        } @else {
+        <h2>No Data in the table...</h2>
+        }
+      </div>
+    </div>
+  </div>
+  

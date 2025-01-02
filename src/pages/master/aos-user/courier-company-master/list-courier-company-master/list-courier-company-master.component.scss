@@ -1,0 +1,85 @@
+@use "../../../../../constants/colors.scss" as color;
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.data{
+  height: auto;
+  max-height: 450px;
+  overflow-y: scroll;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  tr > th,
+  tr > td {
+    border: 1px solid;
+    border-color: color.$borderColor;
+    text-align: center;
+  }
+
+  tr > th {
+    font-family: ROBOTO-LIGHT;
+    font-size: medium;
+    text-transform: uppercase;
+    padding: 10px;
+    color: color.$tableHeaderColor;
+    background-color: color.$tableHeaderBackgroundColor;
+  }
+
+  tr > td {
+    font-family: ROBOTO-MEDIUM;
+  }
+}
+
+select {
+  width: 55px;
+  padding: 5px 8px;
+  border: 1px solid color.$borderColor;
+  border-radius: 3px;
+  color: #000;
+  font-size: medium;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url(color.$carat);
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.search {
+  border: 1px solid color.$borderColor;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 0 15px;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+}
+
+.btn-sm {
+  background-color: color.$btnSmallColor;
+  color: #fff;
+  padding: 3px 7px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.add {
+  font-weight: 500;
+}
+
+.paginator > h2 {
+  text-align: center;
+}

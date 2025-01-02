@@ -18,7 +18,7 @@ export class LayoutComponent {
     {
       icon: 'grid_view',
       label: 'Dashboard',
-      route: 'menu',
+      route: 'dashboard',
       selected: signal(false),
       showSubItem: signal(false),
       subItems: [],
@@ -58,13 +58,13 @@ export class LayoutComponent {
             {
               icon: 'currency_rupee',
               label: 'GST Rate Master',
-              route: 'gst-master/list',
+              route: 'gst/list',
               selected: signal(false),
             },
             {
               icon: 'local_shipping',
               label: 'Courier Company Master',
-              route: 'courier-master/list',
+              route: 'courier/list',
               selected: signal(false),
             },
           ],
@@ -94,7 +94,7 @@ export class LayoutComponent {
 
   constructor(private router: Router) {}
 
-  navigate(route: string[]) {
+  navigate(route: string[],place:string) {
     let routes: string[] = [];
     routes.push(environment.servletPath);
     for (let i = 0; i < route.length; i++) {
