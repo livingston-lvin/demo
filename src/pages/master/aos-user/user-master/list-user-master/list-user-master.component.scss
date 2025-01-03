@@ -1,14 +1,19 @@
 @use "../../../../../constants/colors.scss" as color;
 
+.container {
+  background-color: #fff;
+  padding: 20px 40px;
+}
+
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.data{
+.data {
   height: auto;
-  max-height: 450px;
+  max-height: 380px;
   overflow-y: scroll;
 }
 
@@ -21,19 +26,24 @@ table {
     border: 1px solid;
     border-color: color.$borderColor;
     text-align: center;
-  }
-
-  tr > th {
-    font-family: ROBOTO-LIGHT;
-    font-size: medium;
-    text-transform: uppercase;
-    padding: 10px;
-    color: color.$tableHeaderColor;
     background-color: color.$tableHeaderBackgroundColor;
   }
 
-  tr > td {
+  tr > th {
     font-family: ROBOTO-MEDIUM;
+    font-weight: 500;
+    padding: 10px;
+    color: color.$tableHeaderColor;
+  }
+
+  tr > td {
+    font-family: ROBOTO-LIGHT;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  tr > .row-data:hover {
+    background-color: #ccc;
   }
 }
 
@@ -56,11 +66,39 @@ select {
   }
 }
 
-.search {
-  border: 1px solid color.$borderColor;
+.input-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  mat-icon {
+    margin-top: 1px;
+    font-size: 1.5rem;
+  }
+}
+
+input {
+  border: 1px solid #ccc;
   padding: 10px;
   border-radius: 5px;
-  margin: 0 15px;
+  font-size: 1rem;
+  width: 250px;
+  margin-left: 15px;
+}
+
+input:focus {
+  outline-color: blue;
+}
+
+input::placeholder {
+  font-size: 1rem;
+}
+
+.search {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .center {
@@ -69,11 +107,9 @@ select {
 }
 
 .btn-sm {
-  background-color: color.$btnSmallColor;
-  color: #fff;
-  padding: 3px 7px;
-  cursor: pointer;
-  font-weight: 600;
+  // font-weight: 800;
+  font-family: ROBOTO-MEDIUM;
+  border-radius: 10px;
 }
 
 .add {

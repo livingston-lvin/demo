@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
+  computed,
   EventEmitter,
+  input,
   Input,
   OnChanges,
   OnInit,
   Output,
+  signal,
   SimpleChanges,
 } from '@angular/core';
 import { Paginator } from '../../interfaces/paginator';
@@ -73,8 +76,11 @@ export class PaginatorComponent implements OnInit, OnChanges {
     const currentIndex = this.currentPage!.index;
 
     // paginator not reached the start
-    if (currentIndex > 0) this.reset();
-    else return;
+    if (currentIndex > 0) {
+      this.reset();
+    } else {
+      return;
+    }
 
     this.pages[targetIndex]['active'] = true;
     this.currentPage = this.pages[targetIndex];
@@ -99,8 +105,11 @@ export class PaginatorComponent implements OnInit, OnChanges {
     let currentPageNo = this.currentPage!.pageNo;
 
     // paginator not reached the end
-    if (currentPageNo < this.size) this.reset();
-    else return;
+    if (currentPageNo < this.size) {
+      this.reset();
+    } else {
+      return;
+    }
 
     //  page: 1 - 8
     this.pages[targetIndex]['active'] = true;

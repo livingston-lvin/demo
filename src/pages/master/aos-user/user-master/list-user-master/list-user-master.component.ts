@@ -50,6 +50,7 @@ export class ListUserMasterComponent implements OnInit {
         this.items = res.content;
         this.size = +res.totalPages;
         this.records = +res.totalElements;
+        this.page = this.items.length > 0 ? 1 : 0;
       },
       (err) => {
         console.log(err);

@@ -1,9 +1,17 @@
 <div class="container">
     <div class="toolbar">
-        <button mat-icon-button (click)="sideMenuOpened.set(!sideMenuOpened())"><mat-icon>{{ sideMenuOpened() ? 'arrow_back' : 'menu' }}</mat-icon></button>
+        <div class="header">
+            <img class="app-logo" src="/images/app-icon.png">
+            @if(sideMenuOpened()){
+            <img class="app-title" src="/images/app-title.png">
+            }
+            <button mat-icon-button (click)="sideMenuOpened.set(!sideMenuOpened())" [title]="sideMenuOpened() ? 'Close Menu' : 'Open Menu'"><mat-icon>{{ sideMenuOpened() ?
+                    'keyboard_backspace' : 'menu' }}</mat-icon></button>
+        </div>
         <div class="spacing"></div>
         <div class="user">
-            <h3>AOS User</h3>
+            <span class="username">Livingston Vijayakumar</span>
+            <mat-icon>person</mat-icon>
         </div>
     </div>
     <div class="body">
@@ -11,17 +19,19 @@
             <div class="sidemenus">
                 <br>
                 @for (item of items; track $index) {
-
                 <!-- if side menu closed, show only icons with center position -->
-                <div class="center" [style.justify-content]="!sideMenuOpened() ? 'center' : ''">
-                    <mat-icon (click)="navigate([item.route], 'first')">{{item.icon}}</mat-icon>
+                <div class="center" (click)="item.subItems.length === 0 ? navigate([item.route],[item]) : ''"
+                    [style.justify-content]="!sideMenuOpened() ? 'center' : ''" [title]="item.label">
+                    <mat-icon [ngClass]="item.selected() ? 'selected' : ''"
+                        [fontSet]="item.selected() ? '' : 'material-icons-outlined'">{{item.icon}}</mat-icon>
                     <!-- show item label, arrow only if sidemenu opened -->
                     @if(sideMenuOpened()){
-                    <span class="label">{{item.label}}</span>
+                    <span [ngClass]="item.selected() ? 'selected' : ''" class="label">{{item.label}}</span>
                     }
                     <!-- show arrow only if item.subItems.length > 0 and sidemenu opened -->
                     @if(sideMenuOpened() && item.subItems?.length){
-                    <mat-icon (click)="item.showSubItem.set(!item.showSubItem())">{{item.showSubItem() ?
+                    <mat-icon [ngClass]="item.selected() ? 'selected' : ''"
+                        (click)="item.showSubItem.set(!item.showSubItem())">{{item.showSubItem() ?
                         'keyboard_arrow_up':'keyboard_arrow_down'}}</mat-icon>
                     }
                 </div>
@@ -29,12 +39,14 @@
                 <!-- sidemenu opened and item.arrow clicked show subItems -->
                 @if(sideMenuOpened() && item.showSubItem()){
                 @for (subItem of item.subItems; track $index) {
-                <div>
+                <div
+                    (click)="subItem.subItemsItems.length === 0 ? navigate([item.route,subItem.route],[item,subItem]) : ''">
                     <ul class="center submenu">
-                        <mat-icon>{{subItem.icon}}</mat-icon>
-                        <span class="label f-1">{{subItem.label}}</span>
+                        <mat-icon [ngClass]="subItem.selected() ? 'selected' : ''">{{subItem.icon}}</mat-icon>
+                        <span class="label f-1"
+                            [ngClass]="subItem.selected() ? 'selected' : ''">{{subItem.label}}</span>
                         @if(subItem.subItemsItems?.length){
-                        <mat-icon
+                        <mat-icon [ngClass]="item.selected() ? 'selected' : ''"
                             (click)="subItem.showSubItemsItem.set(!subItem.showSubItemsItem())">{{subItem.showSubItemsItem()
                             ?'keyboard_arrow_up' :'keyboard_arrow_down'}}</mat-icon>
                         }
@@ -44,9 +56,9 @@
                 @for (subItemsItem of subItem.subItemsItems; track $index) {
                 <div>
                     <ul class="center submenusmenu">
-                        <mat-icon>{{subItemsItem.icon}}</mat-icon>
-                        <span class="label f-1"
-                            (click)="navigate([item.route, subItem.route, subItemsItem.route], 'third')">{{subItemsItem.label}}</span>
+                        <mat-icon [ngClass]="subItemsItem.selected() ? 'selected' : ''">{{subItemsItem.icon}}</mat-icon>
+                        <span class="label f-1" [ngClass]="subItemsItem.selected() ? 'selected' : ''"
+                            (click)="navigate([item.route, subItem.route, subItemsItem.route], [item,subItem,subItemsItem])">{{subItemsItem.label}}</span>
                     </ul>
                 </div>
                 }
@@ -57,6 +69,7 @@
             </div>
         </div>
         <div class="content">
+            <div class="breadcrumb">{{title()}}</div>
             <router-outlet></router-outlet>
         </div>
     </div>

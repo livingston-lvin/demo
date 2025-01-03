@@ -1,12 +1,20 @@
 <div class="container">
     <div class="title">Showing {{offset}} to {{to}} of {{records}} entries</div>
     <div class="flex">
-        <button class="title" (click)="previous(true,currentPage!.index-1)">
-            << Previous</button>
-                <button class="page" *ngFor="let page of pages;let i = index" [style.display]="i>=10?'none':''"
-                    [style.background-color]="page.active?'#054272':''" [style.color]="page.active?'#fff':''"
-                    (click)="navigate(page.pageNo,page.index)">{{page.pageNo}}</button>
-                <button class="title" (click)="next(true,currentPage!.index+1)"> Next >> </button>
+        <button class="title" (click)="previous(true,currentPage!.index-1)" [disabled]="currentPage?.pageNo === 1" [style.background-color]="currentPage?.pageNo === 1 ? '#fff' : '#005cbb'" [style.color]="currentPage?.pageNo === 1 ? '#ccc' : '#fff'"><<&nbsp;&nbsp;Prev</button>
+                <button class="page" *ngFor="let page of pages;let i = index"
+                    [style.background-color]="page.active?'#005cbb':'#fff'" [style.color]="page.active?'#fff':''"
+                    (click)="navigate(page.pageNo,page.index)">
+                    @if(page.pageNo < 10){
+                       <span class="empty"></span> 
+                       {{page.pageNo}}
+                       <span class="empty"></span> 
+                    }
+                    @else {
+                        {{page.pageNo}}
+                    }
+                </button>
+                <button class="title" (click)="next(true,currentPage!.index+1)" [disabled]="currentPage?.pageNo === size" [style.background-color]="currentPage?.pageNo < size ?'#005cbb':'#fff'" [style.color]="currentPage?.pageNo < size ?'#fff':''">Next&nbsp;&nbsp;>></button>
     </div>
     <br>
 </div>
