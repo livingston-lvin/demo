@@ -1,3 +1,5 @@
+@use "../../constants/colors.scss" as color;
+
 .toolbar {
     height: 70px;
     width: 100%;
@@ -5,7 +7,7 @@
     align-items: center;
     border-bottom: 1px solid #ccc;
   
-    background-color: whitesmoke;
+    background-color: #fff;
     padding: 0 25px;
   
     h3 {
@@ -30,6 +32,15 @@
     align-items: center;
     border-right: 1px solid #ccc;
     overflow: hidden;
+    background-color: color.$sidebarBackgroundColor;
+    color: #fff;
+    font-family: ROBOTO-MEDIUM;
+
+    >mat-icon{
+      font-family: ROBOTO-THIN;
+    }
+
+    transition: width 0.4s ease-in-out;
   }
   
   .content {
@@ -61,6 +72,7 @@
     font-size: medium;
     font-weight: 500;
     margin: 0 15px 0 10px;
+    white-space: nowrap;
   }
   
   .f-1 {

@@ -1,6 +1,6 @@
 <div class="container">
     <div class="toolbar">
-        <button mat-icon-button (click)="sideMenuOpened.set(!sideMenuOpened())"><mat-icon>menu</mat-icon></button>
+        <button mat-icon-button (click)="sideMenuOpened.set(!sideMenuOpened())"><mat-icon>{{ sideMenuOpened() ? 'arrow_back' : 'menu' }}</mat-icon></button>
         <div class="spacing"></div>
         <div class="user">
             <h3>AOS User</h3>
