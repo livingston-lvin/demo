@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../environments/environment.development';
-import { HttpClient, HttpResponseBase } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponseBase } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/user';
 
@@ -29,5 +29,10 @@ export class UserService {
 
   deleteUser(id: number): Observable<HttpResponseBase> {
     return this.http.delete<HttpResponseBase>(`${this.url}/${id}`);
+  }
+
+  search(data: any): Observable<any> {
+    const params = new HttpParams().set('s', data);
+    return this.http.get<any>(this.url, { params });
   }
 }

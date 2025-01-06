@@ -12,12 +12,13 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Paginator } from '../../interfaces/paginator';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-paginator',
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.scss',
-  imports: [CommonModule],
+  imports: [CommonModule,MatIconModule],
 })
 export class PaginatorComponent implements OnInit, OnChanges {
   @Input('from') offset!: number;

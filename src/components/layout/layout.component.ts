@@ -4,18 +4,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { environment } from '../../environments/environment.development';
 import { CommonModule } from '@angular/common';
+import {MatMenuModule} from '@angular/material/menu';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
-  imports: [MatButtonModule, MatIconModule, RouterModule, CommonModule],
+  imports: [MatButtonModule, MatIconModule, RouterModule, CommonModule,MatMenuModule],
 })
 export class LayoutComponent  {
   sideMenuOpened = signal(false);
   sideMenusWidth = computed(() => (this.sideMenuOpened() ? 350 : 80));
   items: any[] = [];
-  title = signal('');
   constructor(private router: Router) {
     this.items = [
       {
@@ -59,7 +59,7 @@ export class LayoutComponent  {
                 selected: signal(false),
               },
               {
-                icon: 'currency_rupee',
+                icon: 'percent',
                 label: 'GST Rate Master',
                 route: 'gst/list',
                 selected: signal(false),
@@ -108,7 +108,6 @@ export class LayoutComponent  {
       const length = data.length;
       if (length === 1 && item.route === data[0].route) {
         item.selected.set(true);
-        this.title.set(item.label);
         break;
       } else if (length === 2) {
         if (item.route === data[0].route) {
@@ -119,7 +118,6 @@ export class LayoutComponent  {
             const subItem = subItems[j];
             if (subItem.route === data[1].route) {
               subItem.selected.set(true);
-              this.title.set(subItem.label);
               break;
             }
           }
@@ -140,7 +138,6 @@ export class LayoutComponent  {
                 const subItemsItem = subItemItems[k];
                 if (subItemsItem.route === data[2].route) {
                   subItemsItem.selected.set(true);
-                  this.title.set(subItemsItem.label);
                   break;
                 }
               }

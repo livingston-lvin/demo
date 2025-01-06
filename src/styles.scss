@@ -33,6 +33,17 @@ body {
   box-sizing: border-box;
 }
 body {
+  padding: 0;
   margin: 0;
-  font-family: POPPINS;
 }
+
+.mat-mdc-menu-panel {
+  margin-top: 20px;
+  background-color: #fff !important;
+  width: 200px;
+}
+
+// .mat-mdc-text-field-wrapper {
+//   border: 1px solid #CED4DA;
+//   border-radius: 5px;
+// }
