@@ -54,6 +54,14 @@ export class TableComponent implements OnInit {
   headers = input.required<string[]>();
   addBtnTxt = input.required<string>();
   module = input.required<string[]>();
+  curModule = computed(() => this.module()[this.module().length - 1]);
+
+  userMaster=signal('User Master');
+itemMaster=signal('Item Master');
+itemCategoryMaster=signal('Item Category Master');
+itemPriceMaster=signal('Item Price Master');
+gstMaster=signal('Gst Master');
+courierMaster=signal('Courier Master');
 
   constructor(
     private router: Router,
@@ -70,87 +78,82 @@ export class TableComponent implements OnInit {
   }
 
   loadData() {
-    const module = this.module()[this.module().length - 1];
-    if (module === userMaster) {
+    if (this.curModule() === userMaster) {
       this.loadUser();
-    } else if (module === itemMaster) {
+    } else if (this.curModule() === itemMaster) {
       this.loadItem();
-    } else if (module === itemCategoryMaster) {
+    } else if (this.curModule() === itemCategoryMaster) {
       this.loadItemCategory();
-    } else if (module === itemPriceMaster) {
+    } else if (this.curModule() === itemPriceMaster) {
       this.loadItemPrice();
-    } else if (module === gstMaster) {
+    } else if (this.curModule() === gstMaster) {
       this.loadGst();
-    } else if (module === courierMaster) {
+    } else if (this.curModule() === courierMaster) {
       this.loadCourier();
     }
   }
 
-  createData() {
-    const module = this.module()[this.module().length - 1];
-    if (module === userMaster) {
+  navigateToCreateData() {
+    if (this.curModule() === userMaster) {
       this.navigateToCreateUser();
-    } else if (module === itemMaster) {
+    } else if (this.curModule() === itemMaster) {
       this.navigateToCreateItem();
-    } else if (module === itemCategoryMaster) {
+    } else if (this.curModule() === itemCategoryMaster) {
       this.navigateToCreateItemCategory();
-    } else if (module === itemPriceMaster) {
+    } else if (this.curModule() === itemPriceMaster) {
       this.navigateToCreateItemPrice();
-    } else if (module === gstMaster) {
+    } else if (this.curModule() === gstMaster) {
       this.navigateToCreateGst();
-    } else if (module === courierMaster) {
+    } else if (this.curModule() === courierMaster) {
       this.navigateToCreateCourier();
     }
   }
 
   editData(id: number) {
-    const module = this.module()[this.module().length - 1];
-    if (module === userMaster) {
+    if (this.curModule() === userMaster) {
       this.editUser(id);
-    } else if (module === itemMaster) {
+    } else if (this.curModule() === itemMaster) {
       this.editItem(id);
-    } else if (module === itemCategoryMaster) {
+    } else if (this.curModule() === itemCategoryMaster) {
       this.editItemCategory(id);
-    } else if (module === itemPriceMaster) {
+    } else if (this.curModule() === itemPriceMaster) {
       this.editItemPrice(id);
-    } else if (module === gstMaster) {
+    } else if (this.curModule() === gstMaster) {
       this.editGst(id);
-    } else if (module === courierMaster) {
+    } else if (this.curModule() === courierMaster) {
       this.editCourier(id);
     }
   }
 
   deleteData(id: number) {
-    const module = this.module()[this.module().length - 1];
-    if (module === userMaster) {
+    if (this.curModule() === userMaster) {
       this.deleteUser(id);
-    } else if (module === itemMaster) {
+    } else if (this.curModule() === itemMaster) {
       this.deleteItem(id);
-    } else if (module === itemCategoryMaster) {
+    } else if (this.curModule() === itemCategoryMaster) {
       this.deleteItemCategory(id);
-    } else if (module === itemPriceMaster) {
+    } else if (this.curModule() === itemPriceMaster) {
       this.deleteItemPrice(id);
-    } else if (module === gstMaster) {
+    } else if (this.curModule() === gstMaster) {
       this.deleteGst(id);
-    } else if (module === courierMaster) {
+    } else if (this.curModule() === courierMaster) {
       this.deleteCourier(id);
     }
   }
 
   search() {
     if (this.searchTxt) {
-      const module = this.module()[this.module().length - 1];
-      if (module === userMaster) {
+      if (this.curModule() === userMaster) {
         this.searchUser();
-      } else if (module === itemMaster) {
+      } else if (this.curModule() === itemMaster) {
         this.searchItem();
-      } else if (module === itemCategoryMaster) {
+      } else if (this.curModule() === itemCategoryMaster) {
         this.searchItemCategory();
-      } else if (module === itemPriceMaster) {
+      } else if (this.curModule() === itemPriceMaster) {
         this.searchItemPrice();
-      } else if (module === gstMaster) {
+      } else if (this.curModule() === gstMaster) {
         this.searchGst();
-      } else if (module === courierMaster) {
+      } else if (this.curModule() === courierMaster) {
         this.searchCourier();
       }
     }
