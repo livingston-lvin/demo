@@ -1,43 +1,43 @@
 <div class="container">
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>First Name</mat-label>
-          <input matInput formControlName="firstName" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Middle Name</mat-label>
-          <input matInput formControlName="middleName" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Last Name</mat-label>
-          <input matInput formControlName="lastName" />
-        </mat-form-field>
-      </div>
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Mobile No</mat-label>
-          <input matInput formControlName="mobileNo" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Role</mat-label>
-          <mat-select formControlName="role">
-            @for (role of roles; track role) {
-            <mat-option [value]="role">{{ role }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="form-row">
-        <button mat-flat-button type="submit">Update</button>
-        <button mat-button type="button" style="color: red;padding: 0 20px;" (click)="navigateToListUserPage()">
-          Cancel
-        </button>
-      </div>
-    </form>
-  </div>
-  
+  <header>
+    <h3>Update User</h3>
+  </header>
+  <form [formGroup]="form" (ngSubmit)="submit()" ngNativeValidate>
+    <div class="input-field">
+      <label for="firstName">First Name<span class="imp">*</span></label>
+      <input type="text" class="input-txt" formControlName="firstName" required>
+    </div>
+    <div class="input-field">
+      <label for="middleName">Middle Name</label>
+      <input type="text" class="input-txt" formControlName="middleName">
+    </div>
+    <div class="input-field">
+      <label for="lastName">Last Name<span class="imp">*</span></label>
+      <input type="text" class="input-txt" formControlName="lastName" required>
+    </div>
+    <div class="input-field">
+      <label for="email">Email<span class="imp">*</span></label>
+      <input type="email" class="input-txt" formControlName="email" required>
+    </div>
+    <div class="input-field">
+      <label for="mobileNo">Mobile No.<span class="imp">*</span></label>
+      <input type="text" maxlength="10" minlength="10" class="input-txt" formControlName="mobileNo" pattern="\d{10}"
+        (keydown)="validateNumberInput($event)" required>
+    </div>
+    <div class="input-field">
+      <label for="role">Role<span class="imp">*</span></label>
+      <select formControlName="role" required>
+        @for (role of roles; track role) {
+        <option [value]="role">{{ role }}</option>
+        }
+      </select>
+    </div>
+    <div class="action-btns">
+      <button mat-flat-button type="submit">Update</button>
+      <button mat-button type="button" style="color: red;padding: 0 20px;" (click)="navigateToListUserPage()">
+        Cancel
+      </button>
+    </div>
+  </form>
+
+</div>

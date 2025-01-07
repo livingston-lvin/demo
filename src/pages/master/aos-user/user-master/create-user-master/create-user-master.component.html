@@ -1,56 +1,64 @@
 <div class="container">
-  <form [formGroup]="form" (ngSubmit)="submit()">
+  <header>
+    <h3>Create User</h3>
+  </header>
+  <form [formGroup]="form" (ngSubmit)="submit()" ngNativeValidate>
     <div class="input-field">
-      <label for="First Name">First Name<span class="imp">*</span></label>
-      <input type="text" class="input-txt">
+      <label for="firstName">First Name<span class="imp">*</span></label>
+      <input type="text" class="input-txt" formControlName="firstName" required>
     </div>
-    <!-- <div class="form-row">
-      <mat-form-field appearance="outline">
-        <mat-label>First Name</mat-label>
-        <input matInput formControlName="firstName" />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Middle Name</mat-label>
-        <input matInput formControlName="middleName" />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Last Name</mat-label>
-        <input matInput formControlName="lastName" />
-      </mat-form-field>
+    <div class="input-field">
+      <label for="middleName">Middle Name</label>
+      <input type="text" class="input-txt" formControlName="middleName">
     </div>
-    <div class="form-row">
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Mobile No</mat-label>
-        <input matInput formControlName="mobileNo" />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Role</mat-label>
-        <mat-select formControlName="role">
-          @for (role of roles; track role) {
-          <mat-option [value]="role">{{ role }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+    <div class="input-field">
+      <label for="lastName">Last Name<span class="imp">*</span></label>
+      <input type="text" class="input-txt" formControlName="lastName" required>
     </div>
-    <div class="form-row">
-      <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input matInput formControlName="password" />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Confirm Password</mat-label>
-        <input matInput formControlName="confirmPassword" />
-      </mat-form-field>
-    </div> -->
-    <!-- <div class="form-row">
+    <div class="input-field">
+      <label for="email">Email<span class="imp">*</span></label>
+      <input type="email" class="input-txt" formControlName="email" required>
+    </div>
+    <div class="input-field">
+      <label for="mobileNo">Mobile No.<span class="imp">*</span></label>
+      <input type="text" maxlength="10" minlength="10" class="input-txt" formControlName="mobileNo" pattern="\d{10}"
+        (keydown)="validateNumberInput($event)" required>
+    </div>
+    <div class="input-field">
+      <label for="role">Role<span class="imp">*</span></label>
+      <select formControlName="role" required>
+        @for (role of roles; track role) {
+        <option [value]="role">{{ role }}</option>
+        }
+      </select>
+    </div>
+    <div class="input-field">
+      <label for="password">Password<span class="imp">*</span></label>
+      <div class="input-container">
+        <input [type]="showPassword() ? 'text' : 'password'" class="input-txt" formControlName="password" required />
+        <button type="button" mat-icon-button class="toggle-password" (click)="showPassword.set(!showPassword())">
+          <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="input-field">
+      <label for="confirmPassword">Confirm Password<span class="imp">*</span></label>
+      <div class="input-container">
+        <input [type]="showConfirmPassword() ? 'text' : 'password'" class="input-txt" formControlName="confirmPassword"
+          required>
+        <button type="button" mat-icon-button class="toggle-password"
+          (click)="showConfirmPassword.set(!showConfirmPassword())">
+          <mat-icon>{{ showConfirmPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="input-field"></div>
+    <div class="action-btns">
       <button mat-flat-button type="submit">Submit</button>
       <button mat-button type="button" style="color: red;padding: 0 20px;" (click)="navigateToListUserPage()">
         Cancel
       </button>
-    </div> -->
+    </div>
   </form>
+
 </div>

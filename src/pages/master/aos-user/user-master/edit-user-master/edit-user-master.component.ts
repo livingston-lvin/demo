@@ -49,6 +49,20 @@ export class EditUserMasterComponent implements OnInit {
     });
   }
 
+  validateNumberInput(event: KeyboardEvent): void {
+    const allowedKeys = [
+      'Backspace',
+      'ArrowLeft',
+      'ArrowRight',
+      'Tab',
+      'Delete',
+    ];
+
+    if (!/^\d$/.test(event.key) && !allowedKeys.includes(event.key)) {
+      event.preventDefault();
+    }
+  }
+
   ngOnInit(): void {
     this.loadData();
   }
