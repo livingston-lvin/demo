@@ -2,36 +2,32 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../environments/environment.development';
 import { HttpClient, HttpParams, HttpResponseBase } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ItemCategory } from '../interfaces/item-category';
+import { Item } from '../interfaces/item';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ItemCategoryService {
-  private url: string = `${environment.url}/${environment.itemCategory}`;
+export class ItemPriceService {
+  private url: string = `${environment.url}/${environment.itemPrice}`;
   private http: HttpClient = inject(HttpClient);
 
-  createItemCategory(payload: ItemCategory): Observable<HttpResponseBase> {
+  create(payload: any): Observable<HttpResponseBase> {
     return this.http.post<HttpResponseBase>(this.url, payload);
   }
 
-  getItemCategories(limit: number, offset: number): Observable<any> {
+  getAll(limit: number, offset: number): Observable<any> {
     return this.http.get<any>(`${this.url}/${limit}/${offset}`);
   }
 
-  getAll(): Observable<any> {
-    return this.http.get<any>(`${this.url}`);
+  get(id: number): Observable<any> {
+    return this.http.get<any>(`${this.url}/${id}`);
   }
 
-  getItemCategory(id: number): Observable<ItemCategory> {
-    return this.http.get<ItemCategory>(`${this.url}/${id}`);
+  update(payload: any): Observable<Item> {
+    return this.http.put<Item>(`${this.url}`, payload);
   }
 
-  updateItemCategory(payload: ItemCategory): Observable<ItemCategory> {
-    return this.http.put<ItemCategory>(`${this.url}`, payload);
-  }
-
-  deleteItemCategory(id: number): Observable<HttpResponseBase> {
+  delete(id: number): Observable<HttpResponseBase> {
     return this.http.delete<HttpResponseBase>(`${this.url}/${id}`);
   }
 

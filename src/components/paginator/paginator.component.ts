@@ -18,7 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-paginator',
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.scss',
-  imports: [CommonModule,MatIconModule],
+  imports: [CommonModule, MatIconModule],
 })
 export class PaginatorComponent implements OnInit, OnChanges {
   @Input('from') offset!: number;
@@ -36,6 +36,9 @@ export class PaginatorComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.initData();
+    if (this.to > this.records) {
+      this.to = this.records;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {

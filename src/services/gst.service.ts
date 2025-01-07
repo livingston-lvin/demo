@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../environments/environment.development';
-import { HttpClient, HttpResponseBase } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponseBase } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Gst } from '../interfaces/gst';
 
@@ -30,4 +30,12 @@ export class GstService {
   deleteGst(id: number): Observable<HttpResponseBase> {
     return this.http.delete<HttpResponseBase>(`${this.url}/${id}`);
   }
+
+  search(search: string, limit: number, offset: number): Observable<any> {
+      const params = new HttpParams()
+        .set('s', search)
+        .set('limit', limit)
+        .set('offset', offset);
+      return this.http.get<any>(this.url, { params });
+    }
 }

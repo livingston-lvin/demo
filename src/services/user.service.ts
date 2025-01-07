@@ -31,8 +31,11 @@ export class UserService {
     return this.http.delete<HttpResponseBase>(`${this.url}/${id}`);
   }
 
-  search(data: any): Observable<any> {
-    const params = new HttpParams().set('s', data);
+  search(search: string, limit: number, offset: number): Observable<any> {
+    const params = new HttpParams()
+      .set('s', search)
+      .set('limit', limit)
+      .set('offset', offset);
     return this.http.get<any>(this.url, { params });
   }
 }

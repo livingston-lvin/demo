@@ -59,6 +59,12 @@ export class LayoutComponent  {
                 selected: signal(false),
               },
               {
+                icon: 'currency_rupee',
+                label: 'Item Price Master',
+                route: 'item-price/list',
+                selected: signal(false),
+              },
+              {
                 icon: 'percent',
                 label: 'GST Rate Master',
                 route: 'gst/list',
