@@ -1,1 +1,39 @@
-<p>edit-item-price-master works!</p>
+<div class="container">
+    <header>
+      <h3>Update Item Price</h3>
+    </header>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="input-field">
+        <label for="companyName">Item Name<span class="imp">*</span></label>
+        <input type="text" formControlName="companyName" required>
+      </div>
+      <div class="input-field">
+        <label for="amountIncGst">Amount Including GST<span class="imp">*</span></label>
+        <input type="text" maxlength="10" minlength="10" formControlName="amountIncGst" pattern="\d{10}"
+          (keydown)="validateNumberInput($event)" required>
+      </div>
+      <div class="input-field">
+        <label for="itemGstRate">Item GST Rate(in %)<span class="imp">*</span></label>
+        <input type="text" maxlength="10" minlength="10" formControlName="itemGstRate" pattern="\d{10}"
+          (keydown)="validateNumberInput($event)" required>
+      </div>
+      <div class="input-field">
+        <label for="priceApplicableFrom">Price Applicable from<span class="imp">*</span></label>
+        <input type="date" formControlName="priceApplicableFrom" required>
+      </div>
+      <div class="input-field">
+        <label for="itemPrice">Item Price<span class="imp">*</span></label>
+        <input type="text" maxlength="10" minlength="10" formControlName="itemPrice" pattern="\d{10}"
+          (keydown)="validateNumberInput($event)" required>
+      </div>
+      <div class="input-field">
+        <label for="itemHsnCode">Item HSN Code<span class="imp">*</span></label>
+        <input type="text" formControlName="itemHsnCode" required>
+      </div>
+      <div class="action-btns">
+        <button type="submit" (click)="submit()">Update</button>
+        <button type="button" (click)="navigateToListItemPricePage()">Cancel</button>
+      </div>
+    </form>
+  </div>
+  
