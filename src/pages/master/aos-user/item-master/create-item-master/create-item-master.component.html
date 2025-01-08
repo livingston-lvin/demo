@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <form [formGroup]="form" (ngSubmit)="submit()">
     <div class="form-row">
       <mat-form-field appearance="outline">
@@ -97,4 +97,102 @@
       </button>
     </div>
   </form>
+</div> -->
+
+<div class="container">
+  <header>
+    <h3>Create Item</h3>
+  </header>
+  <form [formGroup]="form" (ngSubmit)="submit()" ngNativeValidate>
+    <div class="input-field">
+      <label for="name">Item Name<span class="imp">*</span></label>
+      <input type="text" class="input-txt" formControlName="name" required>
+    </div>
+    <div class="input-field">
+      <label for="code">Item Code</label>
+      <input type="text" class="input-txt" formControlName="code">
+    </div>
+    <div class="input-field">
+      <label for="category">Item Category<span class="imp">*</span></label>
+      <select formControlName="category" required>
+        @for (category of categories; track category) {
+        <option [value]="category">{{ category.name }}</option>
+        }
+      </select>
+    </div>
+    <div class="input-field">
+      <label for="image">Item Picture (Fileupload/Image Link)<span class="imp">*</span></label>
+      <input type="file" #fileInput hidden (change)="onFileSelected($event)" />
+      @if(selectedFile){
+      <div class="file">
+        {{ selectedFile.name }}
+        <button mat-icon-button (click)="removeFile()"><mat-icon>cancel</mat-icon></button>
+      </div>
+      }
+      <button class="fileBtn" type="button" (click)="fileInput.click()">
+        Select File
+      </button>
+    </div>
+    <div class="input-field">
+      <label for="attribute">Item Attribute(Color/Size)</label>
+      <input type="text" class="input-txt" formControlName="attribute">
+    </div>
+    <div class="input-field">
+      <label for="size">Size</label>
+      <input type="text" class="input-txt" formControlName="size">
+    </div>
+    <div class="input-field">
+      <label for="code">Size Unit</label>
+      <select formControlName="sizeUnit" required>
+        @for (sizeUnit of sizeUnits; track sizeUnit) {
+        <option [value]="sizeUnit">{{ sizeUnit }}</option>
+        }
+      </select>
+    </div>
+    <div class="input-field">
+      <label for="weight">Weight</label>
+      <input type="text" class="input-txt" formControlName="weight">
+    </div>
+    <div class="input-field">
+      <label for="weightUnit">Weight Unit</label>
+      <select formControlName="weightUnit" required>
+        @for (weightUnit of weightUnits; track weightUnit) {
+        <option [value]="weightUnit">{{ weightUnit }}</option>
+        }
+      </select>
+    </div>
+    <div class="input-field">
+      <label for="packingQty">Packing Quantity</label>
+      <input type="text" class="input-txt" formControlName="packingQty">
+    </div>
+    <div class="input-field">
+      <label for="packingUnit">Item Code</label>
+      <select formControlName="packingUnit" required>
+        @for (packingUnit of packingUnits; track packingUnit) {
+        <option [value]="packingUnit">{{ packingUnit }}</option>
+        }
+      </select>
+    </div>
+    <div class="input-field">
+      <label for="minOrderQty">Minimum Order Quantity</label>
+      <input type="text" class="input-txt" formControlName="minOrderQty">
+    </div>
+    <div class="input-field">
+      <label for="brand">Item Brand</label>
+      <select formControlName="brand" required>
+        @for (brand of brands; track brand) {
+        <option [value]="brand">{{ brand }}</option>
+        }
+      </select>
+    </div>
+    <div class="input-field"></div>
+    <div class="input-field"></div>
+    <div class="action-btns">
+      <button mat-flat-button type="submit">Submit</button>
+      <button mat-button type="button" style="color: red;padding: 0 20px;" (click)="navigateToListItemPage()">
+        Cancel
+      </button>
+    </div>
+  </form>
+
 </div>

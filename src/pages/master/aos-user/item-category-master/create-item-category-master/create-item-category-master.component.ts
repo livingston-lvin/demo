@@ -6,16 +6,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialogActions,
-  MatDialogClose,
   MatDialogTitle,
   MatDialogContent,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { ItemCategoryService } from '../../../../../services/item-category.service';
 
 @Component({
@@ -23,13 +19,9 @@ import { ItemCategoryService } from '../../../../../services/item-category.servi
   templateUrl: './create-item-category-master.component.html',
   styleUrl: './create-item-category-master.component.scss',
   imports: [
-    MatButtonModule,
     MatDialogActions,
-    MatDialogClose,
     MatDialogTitle,
     MatDialogContent,
-    MatFormFieldModule,
-    MatInputModule,
     FormsModule,
     ReactiveFormsModule,
   ],
@@ -52,7 +44,7 @@ export class CreateItemCategoryMasterComponent {
       const value = this.form.value;
       this.itemCategoryService.createItemCategory(value).subscribe(
         (res) => {
-          this.dialogRef.close();
+          this.closeDialog();
         },
         (err) => {
           console.log(err);
@@ -61,5 +53,9 @@ export class CreateItemCategoryMasterComponent {
     } else {
       alert('Please fill all mandetory fields...');
     }
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 }

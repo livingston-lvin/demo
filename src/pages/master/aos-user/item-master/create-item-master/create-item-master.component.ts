@@ -15,6 +15,8 @@ import { ItemCategory } from '../../../../../interfaces/item-category';
 import { ItemCategoryService } from '../../../../../services/item-category.service';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment.development';
+import { MatIconModule } from '@angular/material/icon';
+import { Brand } from '../../../../../interfaces/brand';
 
 @Component({
   selector: 'app-create-item-master',
@@ -27,6 +29,7 @@ import { environment } from '../../../../../environments/environment.development
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatIconModule,
   ],
 })
 export class CreateItemMasterComponent implements OnInit {
@@ -34,6 +37,7 @@ export class CreateItemMasterComponent implements OnInit {
   selectedCategory!: ItemCategory;
   selectedFile: File | undefined;
   categories: ItemCategory[] = [];
+  brands: Brand[] = [];
   sizeUnits: string[] = ['cm', 'inch', 'reams'];
   weightUnits: string[] = ['gm', 'kg'];
   packingUnits: string[] = [
@@ -125,5 +129,19 @@ export class CreateItemMasterComponent implements OnInit {
       environment.item,
       environment.list,
     ]);
+  }
+
+  validateNumberInput(event: KeyboardEvent): void {
+    const allowedKeys = [
+      'Backspace',
+      'ArrowLeft',
+      'ArrowRight',
+      'Tab',
+      'Delete',
+    ];
+
+    if (!/^\d$/.test(event.key) && !allowedKeys.includes(event.key)) {
+      event.preventDefault();
+    }
   }
 }

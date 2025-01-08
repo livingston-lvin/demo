@@ -47,3 +47,11 @@ body {
 //   border: 1px solid #CED4DA;
 //   border-radius: 5px;
 // }
+
+.mat-mdc-dialog-surface{
+border-radius: 5px !important;
+}
+
+.mat-mdc-dialog-actions{
+  flex-direction: row-reverse;
+}

@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { TableComponent } from '../../../../../components/table/table.component';
 
 @Component({
   selector: 'app-list-user-master',
   templateUrl: './list-user-master.component.html',
   styleUrl: './list-user-master.component.scss',
-  imports: [MatIconModule, TableComponent],
+  imports: [TableComponent],
 })
 export class ListUserMasterComponent {
   headers: string[] = [

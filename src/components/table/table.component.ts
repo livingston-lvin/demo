@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, input, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -16,6 +16,7 @@ import { GstService } from '../../services/gst.service';
 import { CourierService } from '../../services/courier.service';
 import { ItemPriceService } from '../../services/item-price.service';
 import {
+  brandMaster,
   courierMaster,
   gstMaster,
   itemCategoryMaster,
@@ -23,6 +24,10 @@ import {
   itemPriceMaster,
   userMaster,
 } from '../../constants/Module';
+import { CreateItemCategoryMasterComponent } from '../../pages/master/aos-user/item-category-master/create-item-category-master/create-item-category-master.component';
+import { EditItemCategoryMasterComponent } from '../../pages/master/aos-user/item-category-master/edit-item-category-master/edit-item-category-master.component';
+import { CreateBrandMasterComponent } from '../../pages/master/aos-user/brand-master/create-brand-master/create-brand-master.component';
+import { EditBrandMasterComponent } from '../../pages/master/aos-user/brand-master/edit-brand-master/edit-brand-master.component';
 
 @Component({
   selector: 'app-table',
@@ -56,12 +61,12 @@ export class TableComponent implements OnInit {
   module = input.required<string[]>();
   curModule = computed(() => this.module()[this.module().length - 1]);
 
-  userMaster=signal('User Master');
-itemMaster=signal('Item Master');
-itemCategoryMaster=signal('Item Category Master');
-itemPriceMaster=signal('Item Price Master');
-gstMaster=signal('Gst Master');
-courierMaster=signal('Courier Master');
+  userMaster = signal('User Master');
+  itemMaster = signal('Item Master');
+  itemCategoryMaster = signal('Item Category Master');
+  itemPriceMaster = signal('Item Price Master');
+  gstMaster = signal('Gst Master');
+  courierMaster = signal('Courier Master');
 
   constructor(
     private router: Router,
@@ -70,7 +75,8 @@ courierMaster=signal('Courier Master');
     private itemCategoryService: ItemCategoryService,
     private itemPriceService: ItemPriceService,
     private gstService: GstService,
-    private courierService: CourierService
+    private courierService: CourierService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -94,19 +100,22 @@ courierMaster=signal('Courier Master');
   }
 
   navigateToCreateData() {
-    console.log(this.curModule());
     if (this.curModule() === userMaster) {
       this.navigateToCreateUser();
     } else if (this.curModule() === itemMaster) {
       this.navigateToCreateItem();
     } else if (this.curModule() === itemCategoryMaster) {
-      this.navigateToCreateItemCategory();
+      this.openDialog(null, 'item-category');
     } else if (this.curModule() === itemPriceMaster) {
       this.navigateToCreateItemPrice();
     } else if (this.curModule() === gstMaster) {
       this.navigateToCreateGst();
     } else if (this.curModule() === courierMaster) {
       this.navigateToCreateCourier();
+    } else if (this.curModule() === brandMaster) {
+      this.navigateToCreateBrand();
+    } else if (this.curModule() === itemCategoryMaster) {
+      this.openDialog(null, 'brand');
     }
   }
 
@@ -116,13 +125,15 @@ courierMaster=signal('Courier Master');
     } else if (this.curModule() === itemMaster) {
       this.editItem(id);
     } else if (this.curModule() === itemCategoryMaster) {
-      this.editItemCategory(id);
+      this.openDialog(id, 'item-category');
     } else if (this.curModule() === itemPriceMaster) {
       this.editItemPrice(id);
     } else if (this.curModule() === gstMaster) {
       this.editGst(id);
     } else if (this.curModule() === courierMaster) {
       this.editCourier(id);
+    } else if (this.curModule() === itemCategoryMaster) {
+      this.openDialog(id, 'brand');
     }
   }
 
@@ -201,16 +212,6 @@ courierMaster=signal('Courier Master');
     ]);
   }
 
-  navigateToCreateItemCategory() {
-    this.router.navigate([
-      environment.servletPath,
-      environment.master,
-      environment.aosUser,
-      environment.itemCategory,
-      environment.create,
-    ]);
-  }
-
   navigateToCreateItemPrice() {
     this.router.navigate([
       environment.servletPath,
@@ -237,6 +238,16 @@ courierMaster=signal('Courier Master');
       environment.master,
       environment.aosUser,
       environment.courierMaster,
+      environment.create,
+    ]);
+  }
+
+  navigateToCreateBrand() {
+    this.router.navigate([
+      environment.servletPath,
+      environment.master,
+      environment.aosUser,
+      environment.brandMaster,
       environment.create,
     ]);
   }
@@ -269,17 +280,6 @@ courierMaster=signal('Courier Master');
       environment.master,
       environment.aosUser,
       environment.item,
-      environment.edit,
-      id,
-    ]);
-  }
-
-  editItemCategory(id: number) {
-    this.router.navigate([
-      environment.servletPath,
-      environment.master,
-      environment.aosUser,
-      environment.itemCategory,
       environment.edit,
       id,
     ]);
@@ -321,7 +321,6 @@ courierMaster=signal('Courier Master');
   deleteUser(id: number) {
     this.userService.deleteUser(id).subscribe(
       (res) => {
-        console.log(res);
         this.loadData();
       },
       (err) => {
@@ -333,7 +332,6 @@ courierMaster=signal('Courier Master');
   deleteItem(id: number) {
     this.itemService.delete(id).subscribe(
       (res) => {
-        console.log(res);
         this.loadData();
       },
       (err) => {
@@ -345,7 +343,6 @@ courierMaster=signal('Courier Master');
   deleteItemCategory(id: number) {
     this.itemCategoryService.deleteItemCategory(id).subscribe(
       (res) => {
-        console.log(res);
         this.loadData();
       },
       (err) => {
@@ -357,7 +354,6 @@ courierMaster=signal('Courier Master');
   deleteItemPrice(id: number) {
     this.itemPriceService.delete(id).subscribe(
       (res) => {
-        console.log(res);
         this.loadData();
       },
       (err) => {
@@ -369,7 +365,6 @@ courierMaster=signal('Courier Master');
   deleteGst(id: number) {
     this.gstService.deleteGst(id).subscribe(
       (res) => {
-        console.log(res);
         this.loadData();
       },
       (err) => {
@@ -381,7 +376,6 @@ courierMaster=signal('Courier Master');
   deleteCourier(id: number) {
     this.courierService.deleteCourier(id).subscribe(
       (res) => {
-        console.log(res);
         this.loadData();
       },
       (err) => {
@@ -570,5 +564,24 @@ courierMaster=signal('Courier Master');
         console.log(err);
       }
     );
+  }
+
+  openDialog(id: number | null, module: string): void {
+    const component: any =
+      id === null
+        ? module === 'item-category'
+          ? CreateItemCategoryMasterComponent
+          : CreateBrandMasterComponent
+        : module === 'item-category'
+        ? EditItemCategoryMasterComponent
+        : EditBrandMasterComponent;
+
+    this.dialog.open(component, {
+      width: '500px',
+      height: '250px',
+      enterAnimationDuration: '0ms',
+      exitAnimationDuration: '0ms',
+      data: { id },
+    });
   }
 }

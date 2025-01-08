@@ -9,7 +9,6 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialogActions,
-  MatDialogClose,
   MatDialogTitle,
   MatDialogContent,
   MatDialogRef,
@@ -19,7 +18,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ItemCategoryService } from '../../../../../services/item-category.service';
 import { CreateItemCategoryMasterComponent } from '../create-item-category-master/create-item-category-master.component';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-item-category-master',
@@ -28,7 +26,6 @@ import { ActivatedRoute } from '@angular/router';
   imports: [
     MatButtonModule,
     MatDialogActions,
-    MatDialogClose,
     MatDialogTitle,
     MatDialogContent,
     MatFormFieldModule,
@@ -44,11 +41,9 @@ export class EditItemCategoryMasterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private itemCategoryService: ItemCategoryService,
-    private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
-    // this.id = +this.route.snapshot.paramMap.get('id')!;
-    this.id = data.id;
+    this.id = this.data.id;
     this.form = this.fb.group({
       id: [null, Validators.required],
       name: [null, Validators.required],
@@ -75,7 +70,7 @@ export class EditItemCategoryMasterComponent implements OnInit {
       const value = this.form.value;
       this.itemCategoryService.updateItemCategory(value).subscribe(
         (res) => {
-          console.log(res);
+          this.closeDialog();
         },
         (err) => {
           console.log(err);
@@ -85,5 +80,9 @@ export class EditItemCategoryMasterComponent implements OnInit {
     } else {
       alert('Please fill all mandetory fields...');
     }
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 }

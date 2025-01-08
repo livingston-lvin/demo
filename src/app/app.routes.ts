@@ -34,9 +34,12 @@ import { ListCustomerMasterComponent } from '../pages/master/customer-master/lis
 import { CreateCustomerMasterComponent } from '../pages/master/customer-master/create-customer-master/create-customer-master.component';
 import { ViewCustomerMasterComponent } from '../pages/master/customer-master/view-customer-master/view-customer-master.component';
 import { EditCustomerMasterComponent } from '../pages/master/customer-master/edit-customer-master/edit-customer-master.component';
+import { matchAuthGuard } from '../guards/match-auth.guard';
+import { parentAuthGuard } from '../guards/parent-auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: environment.servletPath, pathMatch: 'full' },
+
   {
     path: environment.servletPath,
     component: LayoutComponent,
@@ -51,6 +54,8 @@ export const routes: Routes = [
           {
             path: environment.aosUser,
             children: [
+              // ITEM MASTER
+
               {
                 path: environment.item,
                 children: [
@@ -72,6 +77,8 @@ export const routes: Routes = [
                   },
                 ],
               },
+
+              // ITEM CATEGORY MASTER
 
               {
                 path: environment.itemCategory,
@@ -95,6 +102,8 @@ export const routes: Routes = [
                 ],
               },
 
+              // ITEM PRICE MASTER
+
               {
                 path: environment.itemPrice,
                 children: [
@@ -116,6 +125,8 @@ export const routes: Routes = [
                   },
                 ],
               },
+
+              // USER MASTER
 
               {
                 path: environment.user,
@@ -139,6 +150,8 @@ export const routes: Routes = [
                 ],
               },
 
+              // GST MASTER
+
               {
                 path: environment.gstMaster,
                 children: [
@@ -161,6 +174,8 @@ export const routes: Routes = [
                 ],
               },
 
+              // COURIER MASTER
+
               {
                 path: environment.courierMaster,
                 children: [
@@ -182,6 +197,8 @@ export const routes: Routes = [
                   },
                 ],
               },
+
+              // BRAND MASTER
 
               {
                 path: environment.brandMaster,
