@@ -94,6 +94,7 @@ courierMaster=signal('Courier Master');
   }
 
   navigateToCreateData() {
+    console.log(this.curModule());
     if (this.curModule() === userMaster) {
       this.navigateToCreateUser();
     } else if (this.curModule() === itemMaster) {

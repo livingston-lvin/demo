@@ -6,12 +6,14 @@ export const environment = {
   master: 'master',
 
   aosUser: 'aos-user',
+  customerMaster: 'customer',
   item: 'item',
   itemCategory: 'item-category',
   itemPrice: 'item-price',
   user: 'user',
   gstMaster: 'gst',
   courierMaster: 'courier',
+  brandMaster: 'brand',
 
   list: 'list',
   create: 'create',

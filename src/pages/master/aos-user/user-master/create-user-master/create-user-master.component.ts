@@ -1,26 +1,20 @@
 import { Component, signal } from '@angular/core';
 import {
-  FormsModule,
   ReactiveFormsModule,
   FormGroup,
   FormBuilder,
   Validators,
+  FormControl,
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment.development';
 import { UserService } from '../../../../../services/user.service';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { SnackbarComponent } from '../../../../../components/snackbar/snackbar.component';
-import {
-  HorizontalPosition,
-  SnackBarDuration,
-  Success,
-  VerticalPosition,
-} from '../../../../../constants/AppData';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { Success } from '../../../../../constants/AppData';
 import { SnackbarService } from '../../../../../services/snackbar.service';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule, MatIconButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-create-user-master',
@@ -31,7 +25,7 @@ import { MatButtonModule, MatIconButton } from '@angular/material/button';
     MatInputModule,
     MatSnackBarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
   ],
 })
 export class CreateUserMasterComponent {
@@ -39,6 +33,7 @@ export class CreateUserMasterComponent {
   roles: string[] = ['Super Admin', 'Back Office'];
   showPassword = signal(false);
   showConfirmPassword = signal(false);
+  firstName = new FormControl();
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
