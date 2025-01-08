@@ -6,7 +6,6 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialogActions,
   MatDialogTitle,
@@ -14,8 +13,6 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { ItemCategoryService } from '../../../../../services/item-category.service';
 import { CreateItemCategoryMasterComponent } from '../create-item-category-master/create-item-category-master.component';
 
@@ -24,12 +21,9 @@ import { CreateItemCategoryMasterComponent } from '../create-item-category-maste
   templateUrl: './edit-item-category-master.component.html',
   styleUrl: './edit-item-category-master.component.scss',
   imports: [
-    MatButtonModule,
     MatDialogActions,
     MatDialogTitle,
     MatDialogContent,
-    MatFormFieldModule,
-    MatInputModule,
     FormsModule,
     ReactiveFormsModule,
   ],

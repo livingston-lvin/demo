@@ -28,17 +28,15 @@ import { CreateItemCategoryMasterComponent } from '../../pages/master/aos-user/i
 import { EditItemCategoryMasterComponent } from '../../pages/master/aos-user/item-category-master/edit-item-category-master/edit-item-category-master.component';
 import { CreateBrandMasterComponent } from '../../pages/master/aos-user/brand-master/create-brand-master/create-brand-master.component';
 import { EditBrandMasterComponent } from '../../pages/master/aos-user/brand-master/edit-brand-master/edit-brand-master.component';
+import { BrandService } from '../../services/brand.service';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
   imports: [
-    MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatSelectModule,
-    MatIconButton,
     MatDialogModule,
     CommonModule,
     FormsModule,
@@ -67,6 +65,7 @@ export class TableComponent implements OnInit {
   itemPriceMaster = signal('Item Price Master');
   gstMaster = signal('Gst Master');
   courierMaster = signal('Courier Master');
+  brandMaster = signal('Brand Master');
 
   constructor(
     private router: Router,
@@ -76,6 +75,7 @@ export class TableComponent implements OnInit {
     private itemPriceService: ItemPriceService,
     private gstService: GstService,
     private courierService: CourierService,
+    private brandService: BrandService,
     private dialog: MatDialog
   ) {}
 
@@ -96,10 +96,13 @@ export class TableComponent implements OnInit {
       this.loadGst();
     } else if (this.curModule() === courierMaster) {
       this.loadCourier();
+    } else if (this.curModule() === brandMaster) {
+      this.loadBrand();
     }
   }
 
   navigateToCreateData() {
+    console.log(this.curModule());
     if (this.curModule() === userMaster) {
       this.navigateToCreateUser();
     } else if (this.curModule() === itemMaster) {
@@ -113,8 +116,6 @@ export class TableComponent implements OnInit {
     } else if (this.curModule() === courierMaster) {
       this.navigateToCreateCourier();
     } else if (this.curModule() === brandMaster) {
-      this.navigateToCreateBrand();
-    } else if (this.curModule() === itemCategoryMaster) {
       this.openDialog(null, 'brand');
     }
   }
@@ -132,7 +133,7 @@ export class TableComponent implements OnInit {
       this.editGst(id);
     } else if (this.curModule() === courierMaster) {
       this.editCourier(id);
-    } else if (this.curModule() === itemCategoryMaster) {
+    } else if (this.curModule() === brandMaster) {
       this.openDialog(id, 'brand');
     }
   }
@@ -566,16 +567,37 @@ export class TableComponent implements OnInit {
     );
   }
 
-  openDialog(id: number | null, module: string): void {
-    const component: any =
-      id === null
-        ? module === 'item-category'
-          ? CreateItemCategoryMasterComponent
-          : CreateBrandMasterComponent
-        : module === 'item-category'
-        ? EditItemCategoryMasterComponent
-        : EditBrandMasterComponent;
+  loadBrand() {
+    this.brandService.getBrands(this.limit(), this.offset()).subscribe(
+      (res) => {
+        this.items = res.content;
+        this.size = +res.totalPages;
+        this.records = +res.totalElements;
+        this.page = this.items.length > 0 ? 1 : 0;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
+  openDialog(id: number | null, module: string): void {
+    let component: any | null = null;
+    if (id === null) {
+      if (module === 'item-category') {
+        component = CreateItemCategoryMasterComponent;
+      } else if (module === 'brand') {
+        component = CreateBrandMasterComponent;
+      }
+    } else {
+      if (module === 'item-category') {
+        component = EditItemCategoryMasterComponent;
+      } else if (module === 'brand') {
+        component = EditBrandMasterComponent;
+      }
+    }
+
+    console.log(component);
     this.dialog.open(component, {
       width: '500px',
       height: '250px',

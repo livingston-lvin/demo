@@ -28,31 +28,34 @@ import { BrandService } from '../../../../../services/brand.service';
 })
 export class CreateBrandMasterComponent {
   readonly dialogRef = inject(MatDialogRef<CreateBrandMasterComponent>);
-  form: FormGroup;
-  constructor(private fb: FormBuilder, private brandService: BrandService) {
-    this.form = this.fb.group({
-      id: [null],
-      name: [null, Validators.required],
-    });
-  }
-
-  submit() {
-    if (this.form.valid) {
-      const value = this.form.value;
-      this.brandService.create(value).subscribe(
-        (res) => {
-          this.closeDialog();
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    } else {
-      alert('Please fill all mandetory fields...');
+    form: FormGroup;
+    constructor(
+      private fb: FormBuilder,
+      private brandService: BrandService,
+    ) {
+      this.form = this.fb.group({
+        name: [null, Validators.required],
+      });
     }
-  }
-
-  closeDialog() {
-    this.dialogRef.close();
-  }
+  
+    submit() {
+      if (this.form.valid) {
+        const value = this.form.value;
+        this.brandService.create(value).subscribe(
+          (res) => {
+            this.closeDialog();
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+        this.dialogRef.close();
+      } else {
+        alert('Please fill all mandetory fields...');
+      }
+    }
+  
+    closeDialog() {
+      this.dialogRef.close();
+    }
 }
