@@ -63,8 +63,8 @@ export class TableComponent implements OnInit {
   itemMaster = signal('Item Master');
   itemCategoryMaster = signal('Item Category Master');
   itemPriceMaster = signal('Item Price Master');
-  gstMaster = signal('Gst Master');
-  courierMaster = signal('Courier Master');
+  gstMaster = signal('Gst Rate Master');
+  courierMaster = signal('Courier Company Master');
   brandMaster = signal('Brand Master');
 
   constructor(

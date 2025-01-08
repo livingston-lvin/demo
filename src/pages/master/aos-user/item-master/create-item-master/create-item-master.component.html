@@ -116,7 +116,7 @@
       <label for="category">Item Category<span class="imp">*</span></label>
       <select formControlName="category" required>
         @for (category of categories; track category) {
-        <option [value]="category">{{ category.name }}</option>
+        <option [value]="category.id">{{ category.name }}</option>
         }
       </select>
     </div>
@@ -126,7 +126,7 @@
       @if(selectedFile){
       <div class="file">
         {{ selectedFile.name }}
-        <button mat-icon-button (click)="removeFile()"><mat-icon>cancel</mat-icon></button>
+        <button mat-icon-button type="button" (click)="removeFile()"><mat-icon>cancel</mat-icon></button>
       </div>
       }
       <button class="fileBtn" type="button" (click)="fileInput.click()">
@@ -181,7 +181,7 @@
       <label for="brand">Item Brand</label>
       <select formControlName="brand" required>
         @for (brand of brands; track brand) {
-        <option [value]="brand">{{ brand }}</option>
+        <option [value]="brand.id">{{ brand.name }}</option>
         }
       </select>
     </div>

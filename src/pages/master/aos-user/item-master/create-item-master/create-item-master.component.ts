@@ -6,31 +6,21 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { ItemService } from '../../../../../services/item.service';
-import { MatInputModule } from '@angular/material/input';
 import { ItemCategory } from '../../../../../interfaces/item-category';
 import { ItemCategoryService } from '../../../../../services/item-category.service';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment.development';
 import { MatIconModule } from '@angular/material/icon';
 import { Brand } from '../../../../../interfaces/brand';
+import { BrandService } from '../../../../../services/brand.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-create-item-master',
   templateUrl: './create-item-master.component.html',
   styleUrl: './create-item-master.component.scss',
-  imports: [
-    MatFormFieldModule,
-    MatButtonModule,
-    MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatIconModule,
-  ],
+  imports: [FormsModule, ReactiveFormsModule, MatIconModule, MatButtonModule],
 })
 export class CreateItemMasterComponent implements OnInit {
   form: FormGroup;
@@ -55,7 +45,8 @@ export class CreateItemMasterComponent implements OnInit {
     private fb: FormBuilder,
     private itemService: ItemService,
     private itemCategoryService: ItemCategoryService,
-    private router: Router
+    private router: Router,
+    private brandService: BrandService
   ) {
     this.form = this.fb.group({
       name: [null, Validators.required],
@@ -80,6 +71,15 @@ export class CreateItemMasterComponent implements OnInit {
     this.itemCategoryService.getAll().subscribe(
       (res) => {
         this.categories = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+
+    this.brandService.getAll().subscribe(
+      (res) => {
+        this.brands = res;
       },
       (err) => {
         console.log(err);
@@ -111,14 +111,19 @@ export class CreateItemMasterComponent implements OnInit {
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      this.selectedFile = file;
+    if (input?.files?.length) {
+      this.selectedFile = input.files[0];
     }
   }
 
   removeFile() {
     this.selectedFile = undefined;
+    const fileInput = document.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
   }
 
   navigateToListItemPage() {

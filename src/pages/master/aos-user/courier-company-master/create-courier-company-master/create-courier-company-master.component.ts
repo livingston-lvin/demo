@@ -6,10 +6,6 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment.development';
 import { CourierService } from '../../../../../services/courier.service';
@@ -19,15 +15,12 @@ import { CourierService } from '../../../../../services/courier.service';
   templateUrl: './create-courier-company-master.component.html',
   styleUrl: './create-courier-company-master.component.scss',
   imports: [
-    MatFormFieldModule,
-    MatButtonModule,
-    MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule,
   ],
 })
 export class CreateCourierCompanyMasterComponent {
+
   form: FormGroup;
   constructor(
     private fb: FormBuilder,
@@ -67,5 +60,19 @@ export class CreateCourierCompanyMasterComponent {
       environment.courierMaster,
       environment.list,
     ]);
+  }
+
+  validateNumberInput(event: KeyboardEvent): void {
+    const allowedKeys = [
+      'Backspace',
+      'ArrowLeft',
+      'ArrowRight',
+      'Tab',
+      'Delete',
+    ];
+
+    if (!/^\d$/.test(event.key) && !allowedKeys.includes(event.key)) {
+      event.preventDefault();
+    }
   }
 }

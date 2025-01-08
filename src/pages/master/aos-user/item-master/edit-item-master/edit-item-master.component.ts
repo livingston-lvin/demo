@@ -6,34 +6,28 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment.development';
 import { ItemCategory } from '../../../../../interfaces/item-category';
 import { ItemCategoryService } from '../../../../../services/item-category.service';
 import { ItemService } from '../../../../../services/item.service';
 import { Item } from '../../../../../interfaces/item';
+import { Brand } from '../../../../../interfaces/brand';
+import { BrandService } from '../../../../../services/brand.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-edit-item-master',
   templateUrl: './edit-item-master.component.html',
   styleUrl: './edit-item-master.component.scss',
-  imports: [
-    MatFormFieldModule,
-    MatButtonModule,
-    MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-  ],
+  imports: [FormsModule, ReactiveFormsModule, MatIconModule,MatButtonModule],
 })
 export class EditItemMasterComponent implements OnInit {
   id: number;
   item!: Item;
   form: FormGroup;
+  brands: Brand[] = [];
   selectedFile: File | undefined;
   categories: ItemCategory[] = [];
   sizeUnits: string[] = ['cm', 'inch', 'reams'];
@@ -54,7 +48,8 @@ export class EditItemMasterComponent implements OnInit {
     private itemService: ItemService,
     private itemCategoryService: ItemCategoryService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private brandService: BrandService
   ) {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.form = this.fb.group({
@@ -86,6 +81,14 @@ export class EditItemMasterComponent implements OnInit {
         console.log(err);
       }
     );
+    this.brandService.getAll().subscribe(
+      (res) => {
+        this.brands = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
     this.itemService.get(this.id).subscribe(
       (res) => {
         this.item = res;
@@ -93,11 +96,15 @@ export class EditItemMasterComponent implements OnInit {
         const category = this.categories.filter(
           (category) => category.id === res.category.id
         )[0];
+        const brand = this.brands.filter(
+          (brand) => brand.id === res.brand.id
+        )[0];
+        console.log(category,brand);
         this.form.patchValue({
           id: res.id,
           name: res.name,
           code: res.code,
-          category: category,
+          category: category.id,
           size: res.size,
           sizeUnit: res.sizeUnit,
           weight: res.weight,
@@ -105,8 +112,8 @@ export class EditItemMasterComponent implements OnInit {
           packingQty: res.packingQty,
           packingUnit: res.packingUnit,
           minOrderQty: res.minOrderQty,
-          brand: res.brand,
           attribute: res.attribute,
+          brand:brand.id
         });
       },
       (err) => {

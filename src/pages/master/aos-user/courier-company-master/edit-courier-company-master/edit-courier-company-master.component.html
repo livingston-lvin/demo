@@ -1,37 +1,33 @@
 <div class="container">
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>Courier Company Name</mat-label>
-          <input matInput formControlName="companyName" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Mobile No</mat-label>
-          <input matInput formControlName="mobileNo" />
-        </mat-form-field>
-      </div>
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>Courier Contact Person</mat-label>
-          <input matInput formControlName="contactPerson" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Tracking Website</mat-label>
-          <input matInput formControlName="trackingWebsite" />
-        </mat-form-field>
-      </div>
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" />
-        </mat-form-field>
-      </div>
-      <div class="form-row">
-        <button mat-flat-button type="submit">Submit</button>
-        <button mat-button type="button" (click)="navigateToListCourierPage()">
-          Cancel
-        </button>
-      </div>
-    </form>
-  </div>
-  
+  <header>
+    <h3>Update Courier</h3>
+  </header>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="input-field">
+      <label for="companyName">Courier Company Name<span class="imp">*</span></label>
+      <input type="text" formControlName="companyName" required>
+    </div>
+    <div class="input-field">
+      <label for="mobileNo">Mobile No.<span class="imp">*</span></label>
+      <input type="text" maxlength="10" minlength="10" class="input-txt" formControlName="mobileNo" pattern="\d{10}"
+        (keydown)="validateNumberInput($event)" required>
+    </div>
+    <div class="input-field">
+      <label for="contactPerson">Courier Contact Person<span class="imp">*</span></label>
+      <input type="text" formControlName="contactPerson" required>
+    </div>
+    <div class="input-field">
+      <label for="trackingWebsite">Tracking Website<span class="imp">*</span></label>
+      <input type="text" formControlName="trackingWebsite" required>
+    </div>
+    <div class="input-field">
+      <label for="email">Email<span class="imp">*</span></label>
+      <input type="text" formControlName="email" required>
+    </div>
+    <div class="input-field"></div>
+    <div class="action-btns">
+      <button type="submit" (click)="submit()">Update</button>
+      <button type="button" (click)="navigateToListCourierPage()">Cancel</button>
+    </div>
+  </form>
+</div>

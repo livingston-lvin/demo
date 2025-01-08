@@ -71,7 +71,10 @@
                     <td>{{ item.name }}</td>
                     <td>{{ item.code }}</td>
                     <td>{{ item.category.name }}</td>
-                    <td>{{ item.name }}</td>
+                    <td>
+                        <img *ngIf="item.encodedResource" [src]="'data:image/jpeg;base64,' + item.encodedResource"
+                            alt="{{ item.name }}" />
+                    </td>
                     <td>{{ item.saveDt }}</td>
                     <td>
                         <button mat-icon-button (click)="editData(item.id)">
@@ -169,22 +172,22 @@
                 }
 
                 @else if (curModule() === brandMaster()) {
-                    @for (item of items; track $index) {
-                    <tr class="row-data">
-                        <td>{{ $index + 1 + offset() * limit() }}.</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.saveDt }}</td>
-                        <td>
-                            <button mat-icon-button (click)="editData(item.id)">
-                                <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">edit_note</mat-icon>
-                            </button>
-                            <button mat-icon-button (click)="deleteData(item.id)">
-                                <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">delete</mat-icon>
-                            </button>
-                        </td>
-                    </tr>
-                    }
-                    }
+                @for (item of items; track $index) {
+                <tr class="row-data">
+                    <td>{{ $index + 1 + offset() * limit() }}.</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.saveDt }}</td>
+                    <td>
+                        <button mat-icon-button (click)="editData(item.id)">
+                            <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">edit_note</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="deleteData(item.id)">
+                            <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                }
+                }
 
             </tbody>
         </table>

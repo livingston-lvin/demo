@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -6,51 +6,17 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment.development';
 import { GstService } from '../../../../../services/gst.service';
-
-import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
-import * as _moment from 'moment';
-// tslint:disable-next-line:no-duplicate-imports
-import { default as _rollupMoment } from 'moment';
-import { MatDateFormats } from '@angular/material/core';
-
-const moment = _rollupMoment || _moment;
-// See the Moment.js docs for the meaning of these formats:
-// https://momentjs.com/docs/#/displaying/format/
-export const MY_FORMATS: MatDateFormats = {
-  parse: {
-    dateInput: 'L',
-  },
-  display: {
-    dateInput: 'L',
-    dateA11yLabel: 'L',
-    monthYearLabel: 'MMM YYYY',
-    monthYearA11yLabel: 'DD MM YYYY',
-  },
-};
-
 @Component({
   selector: 'app-edit-gst-rate-master',
   templateUrl: './edit-gst-rate-master.component.html',
   styleUrl: './edit-gst-rate-master.component.scss',
   imports: [
-    MatFormFieldModule,
-    MatButtonModule,
-    MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule,
-    MatDatepickerModule,
   ],
-  providers: [provideMomentDateAdapter(MY_FORMATS)],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditGstRateMasterComponent implements OnInit {
   form: FormGroup;

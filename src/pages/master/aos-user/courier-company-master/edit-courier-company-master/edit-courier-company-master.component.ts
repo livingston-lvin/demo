@@ -94,4 +94,18 @@ export class EditCourierCompanyMasterComponent implements OnInit {
       environment.list,
     ]);
   }
+
+  validateNumberInput(event: KeyboardEvent): void {
+    const allowedKeys = [
+      'Backspace',
+      'ArrowLeft',
+      'ArrowRight',
+      'Tab',
+      'Delete',
+    ];
+
+    if (!/^\d$/.test(event.key) && !allowedKeys.includes(event.key)) {
+      event.preventDefault();
+    }
+  }
 }

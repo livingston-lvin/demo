@@ -19,6 +19,10 @@ export class BrandService {
     return this.http.get<any>(`${this.url}/${limit}/${offset}`);
   }
 
+  getAll(): Observable<Brand[]> {
+    return this.http.get<Brand[]>(`${this.url}`);
+  }
+
   getBrand(id: number): Observable<Brand> {
     return this.http.get<Brand>(`${this.url}/${id}`);
   }

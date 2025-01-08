@@ -1,25 +1,19 @@
 <div class="container">
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>GST Rate(in %)</mat-label>
-          <input matInput formControlName="rate" />
-        </mat-form-field>
-      </div>
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>GST Applicable from</mat-label>
-          <input matInput [matDatepicker]="dp" formControlName="applicableDt" />
-          <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
-          <mat-datepicker #dp></mat-datepicker>
-        </mat-form-field>
-      </div>
-      <div class="form-row">
-        <button mat-flat-button type="submit">Submit</button>
-        <button mat-button type="button" (click)="navigateToListGstPage()">
-          Cancel
-        </button>
-      </div>
-    </form>
-  </div>
-  
+  <header>
+    <h3>Update GST</h3>
+  </header>
+  <form [formGroup]="form">
+    <div class="input-field">
+      <label for="rate">GST Rate(in %)<span class="imp">*</span></label>
+      <input type="number" class="input-txt" formControlName="rate" required>
+    </div>
+    <div class="input-field">
+      <label for="rate">GST Applicable From<span class="imp">*</span></label>
+      <input type="date" class="input-txt" formControlName="applicableDt" required>
+    </div>
+    <div class="action-btns">
+      <button type="submit" (click)="submit()">Update</button>
+      <button type="button" (click)="navigateToListGstPage()">Cancel</button>
+    </div>
+  </form>
+</div>
