@@ -72,8 +72,8 @@
                     <td>{{ item.code }}</td>
                     <td>{{ item.category.name }}</td>
                     <td>
-                        <img *ngIf="item.encodedResource" [src]="'data:image/jpeg;base64,' + item.encodedResource"
-                            alt="{{ item.name }}" />
+                        <button mat-icon-button
+                            (click)="openImage('data:image/jpeg;base64,' + item.encodedResource,item.name)"><mat-icon>image</mat-icon></button>
                     </td>
                     <td>{{ item.saveDt }}</td>
                     <td>
@@ -110,12 +110,13 @@
                 @for (item of items; track $index) {
                 <tr class="row-data">
                     <td>{{ $index + 1 + offset() * limit() }}.</td>
-                    <td>{{ item.firstName }}</td>
-                    <td>{{ item.middleName }}</td>
-                    <td>{{ item.lastName }}</td>
-                    <td>{{ item.email }}</td>
-                    <td>{{ item.mobileNo }}</td>
-                    <td>{{ item.role }}</td>
+                    <td>{{ item.item.name }}</td>
+                    <td>{{ item.item.code }}</td>
+                    <td>{{ item.itemPrice }}</td>
+                    <td>{{ item.itemHsnCode }}</td>
+                    <td>{{ item.itemGstRate }}</td>
+                    <td>{{ item.itemGstRate }}</td>
+                    <td>{{ item.itemGstRate }}</td>
                     <td>{{ item.saveDt }}</td>
                     <td>
                         <button mat-icon-button (click)="editData(item.id)">
@@ -188,6 +189,28 @@
                 </tr>
                 }
                 }
+
+                @else if (curModule() === customerMaster()) {
+                    @for (item of items; track $index) {
+                    <tr class="row-data">
+                        <td>{{ $index + 1 + offset() * limit() }}.</td>
+                        <td>{{ item.customerName }}</td>
+                        <td>{{ item.contacts[0].name }}</td>
+                        <td>{{ item.code }}</td>
+                        <td>{{ item.customerLoginPageUrl }}</td>
+                        <td>{{ item.contacts[0].mobileNo }}</td>
+                        <td>{{ item.contacts[0].name }}</td>
+                        <td>
+                            <button mat-icon-button (click)="editData(item.id)">
+                                <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">edit_note</mat-icon>
+                            </button>
+                            <button mat-icon-button (click)="deleteData(item.id)">
+                                <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">delete</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                    }
 
             </tbody>
         </table>

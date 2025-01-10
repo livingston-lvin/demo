@@ -37,18 +37,6 @@
       <input type="text" class="input-txt" formControlName="attribute">
     </div>
     <div class="input-field">
-      <label for="size">Size</label>
-      <input type="text" class="input-txt" formControlName="size">
-    </div>
-    <div class="input-field">
-      <label for="code">Size Unit</label>
-      <select formControlName="sizeUnit" required>
-        @for (sizeUnit of sizeUnits; track sizeUnit) {
-        <option [value]="sizeUnit">{{ sizeUnit }}</option>
-        }
-      </select>
-    </div>
-    <div class="input-field">
       <label for="weight">Weight</label>
       <input type="text" class="input-txt" formControlName="weight">
     </div>
@@ -65,7 +53,7 @@
       <input type="text" class="input-txt" formControlName="packingQty">
     </div>
     <div class="input-field">
-      <label for="packingUnit">Item Code</label>
+      <label for="packingUnit">Packing Quantity Unit</label>
       <select formControlName="packingUnit" required>
         @for (packingUnit of packingUnits; track packingUnit) {
         <option [value]="packingUnit">{{ packingUnit }}</option>
@@ -84,7 +72,6 @@
         }
       </select>
     </div>
-    <div class="input-field"></div>
     <div class="input-field"></div>
     <div class="action-btns">
       <button mat-flat-button type="submit">Submit</button>

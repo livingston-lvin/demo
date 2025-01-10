@@ -8,8 +8,6 @@ export interface Item {
   category: ItemCategory;
   subCategory?: ItemCategory;
   fileData: FileData;
-  size: string;
-  sizeUnit: string;
   weight: number;
   weightUnit: string;
   packingQty: number;

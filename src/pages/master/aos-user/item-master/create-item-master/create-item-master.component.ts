@@ -52,8 +52,6 @@ export class CreateItemMasterComponent implements OnInit {
       name: [null, Validators.required],
       code: [null, Validators.required],
       category: [null, Validators.required],
-      size: [null, Validators.required],
-      sizeUnit: [null, Validators.required],
       weight: [null, Validators.required],
       weightUnit: [null, Validators.required],
       packingQty: [null, Validators.required],

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -6,9 +6,10 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment.development';
 import { ItemPriceService } from '../../../../../services/item-price.service';
+import { ItemService } from '../../../../../services/item.service';
 
 @Component({
   selector: 'app-edit-item-price-master',
@@ -16,21 +17,57 @@ import { ItemPriceService } from '../../../../../services/item-price.service';
   styleUrl: './edit-item-price-master.component.scss',
   imports: [FormsModule, ReactiveFormsModule],
 })
-export class EditItemPriceMasterComponent {
+export class EditItemPriceMasterComponent implements OnInit {
+  id: number;
   form: FormGroup;
+  items: any[] = [];
   constructor(
     private fb: FormBuilder,
     private itemPriceService: ItemPriceService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private itemService: ItemService
   ) {
+    this.id = +this.route.snapshot.paramMap.get('id')!;
     this.form = this.fb.group({
-      itemName: [null, Validators.required],
+      item: [null, Validators.required],
       amountIncGst: [null, Validators.required],
       itemGstRate: [null, Validators.required],
       priceApplicableFrom: [null, Validators.required],
       itemPrice: [null, Validators.required],
       itemHsnCode: [null, Validators.required],
     });
+  }
+
+  ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData() {
+    this.itemService.getAll().subscribe(
+      (res) => {
+        this.items = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+    this.itemPriceService.get(this.id).subscribe(
+      (res) => {
+        const item = this.items.filter((item) => item.id === res.item.id)[0];
+        this.form.patchValue({
+          item: item.id,
+          amountIncGst: res.amountIncGst,
+          itemGstRate: res.itemGstRate,
+          priceApplicableFrom: res.priceApplicableFrom,
+          itemPrice: res.itemPrice,
+          itemHsnCode: res.itemHsnCode,
+        });
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   submit() {

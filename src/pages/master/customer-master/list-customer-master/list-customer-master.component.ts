@@ -16,7 +16,6 @@ export class ListCustomerMasterComponent {
     'Login Page',
     'Contact No',
     'Contact Person',
-    'Entity Image',
     'Action',
   ];
   addBtnTxt = 'Add Customer';

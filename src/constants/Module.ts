@@ -5,3 +5,4 @@ export const itemPriceMaster = 'Item Price Master';
 export const gstMaster = 'Gst Rate Master';
 export const courierMaster = 'Courier Company Master';
 export const brandMaster = 'Brand Master';
+export const customerMaster = 'Customer Master';

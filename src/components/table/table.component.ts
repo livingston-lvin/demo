@@ -2,7 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, input, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -18,6 +22,7 @@ import { ItemPriceService } from '../../services/item-price.service';
 import {
   brandMaster,
   courierMaster,
+  customerMaster,
   gstMaster,
   itemCategoryMaster,
   itemMaster,
@@ -29,6 +34,8 @@ import { EditItemCategoryMasterComponent } from '../../pages/master/aos-user/ite
 import { CreateBrandMasterComponent } from '../../pages/master/aos-user/brand-master/create-brand-master/create-brand-master.component';
 import { EditBrandMasterComponent } from '../../pages/master/aos-user/brand-master/edit-brand-master/edit-brand-master.component';
 import { BrandService } from '../../services/brand.service';
+import { ImageComponent } from '../image/image.component';
+import { CustomerService } from '../../services/customer.service';
 
 @Component({
   selector: 'app-table',
@@ -66,6 +73,7 @@ export class TableComponent implements OnInit {
   gstMaster = signal('Gst Rate Master');
   courierMaster = signal('Courier Company Master');
   brandMaster = signal('Brand Master');
+  customerMaster = signal('Customer Master');
 
   constructor(
     private router: Router,
@@ -76,6 +84,7 @@ export class TableComponent implements OnInit {
     private gstService: GstService,
     private courierService: CourierService,
     private brandService: BrandService,
+    private customerService: CustomerService,
     private dialog: MatDialog
   ) {}
 
@@ -98,11 +107,12 @@ export class TableComponent implements OnInit {
       this.loadCourier();
     } else if (this.curModule() === brandMaster) {
       this.loadBrand();
+    } else if (this.curModule() === customerMaster) {
+      this.loadCustomer();
     }
   }
 
   navigateToCreateData() {
-    console.log(this.curModule());
     if (this.curModule() === userMaster) {
       this.navigateToCreateUser();
     } else if (this.curModule() === itemMaster) {
@@ -117,6 +127,8 @@ export class TableComponent implements OnInit {
       this.navigateToCreateCourier();
     } else if (this.curModule() === brandMaster) {
       this.openDialog(null, 'brand');
+    } else if (this.curModule() === customerMaster) {
+      this.navigateToCreateCustomer();
     }
   }
 
@@ -135,6 +147,8 @@ export class TableComponent implements OnInit {
       this.editCourier(id);
     } else if (this.curModule() === brandMaster) {
       this.openDialog(id, 'brand');
+    } else if (this.curModule() === customerMaster) {
+      this.editCustomer(id);
     }
   }
 
@@ -151,6 +165,8 @@ export class TableComponent implements OnInit {
       this.deleteGst(id);
     } else if (this.curModule() === courierMaster) {
       this.deleteCourier(id);
+    } else if (this.curModule() === customerMaster) {
+      this.deleteCustomer(id);
     }
   }
 
@@ -253,14 +269,12 @@ export class TableComponent implements OnInit {
     ]);
   }
 
-  viewUser(id: number) {
+  navigateToCreateCustomer() {
     this.router.navigate([
       environment.servletPath,
       environment.master,
-      environment.aosUser,
-      environment.user,
-      environment.view,
-      id,
+      environment.customerMaster,
+      environment.create,
     ]);
   }
 
@@ -314,6 +328,17 @@ export class TableComponent implements OnInit {
       environment.master,
       environment.aosUser,
       environment.courierMaster,
+      environment.edit,
+      id,
+    ]);
+  }
+
+  editCustomer(id: number) {
+    this.router.navigate([
+      environment.servletPath,
+      environment.master,
+      environment.aosUser,
+      environment.customerMaster,
       environment.edit,
       id,
     ]);
@@ -376,6 +401,17 @@ export class TableComponent implements OnInit {
 
   deleteCourier(id: number) {
     this.courierService.deleteCourier(id).subscribe(
+      (res) => {
+        this.loadData();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  deleteCustomer(id: number) {
+    this.customerService.deleteCustomer(id).subscribe(
       (res) => {
         this.loadData();
       },
@@ -496,7 +532,7 @@ export class TableComponent implements OnInit {
   }
 
   loadItem() {
-    this.itemService.getAll(this.limit(), this.offset()).subscribe(
+    this.itemService.getItems(this.limit(), this.offset()).subscribe(
       (res) => {
         this.items = res.content;
         this.size = +res.totalPages;
@@ -581,6 +617,20 @@ export class TableComponent implements OnInit {
     );
   }
 
+  loadCustomer() {
+    this.customerService.getCustomers(this.limit(), this.offset()).subscribe(
+      (res) => {
+        this.items = res.content;
+        this.size = +res.totalPages;
+        this.records = +res.totalElements;
+        this.page = this.items.length > 0 ? 1 : 0;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
   openDialog(id: number | null, module: string): void {
     let component: any | null = null;
     if (id === null) {
@@ -597,13 +647,21 @@ export class TableComponent implements OnInit {
       }
     }
 
-    console.log(component);
     this.dialog.open(component, {
       width: '500px',
       height: '250px',
       enterAnimationDuration: '0ms',
       exitAnimationDuration: '0ms',
       data: { id },
+    });
+  }
+
+  openImage(srcUrl: string, name: string) {
+    this.dialog.open(ImageComponent, {
+      width: '500px',
+      enterAnimationDuration: '0ms',
+      exitAnimationDuration: '0ms',
+      data: { srcUrl, name },
     });
   }
 }

@@ -4,8 +4,12 @@
     </header>
     <form [formGroup]="form" (ngSubmit)="submit()">
       <div class="input-field">
-        <label for="companyName">Item Name<span class="imp">*</span></label>
-        <input type="text" formControlName="companyName" required>
+        <label for="item">Item Name<span class="imp">*</span></label>
+        <select formControlName="item" required>
+          @for (item of items; track item) {
+          <option [value]="item.id">{{ item.name }}</option>
+          }
+        </select>
       </div>
       <div class="input-field">
         <label for="amountIncGst">Amount Including GST<span class="imp">*</span></label>

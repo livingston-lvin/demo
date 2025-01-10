@@ -1,1 +1,98 @@
-<p>create-customer-master works!</p>
+<div class="container">
+    <h3>1. Customer Detail</h3>
+    <form [formGroup]="form">
+        <div class="input-field">
+            <label for="customerName">Customer Name<span class="imp">*</span></label>
+            <input type="text" formControlName="customerName">
+        </div>
+        <div class="input-field">
+            <label for="customerLoginPageUrl">Customer Login Page URL</label>
+            <input type="text" formControlName="customerLoginPageUrl">
+        </div>
+        <div class="input-field">
+            <label for="email">Email<span class="imp">*</span></label>
+            <input type="email" formControlName="email">
+        </div>
+        <div class="input-field">
+            <label for="modeOfPayment">Payment Terms<span class="imp">*</span></label>
+            <select formControlName="modeOfPayment">
+                @for (payment of payments; track payment) {
+                <option [value]="payment">{{ payment }}</option>
+                }
+            </select>
+        </div>
+        <div class="input-field">
+            <label for="shippingChargesPaidBy">Shipping Charges Paid By<span class="imp">*</span></label>
+            <select formControlName="shippingChargesPaidBy">
+                @for (paid of paidBy; track paid) {
+                <option [value]="paid">{{ paid }}</option>
+                }
+            </select>
+        </div>
+        <div class="input-field">
+            <label for="gstNo">Customer GST Number</label>
+            <input type="text" formControlName="gstNo">
+        </div>
+        <div class="input-field">
+            <label for="state">State</label>
+            <input type="text" formControlName="state">
+        </div>
+        <div class="input-field">
+            <label for="city">City/Location</label>
+            <input type="text" formControlName="city">
+        </div>
+        <div class="input-field"></div>
+    </form>
+
+    <div class="c-flex">
+        <div class="customer-contact-persons">
+            <h3>2. Customer Contact Detail</h3>
+            <div class="flex">
+                @for (contact of contacts; track $index) {
+                <div class="customer-contact">
+                    <div class="close"><mat-icon (click)="removeContacts($index)">cancel</mat-icon></div>
+                    <span>{{ contact.name }}</span>
+                    <span>{{ contact.mobileNo }}</span>
+                    <span>{{ contact.landLineNo }}</span>
+                    <span>{{ contact.email }}</span>
+                    <span>{{ contact.designation }}</span>
+                    <span>{{ contact.remark }}</span>
+                </div>
+                }
+                <div class="contact-add">
+                    <button mat-icon-button type="button"
+                        (click)="openCustomerContactDialog()"><mat-icon>add</mat-icon></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="customer-contact-persons">
+            <h3>3. Customer Billing Detail</h3>
+            <div class="flex">
+                @for (billing of billings; track $index) {
+                <div class="customer-contact">
+                    <div class="close"><mat-icon (click)="removeBillings($index)">cancel</mat-icon></div>
+                    <span>{{ billing.address }}</span>
+                    <span>{{ billing.mobileNo }}</span>
+                    <span>{{ billing.state }}</span>
+                    <span>{{ billing.city }}</span>
+                    <span>{{ billing.pincode }}</span>
+                </div>
+                }
+                <div class="contact-add">
+                    <button mat-icon-button type="button"
+                        (click)="openCustomerBillingDialog()"><mat-icon>add</mat-icon></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-btns">
+            <button mat-flat-button type="submit" (click)="submit()">Submit</button>
+            <button mat-button type="button" (click)="navigateToListUserPage()">
+                Cancel
+            </button>
+        </div>
+    </div>
+
+
+</div>
