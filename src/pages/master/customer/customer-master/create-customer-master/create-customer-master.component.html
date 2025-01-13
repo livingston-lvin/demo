@@ -1,4 +1,4 @@
-<div class="container">
+<div class="form-container">
     <h3>1. Customer Detail</h3>
     <form [formGroup]="form">
         <div class="input-field">
@@ -51,7 +51,7 @@
                 @for (contact of contacts; track $index) {
                 <div class="customer-contact">
                     <div class="close"><mat-icon (click)="removeContacts($index)">cancel</mat-icon></div>
-                    <span>{{ contact.name }}</span>
+                    <span>{{ contact.name | shorten }}</span>
                     <span>{{ contact.mobileNo }}</span>
                     <span>{{ contact.landLineNo }}</span>
                     <span>{{ contact.email }}</span>
@@ -59,9 +59,8 @@
                     <span>{{ contact.remark }}</span>
                 </div>
                 }
-                <div class="contact-add">
-                    <button mat-icon-button type="button"
-                        (click)="openCustomerContactDialog()"><mat-icon>add</mat-icon></button>
+                <div class="contact-add" matRipple>
+                    <mat-icon (click)="openCustomerContactDialog()">add</mat-icon>
                 </div>
             </div>
         </div>

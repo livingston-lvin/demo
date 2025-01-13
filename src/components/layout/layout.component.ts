@@ -87,10 +87,23 @@ export class LayoutComponent  {
           {
             icon: 'account_box',
             label: 'Customer',
-            route: 'customer/list',
+            route: 'customer',
             selected: signal(false),
             showSubItemsItem: signal(false),
-            subItemsItems: [],
+            subItemsItems: [
+              {
+                icon: 'person',
+                label: 'Customer Master',
+                route: 'master/list',
+                selected: signal(false),
+              },
+              {
+                icon: 'local_activity',
+                label: 'Customer Item Master',
+                route: 'item/list',
+                selected: signal(false),
+              },
+            ],
           },
           {
             icon: 'password',

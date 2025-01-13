@@ -6,3 +6,4 @@ export const gstMaster = 'Gst Rate Master';
 export const courierMaster = 'Courier Company Master';
 export const brandMaster = 'Brand Master';
 export const customerMaster = 'Customer Master';
+export const customerItemMaster = 'Customer Item Master';

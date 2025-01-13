@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TableComponent } from '../../../../components/table/table.component';
+import { TableComponent } from '../../../../../components/table/table.component';
 
 @Component({
   selector: 'app-list-customer-master',
@@ -19,5 +19,5 @@ export class ListCustomerMasterComponent {
     'Action',
   ];
   addBtnTxt = 'Add Customer';
-  module = ['Masters', 'Customer Master'];
+  module = ['Masters', 'Customer', 'Customer Master'];
 }

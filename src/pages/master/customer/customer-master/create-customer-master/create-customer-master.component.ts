@@ -11,14 +11,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Success } from '../../../../constants/AppData';
-import { environment } from '../../../../environments/environment.development';
-import { SnackbarService } from '../../../../services/snackbar.service';
-import { UserService } from '../../../../services/user.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CustomerContactComponent } from '../../../../dialogs/customer-contact/customer-contact.component';
-import { CustomerBillingComponent } from '../../../../dialogs/customer-billing/customer-billing.component';
-import { CustomerService } from '../../../../services/customer.service';
+import {MatRippleModule} from '@angular/material/core';
+import { Success } from '../../../../../constants/AppData';
+import { CustomerBillingComponent } from '../../../../../dialogs/customer-billing/customer-billing.component';
+import { CustomerContactComponent } from '../../../../../dialogs/customer-contact/customer-contact.component';
+import { environment } from '../../../../../environments/environment.development';
+import { ShortenPipe } from '../../../../../pipes/shorten.pipe';
+import { CustomerService } from '../../../../../services/customer.service';
+import { SnackbarService } from '../../../../../services/snackbar.service';
 @Component({
   selector: 'app-create-customer-master',
   templateUrl: './create-customer-master.component.html',
@@ -29,7 +30,9 @@ import { CustomerService } from '../../../../services/customer.service';
     MatSnackBarModule,
     MatIconModule,
     MatButtonModule,
-  ],
+    ShortenPipe,
+    MatRippleModule
+],
 })
 export class CreateCustomerMasterComponent {
   form: FormGroup;

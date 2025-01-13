@@ -30,12 +30,16 @@ import { ListBrandMasterComponent } from '../pages/master/aos-user/brand-master/
 import { CreateBrandMasterComponent } from '../pages/master/aos-user/brand-master/create-brand-master/create-brand-master.component';
 import { ViewBrandMasterComponent } from '../pages/master/aos-user/brand-master/view-brand-master/view-brand-master.component';
 import { EditBrandMasterComponent } from '../pages/master/aos-user/brand-master/edit-brand-master/edit-brand-master.component';
-import { ListCustomerMasterComponent } from '../pages/master/customer-master/list-customer-master/list-customer-master.component';
-import { CreateCustomerMasterComponent } from '../pages/master/customer-master/create-customer-master/create-customer-master.component';
-import { ViewCustomerMasterComponent } from '../pages/master/customer-master/view-customer-master/view-customer-master.component';
-import { EditCustomerMasterComponent } from '../pages/master/customer-master/edit-customer-master/edit-customer-master.component';
 import { matchAuthGuard } from '../guards/match-auth.guard';
 import { parentAuthGuard } from '../guards/parent-auth.guard';
+import { ListCustomerMasterComponent } from '../pages/master/customer/customer-master/list-customer-master/list-customer-master.component';
+import { CreateCustomerMasterComponent } from '../pages/master/customer/customer-master/create-customer-master/create-customer-master.component';
+import { ViewCustomerMasterComponent } from '../pages/master/customer/customer-master/view-customer-master/view-customer-master.component';
+import { EditCustomerMasterComponent } from '../pages/master/customer/customer-master/edit-customer-master/edit-customer-master.component';
+import { EditCustomerItemMasterComponent } from '../pages/master/customer/customer-item-master/edit-customer-item-master/edit-customer-item-master.component';
+import { ListCustomerItemMasterComponent } from '../pages/master/customer/customer-item-master/list-customer-item-master/list-customer-item-master.component';
+import { CreateCustomerItemMasterComponent } from '../pages/master/customer/customer-item-master/create-customer-item-master/create-customer-item-master.component';
+import { ViewCustomerItemMasterComponent } from '../pages/master/customer/customer-item-master/view-customer-item-master/view-customer-item-master.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: environment.servletPath, pathMatch: 'full' },
@@ -228,21 +232,47 @@ export const routes: Routes = [
             path: environment.customerMaster,
             children: [
               {
-                path: environment.list,
-                component: ListCustomerMasterComponent,
+                path: environment.master,
+                children: [
+                  {
+                    path: environment.list,
+                    component: ListCustomerMasterComponent,
+                  },
+                  {
+                    path: environment.create,
+                    component: CreateCustomerMasterComponent,
+                  },
+                  {
+                    path: `${environment.view}/:id`,
+                    component: ViewCustomerMasterComponent,
+                  },
+                  {
+                    path: `${environment.edit}/:id`,
+                    component: EditCustomerMasterComponent,
+                  },
+                ],
               },
               {
-                path: environment.create,
-                component: CreateCustomerMasterComponent,
-              },
-              {
-                path: `${environment.view}/:id`,
-                component: ViewCustomerMasterComponent,
-              },
-              {
-                path: `${environment.edit}/:id`,
-                component: EditCustomerMasterComponent,
-              },
+                path:environment.item,
+                children: [
+                  {
+                    path: environment.list,
+                    component: ListCustomerItemMasterComponent,
+                  },
+                  {
+                    path: environment.create,
+                    component: CreateCustomerItemMasterComponent,
+                  },
+                  {
+                    path: `${environment.view}/:id`,
+                    component: ViewCustomerItemMasterComponent,
+                  },
+                  {
+                    path: `${environment.edit}/:id`,
+                    component: EditCustomerItemMasterComponent,
+                  },
+                ],
+              }
             ],
           },
         ],

@@ -22,6 +22,7 @@ import { ItemPriceService } from '../../services/item-price.service';
 import {
   brandMaster,
   courierMaster,
+  customerItemMaster,
   customerMaster,
   gstMaster,
   itemCategoryMaster,
@@ -66,14 +67,15 @@ export class TableComponent implements OnInit {
   module = input.required<string[]>();
   curModule = computed(() => this.module()[this.module().length - 1]);
 
-  userMaster = signal('User Master');
-  itemMaster = signal('Item Master');
-  itemCategoryMaster = signal('Item Category Master');
-  itemPriceMaster = signal('Item Price Master');
-  gstMaster = signal('Gst Rate Master');
-  courierMaster = signal('Courier Company Master');
-  brandMaster = signal('Brand Master');
-  customerMaster = signal('Customer Master');
+  userMaster = signal(userMaster);
+  itemMaster = signal(itemMaster);
+  itemCategoryMaster = signal(itemCategoryMaster);
+  itemPriceMaster = signal(itemPriceMaster);
+  gstMaster = signal(gstMaster);
+  courierMaster = signal(courierMaster);
+  brandMaster = signal(brandMaster);
+  customerMaster = signal(customerMaster);
+  customerItemMaster = signal(customerItemMaster);
 
   constructor(
     private router: Router,
@@ -129,6 +131,8 @@ export class TableComponent implements OnInit {
       this.openDialog(null, 'brand');
     } else if (this.curModule() === customerMaster) {
       this.navigateToCreateCustomer();
+    } else if (this.curModule() === customerItemMaster) {
+      this.navigateToCreateCustomerItem();
     }
   }
 
@@ -274,6 +278,17 @@ export class TableComponent implements OnInit {
       environment.servletPath,
       environment.master,
       environment.customerMaster,
+      environment.master,
+      environment.create,
+    ]);
+  }
+
+  navigateToCreateCustomerItem() {
+    this.router.navigate([
+      environment.servletPath,
+      environment.master,
+      environment.customerMaster,
+      environment.item,
       environment.create,
     ]);
   }
