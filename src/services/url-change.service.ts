@@ -7,8 +7,15 @@ import { filter } from 'rxjs';
 })
 export class UrlChangeService {
   constructor(private router: Router) {
-    this.router.events.subscribe((val) => {
-      console.log(val instanceof NavigationEnd);
-    });
+    console.log(router.isActive);
+    this.logUrlChanges();
+  }
+
+  logUrlChanges() {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        console.log('Navigated to URL:', event.urlAfterRedirects);
+      });
   }
 }

@@ -21,7 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-edit-item-master',
   templateUrl: './edit-item-master.component.html',
   styleUrl: './edit-item-master.component.scss',
-  imports: [FormsModule, ReactiveFormsModule, MatIconModule,MatButtonModule],
+  imports: [FormsModule, ReactiveFormsModule, MatIconModule, MatButtonModule],
 })
 export class EditItemMasterComponent implements OnInit {
   id: number;
@@ -64,6 +64,8 @@ export class EditItemMasterComponent implements OnInit {
       minOrderQty: [null, Validators.required],
       brand: [null, Validators.required],
       attribute: [null, Validators.required],
+      hsnCode: [null, Validators.required],
+      gst: [null, Validators.required],
     });
   }
   ngOnInit(): void {
@@ -97,7 +99,7 @@ export class EditItemMasterComponent implements OnInit {
         const brand = this.brands.filter(
           (brand) => brand.id === res.brand.id
         )[0];
-        console.log(category,brand);
+        console.log(category, brand);
         this.form.patchValue({
           id: res.id,
           name: res.name,
@@ -109,7 +111,9 @@ export class EditItemMasterComponent implements OnInit {
           packingUnit: res.packingUnit,
           minOrderQty: res.minOrderQty,
           attribute: res.attribute,
-          brand:brand.id
+          brand: brand.id,
+          hsnCode: res.hsnCode,
+          gst: res.gst,
         });
       },
       (err) => {

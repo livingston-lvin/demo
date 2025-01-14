@@ -59,6 +59,8 @@ export class CreateItemMasterComponent implements OnInit {
       minOrderQty: [null, Validators.required],
       brand: [null, Validators.required],
       attribute: [null, Validators.required],
+      hsnCode: [null, Validators.required],
+      gst: [null, Validators.required],
     });
   }
   ngOnInit(): void {

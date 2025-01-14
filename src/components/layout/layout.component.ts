@@ -1,18 +1,25 @@
 import { Component, computed, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { environment } from '../../environments/environment.development';
 import { CommonModule } from '@angular/common';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
-  imports: [MatButtonModule, MatIconModule, RouterModule, CommonModule,MatMenuModule],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    RouterModule,
+    CommonModule,
+    MatMenuModule,
+  ],
 })
-export class LayoutComponent  {
+export class LayoutComponent {
   sideMenuOpened = signal(false);
   sideMenusWidth = computed(() => (this.sideMenuOpened() ? 350 : 80));
   items: any[] = [];
@@ -124,6 +131,16 @@ export class LayoutComponent  {
         subItems: [],
       },
     ];
+
+    this.urlChanges();
+  }
+
+  urlChanges() {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        const url:string = event.urlAfterRedirects;
+      });
   }
 
   navigate(route: string[], data: any[]) {

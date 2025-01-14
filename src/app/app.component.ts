@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter, RouterModule } from '@angular/router';
-import { routes } from './app.routes';
-import { UrlChangeService } from '../services/url-change.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +7,4 @@ import { UrlChangeService } from '../services/url-change.service';
   styleUrl: './app.component.scss',
   imports: [RouterModule],
 })
-export class AppComponent {
-}
-
-bootstrapApplication(AppComponent, {
-  providers: [provideRouter(routes), UrlChangeService],
-});
+export class AppComponent {}

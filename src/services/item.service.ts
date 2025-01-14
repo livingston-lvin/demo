@@ -18,7 +18,7 @@ export class ItemService {
   getItems(limit: number, offset: number): Observable<any> {
     return this.http.get<any>(`${this.url}/${limit}/${offset}`);
   }
-  
+
   getAll(): Observable<any> {
     return this.http.get<any>(`${this.url}/valid`);
   }
@@ -36,10 +36,14 @@ export class ItemService {
   }
 
   search(search: string, limit: number, offset: number): Observable<any> {
-      const params = new HttpParams()
-        .set('s', search)
-        .set('limit', limit)
-        .set('offset', offset);
-      return this.http.get<any>(this.url, { params });
-    }
+    const params = new HttpParams()
+      .set('s', search)
+      .set('limit', limit)
+      .set('offset', offset);
+    return this.http.get<any>(this.url, { params });
+  }
+
+  getValidItems(): Observable<any> {
+    return this.http.get<any>(`${this.url}/all`);
+  }
 }

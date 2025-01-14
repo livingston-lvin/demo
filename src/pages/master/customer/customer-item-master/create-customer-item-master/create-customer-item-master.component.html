@@ -1,1 +1,55 @@
-<p>create-customer-item-master works!</p>
+<div class="form-container">
+    <h3>1. Customer Detail</h3>
+    <form [formGroup]="form">
+        <div class="input-field">
+            <label for="item">AOS Item Name<span class="imp">*</span></label>
+            <select formControlName="item" (change)="onSelect($event)">
+                @for (item of items; track item) {
+                <option [value]="item.id">{{ item.name }}</option>
+                }
+            </select>
+        </div>
+        <div class="input-field">
+            <label for="category">AOS Item Category<span class="imp">*</span></label>
+            <input type="text" formControlName="category">
+        </div>
+        <div class="input-field">
+            <label for="customer">Select Customer<span class="imp">*</span></label>
+            <select formControlName="customer">
+                @for (customer of customers; track customer) {
+                <option [value]="customer.id">{{ customer.customerName }}</option>
+                }
+            </select>
+        </div>
+        <div class="input-field">
+            <label for="customerItemAlias">Customer Item Alias</label>
+            <input type="text" formControlName="customerItemAlias">
+        </div>
+        <div class="input-field">
+            <label for="customerItemCode">Customer Item code<span class="imp">*</span></label>
+            <input type="text" formControlName="customerItemCode">
+        </div>
+        <div class="input-field">
+            <label for="customerItemPrice">Customer Item Price <span class="imp">*</span></label>
+            <input type="text" formControlName="customerItemPrice" (keydown)="validateNumberInput($event)" required>
+        </div>
+        <div class="input-field">
+            <label for="gst">GST Rate(in %) <span class="imp">*</span></label>
+            <input type="text" formControlName="gst">
+        </div>
+        <div class="input-field">
+            <label for="itemHsnCode">Item HSN Code<span class="imp">*</span></label>
+            <input type="text" formControlName="itemHsnCode">
+        </div>
+        <div class="input-field">
+            <label for="priceIncGST">Price including GST<span class="imp">*</span></label>
+            <input type="text" formControlName="priceIncGST">
+        </div>
+        <div class="action-btns">
+            <button mat-flat-button type="submit" (click)="submit()">Submit</button>
+            <button mat-button type="button" (click)="navigateToListUserPage()">
+                Cancel
+            </button>
+        </div>
+    </form>
+</div>
