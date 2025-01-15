@@ -10,12 +10,8 @@ import { TableComponent } from '../../../../../components/table/table.component'
 export class ListCustomerItemMasterComponent {
   headers: string[] = [
     'S.No.',
-    'Full Name',
-    'Contact Person',
-    'Code',
-    'Login Page',
-    'Contact No',
-    'Contact Person',
+    'Customer',
+    'Items',
     'Action',
   ];
   addBtnTxt = 'Add Customer Item';

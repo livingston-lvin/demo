@@ -11,13 +11,22 @@
 <div class="container">
     <header>
         <div class="center">
+            @if(this.curModule() !== customerItemMaster()){
             <select (change)="onSelectRow($event)">
                 @for (row of rows; track row) {
                 <option [value]="row">{{ row }}</option>
                 }
             </select>
+            }
         </div>
         <div>
+            @if(this.curModule() === customerItemMaster()){
+            <button mat-flat-button class="btn-sm" (click)="download()"><mat-icon>download</mat-icon>Download</button>
+            &nbsp;&nbsp;&nbsp;
+            <button mat-flat-button class="btn-sm"
+                (click)="fileInput.click()"><mat-icon>upload</mat-icon>Upload</button> &nbsp;&nbsp;&nbsp;
+            <input type="file" #fileInput hidden (change)="onFileSelected($event)" />
+            }
             <button mat-flat-button class="btn-sm" (click)="navigateToCreateData()">
                 <mat-icon>add</mat-icon> {{ addBtnTxt() }}
             </button>
@@ -191,34 +200,51 @@
                 }
 
                 @else if (curModule() === customerMaster()) {
-                    @for (item of items; track $index) {
-                    <tr class="row-data">
-                        <td>{{ $index + 1 + offset() * limit() }}.</td>
-                        <td>{{ item.customerName }}</td>
-                        <td>{{ item.contacts[0].name }}</td>
-                        <td>{{ item.code }}</td>
-                        <td>{{ item.customerLoginPageUrl }}</td>
-                        <td>{{ item.contacts[0].mobileNo }}</td>
-                        <td>{{ item.contacts[0].name }}</td>
-                        <td>
-                            <button mat-icon-button (click)="editData(item.id)">
-                                <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">edit_note</mat-icon>
-                            </button>
-                            <button mat-icon-button (click)="deleteData(item.id)">
-                                <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">delete</mat-icon>
-                            </button>
-                        </td>
-                    </tr>
-                    }
-                    }
+                @for (item of items; track $index) {
+                <tr class="row-data">
+                    <td>{{ $index + 1 + offset() * limit() }}.</td>
+                    <td>{{ item.customerName }}</td>
+                    <td>{{ item.contacts[0].name }}</td>
+                    <td>{{ item.code }}</td>
+                    <td>{{ item.customerLoginPageUrl }}</td>
+                    <td>{{ item.contacts[0].mobileNo }}</td>
+                    <td>{{ item.contacts[0].name }}</td>
+                    <td>
+                        <button mat-icon-button (click)="editData(item.id)">
+                            <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">edit_note</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="deleteData(item.id)">
+                            <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                }
+                }
+
+                @else if (curModule() === customerItemMaster()) {
+                @for (item of items; track $index) {
+                <tr class="row-data">
+                    <td>{{ $index + 1 + offset() * limit() }}.</td>
+                    <td>{{ item.cname }}</td>
+                    <td>{{ item.count }}</td>
+                    <td>
+                        <button mat-icon-button (click)="viewData(item.cid)" title="view">
+                            <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">visibility</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                }
+                }
 
             </tbody>
         </table>
     </div>
     <div class="paginator">
         @if(items.length){
+        @if(this.curModule() !== customerItemMaster()){
         <app-paginator (page)="navigate($event)" [size]="size" [records]="records" [from]="from()"
             [to]="to()"></app-paginator>
+        }
         } @else {
         <h2>No Data in the table...</h2>
         }

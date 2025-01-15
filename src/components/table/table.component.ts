@@ -37,6 +37,7 @@ import { EditBrandMasterComponent } from '../../pages/master/aos-user/brand-mast
 import { BrandService } from '../../services/brand.service';
 import { ImageComponent } from '../image/image.component';
 import { CustomerService } from '../../services/customer.service';
+import { CustomerItemService } from '../../services/customer-item.service';
 
 @Component({
   selector: 'app-table',
@@ -87,6 +88,7 @@ export class TableComponent implements OnInit {
     private courierService: CourierService,
     private brandService: BrandService,
     private customerService: CustomerService,
+    private customerItemService: CustomerItemService,
     private dialog: MatDialog
   ) {}
 
@@ -111,6 +113,8 @@ export class TableComponent implements OnInit {
       this.loadBrand();
     } else if (this.curModule() === customerMaster) {
       this.loadCustomer();
+    } else if (this.curModule() === customerItemMaster) {
+      this.loadCustomerItem();
     }
   }
 
@@ -646,6 +650,17 @@ export class TableComponent implements OnInit {
     );
   }
 
+  loadCustomerItem() {
+    this.customerItemService.getData().subscribe(
+      (res) => {
+        this.items = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
   openDialog(id: number | null, module: string): void {
     let component: any | null = null;
     if (id === null) {
@@ -678,5 +693,45 @@ export class TableComponent implements OnInit {
       exitAnimationDuration: '0ms',
       data: { srcUrl, name },
     });
+  }
+
+  viewData(id: number) {
+    this.router.navigate([
+      environment.servletPath,
+      environment.master,
+      environment.customerMaster,
+      environment.item,
+      environment.view,
+      id,
+    ]);
+  }
+
+  download() {
+    this.customerItemService.download().subscribe((blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'upload-format.xlsx';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+
+      this.customerItemService.upload(formData).subscribe(
+        (response) => {
+          this.loadData();
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    }
   }
 }
