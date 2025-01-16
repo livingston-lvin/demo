@@ -11,6 +11,7 @@ import { environment } from '../../../../../environments/environment.development
 import { CustomerItemService } from '../../../../../services/customer-item.service';
 import { CustomerService } from '../../../../../services/customer.service';
 import { ItemService } from '../../../../../services/item.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-customer-item-master',
@@ -31,7 +32,8 @@ export class EditCustomerItemMasterComponent implements OnInit {
     private itemService: ItemService,
     private customerService: CustomerService,
     private customerItemService: CustomerItemService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.form = this.fb.group({
@@ -51,31 +53,53 @@ export class EditCustomerItemMasterComponent implements OnInit {
   }
 
   loadData() {
-    this.itemService.getValidItems().subscribe(
-      (res: any[]) => {
+    const itemPromise = new Promise((resolve, reject) => {
+      this.itemService.getValidItems().subscribe(
+        (res: any[]) => {
+          resolve(res);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+
+    const customerPromise = new Promise((resolve, reject) => {
+      this.customerService.getValidCustomers().subscribe(
+        (res) => {
+          resolve(res);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+
+    const customerItemPromise = new Promise((resolve, reject) => {
+      this.customerItemService.getCustomerItem(this.id).subscribe(
+        (res) => {
+          resolve(res);
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+
+    itemPromise
+      .then((res: any) => {
         this.items = res;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-
-    this.customerService.getValidCustomers().subscribe(
-      (res) => {
+        return customerPromise;
+      })
+      .then((res: any) => {
         this.customers = res;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-
-    this.customerItemService.getCustomerItem(this.id).subscribe(
-      (res: any) => {
+        return customerItemPromise;
+      })
+      .then((res: any) => {
         let item = this.items.filter((item) => item.field === res.itemId)[0];
         let customer = this.customers.filter(
           (customer) => customer.field === res.customerId
         )[0];
-        console.log(item);
         this.form.patchValue({
           item: item.field,
           customer: customer.field,
@@ -83,11 +107,10 @@ export class EditCustomerItemMasterComponent implements OnInit {
           itemCode: res.itemCode,
           itemPrice: res.itemPrice,
         });
-      },
-      (err) => {
+      })
+      .catch((err) => {
         console.log(err);
-      }
-    );
+      });
   }
 
   onSelect(event: any) {
@@ -126,9 +149,6 @@ export class EditCustomerItemMasterComponent implements OnInit {
   submit() {
     const value = this.form.value;
     const payload = {
-      ...value,
-      itemId: value.item,
-      customerId: value.customer,
     };
     if (this.form.valid) {
       this.customerItemService.create(payload).subscribe(
@@ -150,8 +170,7 @@ export class EditCustomerItemMasterComponent implements OnInit {
       environment.master,
       environment.customerMaster,
       environment.item,
-      environment.edit,
-      this.id 
+      environment.list,
     ]);
   }
 }
