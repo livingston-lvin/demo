@@ -10,11 +10,12 @@ import { TableComponent } from '../../../../../components/table/table.component'
 export class ListCustomerMasterComponent {
   headers: string[] = [
     'S.No.',
-    'Full Name',
-    'Contact Person',
-    'Login Page',
-    'Contact No',
-    'Contact Person',
+    'Customer',
+    'Login Page Url',
+    'Email',
+    'Gst No',
+    'State',
+    'City',
     'Action',
   ];
   addBtnTxt = 'Add Customer';

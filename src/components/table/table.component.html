@@ -204,10 +204,11 @@
                 <tr class="row-data">
                     <td>{{ $index + 1 + offset() * limit() }}.</td>
                     <td>{{ item.customerName }}</td>
-                    <td>{{ item.contacts[0].name }}</td>
                     <td>{{ item.customerLoginPageUrl }}</td>
-                    <td>{{ item.contacts[0].mobileNo }}</td>
-                    <td>{{ item.contacts[0].name }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>{{ item.gstNo }}</td>
+                    <td>{{ item.state }}</td>
+                    <td>{{ item.city }}</td>
                     <td>
                         <button mat-icon-button (click)="editData(item.id)">
                             <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">edit_note</mat-icon>
