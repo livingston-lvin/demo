@@ -49,7 +49,7 @@
             <h3>2. Customer Contact Detail</h3>
             <div class="flex">
                 @for (contact of contacts; track $index) {
-                <div class="customer-contact">
+                <div class="customer-contact" (click)="editContact(contact ,$index)">
                     <div class="close"><mat-icon (click)="removeContacts($index)">cancel</mat-icon></div>
                     <span>{{ contact.name | shorten }}</span>
                     <span>{{ contact.mobileNo }}</span>
@@ -69,7 +69,7 @@
             <h3>3. Customer Billing Detail</h3>
             <div class="flex">
                 @for (billing of billings; track $index) {
-                <div class="customer-contact">
+                <div class="customer-contact" (click)="editBilling(billing ,$index)">
                     <div class="close"><mat-icon (click)="removeBillings($index)">cancel</mat-icon></div>
                     <span>{{ billing.address }}</span>
                     <span>{{ billing.mobileNo }}</span>

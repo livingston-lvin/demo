@@ -70,7 +70,6 @@ export class EditItemCategoryMasterComponent implements OnInit {
           console.log(err);
         }
       );
-      this.dialogRef.close();
     } else {
       alert('Please fill all mandetory fields...');
     }

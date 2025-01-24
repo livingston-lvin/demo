@@ -23,7 +23,9 @@ export class LayoutComponent {
   sideMenuOpened = signal(false);
   sideMenusWidth = computed(() => (this.sideMenuOpened() ? 350 : 80));
   items: any[] = [];
+  username: string;
   constructor(private router: Router) {
+    this.username = JSON.parse(localStorage.getItem('user')!).username;
     this.items = [
       {
         icon: 'grid_view',
@@ -139,7 +141,7 @@ export class LayoutComponent {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        const url:string = event.urlAfterRedirects;
+        const url: string = event.urlAfterRedirects;
       });
   }
 
@@ -220,5 +222,10 @@ export class LayoutComponent {
         });
       }
     });
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['']);
   }
 }

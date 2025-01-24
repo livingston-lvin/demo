@@ -8,7 +8,7 @@
       <input type="text" formControlName="name" required>
     </div>
     <div class="input-field">
-      <label for="code">Item Code</label>
+      <label for="code">Item Code<span class="imp">*</span></label>
       <input type="text" formControlName="code">
     </div>
     <div class="input-field">
@@ -33,15 +33,15 @@
       </button>
     </div>
     <div class="input-field">
-      <label for="attribute">Item Attribute(Color/Size)</label>
+      <label for="attribute">Item Attribute(Color/Size)<span class="imp">*</span></label>
       <input type="text" formControlName="attribute">
     </div>
     <div class="input-field">
-      <label for="weight">Weight</label>
+      <label for="weight">Weight<span class="imp">*</span></label>
       <input type="text" formControlName="weight">
     </div>
     <div class="input-field">
-      <label for="weightUnit">Weight Unit</label>
+      <label for="weightUnit">Weight Unit<span class="imp">*</span></label>
       <select formControlName="weightUnit" required>
         @for (weightUnit of weightUnits; track weightUnit) {
         <option [value]="weightUnit">{{ weightUnit }}</option>
@@ -49,11 +49,11 @@
       </select>
     </div>
     <div class="input-field">
-      <label for="packingQty">Packing Quantity</label>
+      <label for="packingQty">Packing Quantity<span class="imp">*</span></label>
       <input type="text" formControlName="packingQty">
     </div>
     <div class="input-field">
-      <label for="packingUnit">Packing Quantity Unit</label>
+      <label for="packingUnit">Packing Quantity Unit<span class="imp">*</span></label>
       <select formControlName="packingUnit" required>
         @for (packingUnit of packingUnits; track packingUnit) {
         <option [value]="packingUnit">{{ packingUnit }}</option>
@@ -61,11 +61,11 @@
       </select>
     </div>
     <div class="input-field">
-      <label for="minOrderQty">Minimum Order Quantity</label>
+      <label for="minOrderQty">Minimum Order Quantity<span class="imp">*</span></label>
       <input type="text" formControlName="minOrderQty">
     </div>
     <div class="input-field">
-      <label for="brand">Item Brand</label>
+      <label for="brand">Item Brand<span class="imp">*</span></label>
       <select formControlName="brand" required>
         @for (brand of brands; track brand) {
         <option [value]="brand.id">{{ brand.name }}</option>
@@ -73,11 +73,11 @@
       </select>
     </div>
     <div class="input-field">
-      <label for="hsnCode">HSN Code</label>
+      <label for="hsnCode">HSN Code<span class="imp">*</span></label>
       <input type="text" formControlName="hsnCode">
     </div>
     <div class="input-field">
-      <label for="gst">GST Rate(in %)</label>
+      <label for="gst">GST Rate(in %)<span class="imp">*</span></label>
       <input type="text" formControlName="gst">
     </div>
     <div class="input-field"></div>

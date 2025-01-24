@@ -12,7 +12,6 @@ export class ListCustomerMasterComponent {
     'S.No.',
     'Full Name',
     'Contact Person',
-    'Code',
     'Login Page',
     'Contact No',
     'Contact Person',

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -6,11 +6,10 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ImageComponent } from '../../components/image/image.component';
 import { environment } from '../../environments/environment.development';
-import { CourierService } from '../../services/courier.service';
 
 @Component({
   selector: 'app-customer-billing',
@@ -24,27 +23,31 @@ export class CustomerBillingComponent {
 
   constructor(
     private fb: FormBuilder,
-    private courierService: CourierService,
-    private router: Router
+    private router: Router,
+    @Inject(MAT_DIALOG_DATA) private data: any
   ) {
-    this.form = this.fb.group({
-      // name: [null, Validators.required],
-      // mobileNo: [null, Validators.required],
-      // landLineNo: [null, Validators.required],
-      // email: [null, Validators.required],
-      // designation: [null, Validators.required],
-      // remark: [null, Validators.required],
-
-      address: ['Plot No 88, Door No 4, Maraimalai Nagar', Validators.required],
-      mobileNo: [9965999285, Validators.required],
-      state: ['TamilNadu', Validators.required],
-      city: ['Pudukkottai', Validators.required],
-      pincode: [622003, Validators.required],
-    });
+    if (data.mode === 'edit') {
+      const billing = this.data.billing;
+      this.form = this.fb.group({
+        address: [billing.address, Validators.required],
+        mobileNo: [billing.mobileNo, Validators.required],
+        state: [billing.state, Validators.required],
+        city: [billing.city, Validators.required],
+        pincode: [billing.pincode, Validators.required],
+      });
+    } else {
+      this.form = this.fb.group({
+        address: [null, Validators.required],
+        mobileNo: [null, Validators.required],
+        state: [null, Validators.required],
+        city: [null, Validators.required],
+        pincode: [null, Validators.required],
+      });
+    }
   }
 
   submit() {
-    this.close();
+    this.dialogRef.close(this.form.value);
   }
 
   navigateToListCourierPage() {
@@ -72,6 +75,6 @@ export class CustomerBillingComponent {
   }
 
   close() {
-    this.dialogRef.close(this.form.value);
+    this.dialogRef.close();
   }
 }

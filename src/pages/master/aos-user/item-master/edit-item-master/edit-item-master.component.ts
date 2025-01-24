@@ -99,7 +99,6 @@ export class EditItemMasterComponent implements OnInit {
         const brand = this.brands.filter(
           (brand) => brand.id === res.brand.id
         )[0];
-        console.log(category, brand);
         this.form.patchValue({
           id: res.id,
           name: res.name,
@@ -125,6 +124,7 @@ export class EditItemMasterComponent implements OnInit {
   submit() {
     if (this.form.valid) {
       const value = this.form.value;
+      console.log(value);
       const formData: FormData = new FormData();
       formData.append(
         'data',

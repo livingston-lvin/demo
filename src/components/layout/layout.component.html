@@ -10,14 +10,16 @@
         </div>
         <div class="spacing"></div>
         <div class="user">
-            <span class="username" [matMenuTriggerFor]="menu">Livingston Vijayakumar</span>
-            <mat-icon>person</mat-icon>
+            <div [matMenuTriggerFor]="menu">
+                <span class="username">{{ username }}</span>
+                <mat-icon>person</mat-icon>
+            </div>
             <mat-menu #menu="matMenu" yPosition="below">
                 <button mat-menu-item>
                   <mat-icon>person_edit</mat-icon>
                   <span class="options">Update Profile</span>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item (click)="logout()">
                   <mat-icon>logout</mat-icon>
                   <span class="options">Logout</span>
                 </button>

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -8,8 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment.development';
-import { CourierService } from '../../services/courier.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ImageComponent } from '../../components/image/image.component';
 
 @Component({
@@ -24,28 +23,33 @@ export class CustomerContactComponent {
 
   constructor(
     private fb: FormBuilder,
-    private courierService: CourierService,
-    private router: Router
+    private router: Router,
+    @Inject(MAT_DIALOG_DATA) private data: any
   ) {
-    this.form = this.fb.group({
-      // name: [null, Validators.required],
-      // mobileNo: [null, Validators.required],
-      // landLineNo: [null, Validators.required],
-      // email: [null, Validators.required],
-      // designation: [null, Validators.required],
-      // remark: [null, Validators.required],
-
-      name: ['Livingston', Validators.required],
-      mobileNo: [9965999285, Validators.required],
-      landLineNo: ['044 - 622001', Validators.required],
-      email: ['livingstonlvin@gmail.com', Validators.required],
-      designation: ['Sales Assistant', Validators.required],
-      remark: ['This is the test remark', Validators.required],
-    });
+    if (data.mode === 'edit') {
+      const contact = this.data.contact
+      this.form = this.fb.group({
+        name: [contact.name, Validators.required],
+        mobileNo: [contact.mobileNo, Validators.required],
+        landLineNo: [contact.landLineNo, Validators.required],
+        email: [contact.email, Validators.required],
+        designation: [contact.designation, Validators.required],
+        remark: [contact.remark, Validators.required],
+      });
+    } else {
+      this.form = this.fb.group({
+        name: [null, Validators.required],
+        mobileNo: [null, Validators.required],
+        landLineNo: [null, Validators.required],
+        email: [null, Validators.required],
+        designation: [null, Validators.required],
+        remark: [null, Validators.required],
+      });
+    }
   }
 
   submit() {
-    this.close();
+    this.dialogRef.close(this.form.value);
   }
 
   navigateToListCourierPage() {
@@ -73,6 +77,6 @@ export class CustomerContactComponent {
   }
 
   close() {
-    this.dialogRef.close(this.form.value);
+    this.dialogRef.close();
   }
 }

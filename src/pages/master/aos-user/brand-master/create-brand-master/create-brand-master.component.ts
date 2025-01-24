@@ -49,7 +49,6 @@ export class CreateBrandMasterComponent {
             console.log(err);
           }
         );
-        this.dialogRef.close();
       } else {
         alert('Please fill all mandetory fields...');
       }

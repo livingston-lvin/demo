@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import {MatRippleModule} from '@angular/material/core';
+import { MatRippleModule } from '@angular/material/core';
 import { Success } from '../../../../../constants/AppData';
 import { CustomerBillingComponent } from '../../../../../dialogs/customer-billing/customer-billing.component';
 import { CustomerContactComponent } from '../../../../../dialogs/customer-contact/customer-contact.component';
@@ -31,8 +31,8 @@ import { SnackbarService } from '../../../../../services/snackbar.service';
     MatIconModule,
     MatButtonModule,
     ShortenPipe,
-    MatRippleModule
-],
+    MatRippleModule,
+  ],
 })
 export class CreateCustomerMasterComponent {
   form: FormGroup;
@@ -41,24 +41,7 @@ export class CreateCustomerMasterComponent {
   showPassword = signal(false);
   showConfirmPassword = signal(false);
   firstName = new FormControl();
-  contacts: any[] = [
-    {
-      name: 'Livingston',
-      mobileNo: 9965999285,
-      landLineNo: '044 - 622001',
-      email: 'livingstonlvin@gmail.com',
-      designation: 'Sales Assistant',
-      remark: 'This is the test remark',
-    },
-    {
-      name: 'Livingston',
-      mobileNo: 9965999285,
-      landLineNo: '044 - 622001',
-      email: 'livingstonlvin@gmail.com',
-      designation: 'Sales Assistant',
-      remark: 'This is the test remark',
-    },
-  ];
+  contacts: any[] = [];
   billings: any[] = [];
   constructor(
     private fb: FormBuilder,
@@ -126,6 +109,7 @@ export class CreateCustomerMasterComponent {
       environment.servletPath,
       environment.master,
       environment.customerMaster,
+      environment.master,
       environment.list,
     ]);
   }
@@ -136,11 +120,33 @@ export class CreateCustomerMasterComponent {
       height: '500px',
       enterAnimationDuration: '0ms',
       exitAnimationDuration: '0ms',
+      data: { mode: 'create' },
     });
 
     dialog.afterClosed().subscribe(
       (res) => {
-        this.contacts.push(res);
+        if (res) this.contacts.push(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  editContact(contact: any, index: number) {
+    const dialog = this.dialog.open(CustomerContactComponent, {
+      width: '500px',
+      height: '500px',
+      enterAnimationDuration: '0ms',
+      exitAnimationDuration: '0ms',
+      data: { mode: 'edit', contact },
+    });
+
+    dialog.afterClosed().subscribe(
+      (res) => {
+        if (res) {
+          this.contacts.splice(index, 1, res);
+        }
       },
       (err) => {
         console.log(err);
@@ -154,11 +160,33 @@ export class CreateCustomerMasterComponent {
       height: '500px',
       enterAnimationDuration: '0ms',
       exitAnimationDuration: '0ms',
+      data: { mode: 'create' },
     });
 
     dialog.afterClosed().subscribe(
       (res) => {
-        this.billings.push(res);
+        if (res) this.billings.push(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  editBilling(billing: any, index: number) {
+    const dialog = this.dialog.open(CustomerBillingComponent, {
+      width: '500px',
+      height: '500px',
+      enterAnimationDuration: '0ms',
+      exitAnimationDuration: '0ms',
+      data: { mode: 'edit', billing },
+    });
+
+    dialog.afterClosed().subscribe(
+      (res) => {
+        if (res) {
+          this.billings.splice(index, 1, res);
+        }
       },
       (err) => {
         console.log(err);

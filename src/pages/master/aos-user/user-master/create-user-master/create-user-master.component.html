@@ -5,23 +5,23 @@
   <form [formGroup]="form" (ngSubmit)="submit()" ngNativeValidate>
     <div class="input-field">
       <label for="firstName">First Name<span class="imp">*</span></label>
-      <input type="text" class="input-txt" formControlName="firstName" required>
+      <input type="text" formControlName="firstName" required>
     </div>
     <div class="input-field">
       <label for="middleName">Middle Name</label>
-      <input type="text" class="input-txt" formControlName="middleName">
+      <input type="text" formControlName="middleName">
     </div>
     <div class="input-field">
       <label for="lastName">Last Name<span class="imp">*</span></label>
-      <input type="text" class="input-txt" formControlName="lastName" required>
+      <input type="text" formControlName="lastName" required>
     </div>
     <div class="input-field">
       <label for="email">Email<span class="imp">*</span></label>
-      <input type="email" class="input-txt" formControlName="email" required>
+      <input type="email" formControlName="email" required>
     </div>
     <div class="input-field">
       <label for="mobileNo">Mobile No.<span class="imp">*</span></label>
-      <input type="text" maxlength="10" minlength="10" class="input-txt" formControlName="mobileNo" pattern="\d{10}"
+      <input type="text" maxlength="10" minlength="10" formControlName="mobileNo" pattern="\d{10}"
         (keydown)="validateNumberInput($event)" required>
     </div>
     <div class="input-field">
@@ -35,7 +35,7 @@
     <div class="input-field">
       <label for="password">Password<span class="imp">*</span></label>
       <div class="input-container">
-        <input [type]="showPassword() ? 'text' : 'password'" class="input-txt" formControlName="password" required />
+        <input [type]="showPassword() ? 'text' : 'password'" formControlName="password" required style="height: 1.5rem;"/>
         <button type="button" mat-icon-button class="toggle-password" (click)="showPassword.set(!showPassword())">
           <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
@@ -43,9 +43,9 @@
     </div>
     <div class="input-field">
       <label for="confirmPassword">Confirm Password<span class="imp">*</span></label>
-      <div class="input-container">
-        <input [type]="showConfirmPassword() ? 'text' : 'password'" class="input-txt" formControlName="confirmPassword"
-          required>
+      <div class="input-container" >
+        <input [type]="showConfirmPassword() ? 'text' : 'password'" formControlName="confirmPassword"
+          required style="height: 1.5rem;">
         <button type="button" mat-icon-button class="toggle-password"
           (click)="showConfirmPassword.set(!showConfirmPassword())">
           <mat-icon>{{ showConfirmPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>

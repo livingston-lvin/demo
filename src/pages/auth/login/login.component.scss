@@ -1,0 +1,72 @@
+@use "../../../constants/colors.scss" as color;
+
+.container {
+  width: 20%;
+  margin: 150px auto;
+}
+
+form {
+  width: auto;
+  background-color: whitesmoke;
+  padding: 25px;
+}
+
+.action-btns {
+  display: flex;
+  justify-content: flex-start;
+
+  button {
+    font-size: 1rem;
+    font-family: ROBOTO-LIGHT;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 8px 25px;
+
+    &[type="submit"],
+    &[type="button"] {
+      background-color: #007bff;
+      color: white;
+      margin-right: 25px;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+    &[type="reset"] {
+      background-color: #f8f9fa;
+      color: red;
+      border: 1px solid #ced4da;
+
+      &:hover {
+        background-color: #e2e6ea;
+      }
+    }
+  }
+}
+
+.input-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+input {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 250px;
+  padding-right: 40px; 
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline-color: blue;
+}
+
+input::placeholder {
+  font-size: 1rem;
+}

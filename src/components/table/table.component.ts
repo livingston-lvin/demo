@@ -176,6 +176,7 @@ export class TableComponent implements OnInit {
     } else if (this.curModule() === customerMaster) {
       this.deleteCustomer(id);
     }
+    this.reset();
   }
 
   search() {
@@ -356,8 +357,8 @@ export class TableComponent implements OnInit {
     this.router.navigate([
       environment.servletPath,
       environment.master,
-      environment.aosUser,
       environment.customerMaster,
+      environment.master,
       environment.edit,
       id,
     ]);
@@ -677,12 +678,16 @@ export class TableComponent implements OnInit {
       }
     }
 
-    this.dialog.open(component, {
+    const dialog = this.dialog.open(component, {
       width: '500px',
       height: '250px',
       enterAnimationDuration: '0ms',
       exitAnimationDuration: '0ms',
       data: { id },
+    });
+    dialog.afterClosed().subscribe((res) => {
+      this.reset();
+      this.loadData();
     });
   }
 

@@ -30,8 +30,6 @@ import { ListBrandMasterComponent } from '../pages/master/aos-user/brand-master/
 import { CreateBrandMasterComponent } from '../pages/master/aos-user/brand-master/create-brand-master/create-brand-master.component';
 import { ViewBrandMasterComponent } from '../pages/master/aos-user/brand-master/view-brand-master/view-brand-master.component';
 import { EditBrandMasterComponent } from '../pages/master/aos-user/brand-master/edit-brand-master/edit-brand-master.component';
-import { matchAuthGuard } from '../guards/match-auth.guard';
-import { parentAuthGuard } from '../guards/parent-auth.guard';
 import { ListCustomerMasterComponent } from '../pages/master/customer/customer-master/list-customer-master/list-customer-master.component';
 import { CreateCustomerMasterComponent } from '../pages/master/customer/customer-master/create-customer-master/create-customer-master.component';
 import { ViewCustomerMasterComponent } from '../pages/master/customer/customer-master/view-customer-master/view-customer-master.component';
@@ -40,9 +38,13 @@ import { EditCustomerItemMasterComponent } from '../pages/master/customer/custom
 import { ListCustomerItemMasterComponent } from '../pages/master/customer/customer-item-master/list-customer-item-master/list-customer-item-master.component';
 import { CreateCustomerItemMasterComponent } from '../pages/master/customer/customer-item-master/create-customer-item-master/create-customer-item-master.component';
 import { ViewCustomerItemMasterComponent } from '../pages/master/customer/customer-item-master/view-customer-item-master/view-customer-item-master.component';
+import { LoginComponent } from '../pages/auth/login/login.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: environment.servletPath, pathMatch: 'full' },
+  
+  { path: 'login', component:LoginComponent },
+  
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   {
     path: environment.servletPath,
