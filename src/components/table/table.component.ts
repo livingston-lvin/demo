@@ -731,6 +731,15 @@ export class TableComponent implements OnInit {
     ]);
   }
 
+  viewOrder(orderNo: string) {
+    this.router.navigate([
+      environment.servletPath,
+      environment.order,
+      environment.view,
+      orderNo,
+    ]);
+  }
+
   download(module: string) {
     console.log(module);
     switch (module) {

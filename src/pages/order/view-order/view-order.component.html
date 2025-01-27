@@ -1,1 +1,46 @@
-<p>view-order works!</p>
+<div class="form-container">
+    <h3>Order Details</h3>
+    <form [formGroup]="form">
+      <div class="data">
+        <table>
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Remark</th>
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody formArrayName="items">
+            <tr *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+              <td>{{ i + 1 }}.</td>
+              <td>
+                <div class="input-field">
+                    <input type="text" formControlName="item" required readonly>
+                </div>
+              </td>
+              <td>
+                <div class="input-field">
+                  <input type="text" formControlName="qty" required readonly>
+                </div>
+              </td>
+              <td>
+                <div class="input-field">
+                  <textarea type="text" formControlName="remark" required readonly></textarea>
+                </div>
+              </td>
+              <td>
+                <div class="input-field">
+                  <textarea type="text" formControlName="address" required readonly></textarea>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+    <div class="action-btns">
+      <button mat-button type="reset" (click)="navigateToListStationery()">Cancel</button>
+    </div>
+  </div>

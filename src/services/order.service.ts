@@ -14,6 +14,10 @@ export class OrderService {
     return this.http.get<any>(`${this.url}/all/${limit}/${offset}`);
   }
 
+  getOrderDetail(orderId: string): Observable<any> {
+    return this.http.get<any>(`${this.url}/${orderId}`);
+  }
+
   download(): Observable<any> {
     return this.http.get(`${this.url}/download/all`, {
       responseType: 'blob',
