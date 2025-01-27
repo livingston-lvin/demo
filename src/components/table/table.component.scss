@@ -165,3 +165,22 @@ img {
   height: 20px;
   margin: 5px;
 }
+
+.select {
+  width: 150px;
+  padding: 5px 8px;
+  border: 1px solid color.$borderColor;
+  border-radius: 3px;
+  color: #000;
+  font-size: medium;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url(color.$carat);
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+
+  &:focus {
+    outline: none;
+  }
+}

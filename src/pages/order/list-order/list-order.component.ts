@@ -14,6 +14,8 @@ export class ListOrderComponent {
     'Customer Name',
     'Order No',
     'Order Date',
+    'Employee Code',
+    'Employee Name',
     'Action',
   ];
   addBtnTxt = '';

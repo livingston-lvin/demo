@@ -69,6 +69,8 @@ export class TableComponent implements OnInit {
   addBtnTxt = input.required<string>();
   module = input.required<string[]>();
   curModule = computed(() => this.module()[this.module().length - 1]);
+  selectedCustomerId = signal<null | number>(null);
+  customers: any[] = [];
 
   userMaster = signal(userMaster);
   itemMaster = signal(itemMaster);
@@ -94,7 +96,9 @@ export class TableComponent implements OnInit {
     private customerItemService: CustomerItemService,
     private orderService: OrderService,
     private dialog: MatDialog
-  ) {}
+  ) {
+    this.selectedCustomerId.set(1);
+  }
 
   ngOnInit(): void {
     this.loadData();
@@ -207,6 +211,11 @@ export class TableComponent implements OnInit {
     this.reset();
     this.limit.set(+event.target.value);
     this.loadData();
+  }
+
+  onSelectCustomer(event: any) {
+    const value = event.target.value;
+    this.selectedCustomerId.set(+value);
   }
 
   reset() {
@@ -675,11 +684,42 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
+
+        this.customerService.getValidCustomers().subscribe(
+          (res) => {
+            this.customers = res;
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
       },
       (err) => {
         console.log(err);
       }
     );
+  }
+
+  loadOrdersById() {
+    if (this.selectedCustomerId()) {
+      this.orderService
+        .getAllByCustomerId(
+          this.selectedCustomerId()!,
+          this.limit(),
+          this.offset()
+        )
+        .subscribe(
+          (res) => {
+            this.items = res.content;
+            this.size = +res.totalPages;
+            this.records = +res.totalElements;
+            this.page = this.items.length > 0 ? 1 : 0;
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+    }
   }
 
   openDialog(id: number | null, module: string): void {

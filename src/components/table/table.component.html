@@ -29,6 +29,14 @@
             <input type="file" #fileInput hidden (change)="onFileSelected($event)" />
             }
             @if(this.curModule() === orderMaster()){
+            <select (change)="onSelectCustomer($event)" class="select">
+                @for (customer of customers; track $index) {
+                <option [value]="customer.field">{{ customer.value }}</option>
+                }
+            </select>
+            &nbsp;
+            <button mat-flat-button class="btn-sm" (click)="loadOrdersById()">Show</button>
+            &nbsp;&nbsp;&nbsp;
             <button mat-flat-button class="btn-sm"
                 (click)="download(orderMaster())"><mat-icon>download</mat-icon>Download</button>
             &nbsp;&nbsp;&nbsp;
@@ -253,6 +261,8 @@
                     <td>{{ item.customerName }}</td>
                     <td>{{ item.orderNo }}</td>
                     <td>{{ item.orderDate }}</td>
+                    <td>{{ item.empCode }}</td>
+                    <td>{{ item.empName }}</td>
                     <td>
                         <button mat-icon-button (click)="viewOrder(item.orderNo)" title="view">
                             <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">visibility</mat-icon>

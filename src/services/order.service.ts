@@ -10,8 +10,16 @@ export class OrderService {
   private url: string = `${environment.url}/${environment.order}`;
   private http: HttpClient = inject(HttpClient);
 
-  getAll(limit:number,offset:number): Observable<any> {
+  getAll(limit: number, offset: number): Observable<any> {
     return this.http.get<any>(`${this.url}/all/${limit}/${offset}`);
+  }
+
+  getAllByCustomerId(
+    id: number,
+    limit: number,
+    offset: number
+  ): Observable<any> {
+    return this.http.get<any>(`${this.url}/all/${id}/${limit}/${offset}`);
   }
 
   getOrderDetail(orderId: string): Observable<any> {
