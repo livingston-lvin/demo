@@ -4,6 +4,7 @@ export const environment = {
 
   dashboard: 'dashboard',
   master: 'master',
+  order: 'order',
 
   aosUser: 'aos-user',
   customerMaster: 'customer',
@@ -14,6 +15,7 @@ export const environment = {
   gstMaster: 'gst',
   courierMaster: 'courier',
   brandMaster: 'brand',
+  orderMaster: 'order',
 
   list: 'list',
   create: 'create',

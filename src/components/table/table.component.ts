@@ -28,6 +28,7 @@ import {
   itemCategoryMaster,
   itemMaster,
   itemPriceMaster,
+  orderMaster,
   userMaster,
 } from '../../constants/Module';
 import { CreateItemCategoryMasterComponent } from '../../pages/master/aos-user/item-category-master/create-item-category-master/create-item-category-master.component';
@@ -38,6 +39,7 @@ import { BrandService } from '../../services/brand.service';
 import { ImageComponent } from '../image/image.component';
 import { CustomerService } from '../../services/customer.service';
 import { CustomerItemService } from '../../services/customer-item.service';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-table',
@@ -77,6 +79,7 @@ export class TableComponent implements OnInit {
   brandMaster = signal(brandMaster);
   customerMaster = signal(customerMaster);
   customerItemMaster = signal(customerItemMaster);
+  orderMaster = signal(orderMaster);
 
   constructor(
     private router: Router,
@@ -89,6 +92,7 @@ export class TableComponent implements OnInit {
     private brandService: BrandService,
     private customerService: CustomerService,
     private customerItemService: CustomerItemService,
+    private orderService: OrderService,
     private dialog: MatDialog
   ) {}
 
@@ -115,6 +119,8 @@ export class TableComponent implements OnInit {
       this.loadCustomer();
     } else if (this.curModule() === customerItemMaster) {
       this.loadCustomerItem();
+    } else if (this.curModule() === orderMaster) {
+      this.loadOrders();
     }
   }
 
@@ -662,6 +668,20 @@ export class TableComponent implements OnInit {
     );
   }
 
+  loadOrders() {
+    this.orderService.getAll(this.limit(), this.offset()).subscribe(
+      (res) => {
+        this.items = res.content;
+        this.size = +res.totalPages;
+        this.records = +res.totalElements;
+        this.page = this.items.length > 0 ? 1 : 0;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
   openDialog(id: number | null, module: string): void {
     let component: any | null = null;
     if (id === null) {
@@ -711,15 +731,32 @@ export class TableComponent implements OnInit {
     ]);
   }
 
-  download() {
-    this.customerItemService.download().subscribe((blob) => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'upload-format.xlsx';
-      a.click();
-      window.URL.revokeObjectURL(url);
-    });
+  download(module: string) {
+    console.log(module);
+    switch (module) {
+      case customerItemMaster: {
+        this.customerItemService.download().subscribe((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'upload-format.xlsx';
+          a.click();
+          window.URL.revokeObjectURL(url);
+        });
+        break;
+      }
+      case orderMaster: {
+        this.orderService.download().subscribe((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'orders-all.xlsx';
+          a.click();
+          window.URL.revokeObjectURL(url);
+        });
+        break;
+      }
+    }
   }
 
   onFileSelected(event: Event) {

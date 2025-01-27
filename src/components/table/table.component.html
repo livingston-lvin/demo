@@ -21,15 +21,24 @@
         </div>
         <div>
             @if(this.curModule() === customerItemMaster()){
-            <button mat-flat-button class="btn-sm" (click)="download()"><mat-icon>download</mat-icon>Download</button>
+            <button mat-flat-button class="btn-sm"
+                (click)="download(customerItemMaster())"><mat-icon>download</mat-icon>Download</button>
             &nbsp;&nbsp;&nbsp;
             <button mat-flat-button class="btn-sm"
                 (click)="fileInput.click()"><mat-icon>upload</mat-icon>Upload</button> &nbsp;&nbsp;&nbsp;
             <input type="file" #fileInput hidden (change)="onFileSelected($event)" />
             }
+            @if(this.curModule() === orderMaster()){
+            <button mat-flat-button class="btn-sm"
+                (click)="download(orderMaster())"><mat-icon>download</mat-icon>Download</button>
+            &nbsp;&nbsp;&nbsp;
+            <input type="file" #fileInput hidden (change)="onFileSelected($event)" />
+            }
+            @if(this.curModule() !== orderMaster()){
             <button mat-flat-button class="btn-sm" (click)="navigateToCreateData()">
                 <mat-icon>add</mat-icon> {{ addBtnTxt() }}
             </button>
+            }
             <div class="input-container">
                 <input type="text" placeholder="Enter search term ..." [(ngModel)]="searchTxt" />
                 <button mat-icon-button class="search" (click)="search()">
@@ -227,6 +236,23 @@
                     <td>{{ $index + 1 + offset() * limit() }}.</td>
                     <td>{{ item.cname }}</td>
                     <td>{{ item.count }}</td>
+                    <td>
+                        <button mat-icon-button (click)="viewData(item.cid)" title="view">
+                            <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">visibility</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                }
+                }
+
+                @else if (this.curModule() === orderMaster()) {
+                @for (item of items; track $index) {
+                <tr class="row-data">
+                    <td>{{ $index + 1 + offset() * limit() }}.</td>
+                    <td>{{ item.customerId }}</td>
+                    <td>{{ item.customerName }}</td>
+                    <td>{{ item.orderNo }}</td>
+                    <td>{{ item.orderDate }}</td>
                     <td>
                         <button mat-icon-button (click)="viewData(item.cid)" title="view">
                             <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">visibility</mat-icon>

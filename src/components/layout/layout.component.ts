@@ -132,6 +132,14 @@ export class LayoutComponent {
         showSubItem: signal(false),
         subItems: [],
       },
+      {
+        icon: 'list_alt',
+        label: 'Orders',
+        route: 'order/list',
+        selected: signal(false),
+        showSubItem: signal(false),
+        subItems: [],
+      },
     ];
 
     this.urlChanges();

@@ -39,6 +39,9 @@ import { ListCustomerItemMasterComponent } from '../pages/master/customer/custom
 import { CreateCustomerItemMasterComponent } from '../pages/master/customer/customer-item-master/create-customer-item-master/create-customer-item-master.component';
 import { ViewCustomerItemMasterComponent } from '../pages/master/customer/customer-item-master/view-customer-item-master/view-customer-item-master.component';
 import { LoginComponent } from '../pages/auth/login/login.component';
+import { ListOrderComponent } from '../pages/order/list-order/list-order.component';
+import { ViewOrderComponent } from '../pages/order/view-order/view-order.component';
+import { EditOrderComponent } from '../pages/order/edit-order/edit-order.component';
 
 export const routes: Routes = [
   
@@ -54,6 +57,7 @@ export const routes: Routes = [
         path: environment.dashboard,
         component: DashboardComponent,
       },
+      
       {
         path: environment.master,
         children: [
@@ -279,6 +283,24 @@ export const routes: Routes = [
           },
         ],
       },
+      
+      {
+        path:environment.order,
+        children:[
+          {
+            path: environment.list,
+            component: ListOrderComponent,
+          },
+          {
+            path: `${environment.view}/:id`,
+            component: ViewOrderComponent,
+          },
+          {
+            path: `${environment.edit}/:id`,
+            component: EditOrderComponent,
+          },
+        ]
+      }
     ],
   },
 ];
