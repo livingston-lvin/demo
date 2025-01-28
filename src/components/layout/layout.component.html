@@ -31,9 +31,6 @@
         <div class="sidebar" [style.width.px]="sideMenusWidth()">
             <div class="sidemenus">
                 <br>
-
-
-
                 @for (item of items; track $index) {
                 <!-- if side menu closed, show only icons with center position -->
                 @if(sideMenuOpened() && item.subItems?.length){
@@ -119,6 +116,7 @@
                 }
                 }
                 }
+                <br>
             </div>
         </div>
         <div class="content">

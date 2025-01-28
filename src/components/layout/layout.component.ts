@@ -21,7 +21,7 @@ import { filter } from 'rxjs';
 })
 export class LayoutComponent {
   sideMenuOpened = signal(true);
-  sideMenusWidth = computed(() => (this.sideMenuOpened() ? 350 : 80));
+  sideMenusWidth = computed(() => (this.sideMenuOpened() ? 400 : 80));
   items: any[] = [];
   username!: string;
   constructor(private router: Router) {
@@ -60,9 +60,9 @@ export class LayoutComponent {
                 selected: signal(false),
               },
               {
-                icon: 'local_activity',
-                label: 'Item Master',
-                route: 'item/list',
+                icon: 'apartment',
+                label: 'Brand Master',
+                route: 'brand/list',
                 selected: signal(false),
               },
               {
@@ -72,9 +72,9 @@ export class LayoutComponent {
                 selected: signal(false),
               },
               {
-                icon: 'currency_rupee',
-                label: 'Item Price Master',
-                route: 'item-price/list',
+                icon: 'local_activity',
+                label: 'Item Master',
+                route: 'item/list',
                 selected: signal(false),
               },
               {
@@ -87,12 +87,6 @@ export class LayoutComponent {
                 icon: 'local_shipping',
                 label: 'Courier Company Master',
                 route: 'courier/list',
-                selected: signal(false),
-              },
-              {
-                icon: 'apartment',
-                label: 'Brand Master',
-                route: 'brand/list',
                 selected: signal(false),
               },
             ],
@@ -118,24 +112,10 @@ export class LayoutComponent {
               },
             ],
           },
-          {
-            icon: 'password',
-            label: 'Login Page',
-            route: 'password',
-            selected: signal(false),
-            showSubItemsItem: signal(false),
-            subItemsItems: [],
-          },
+         
         ],
       },
-      {
-        icon: 'app_registration',
-        label: 'Actions',
-        route: 'action',
-        selected: signal(false),
-        showSubItem: signal(false),
-        subItems: [],
-      },
+      
       {
         icon: 'list_alt',
         label: 'Orders',

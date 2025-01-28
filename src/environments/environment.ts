@@ -3,23 +3,24 @@ export const environment = {
     url: 'http://apple.richastechpro.com/apple-stationery',
   
     dashboard: 'dashboard',
-    master: 'master',
-    order: 'order',
-  
-    aosUser: 'aos-user',
-    customerMaster: 'customer',
-    item: 'item',
-    itemCategory: 'item-category',
-    itemPrice: 'item-price',
-    user: 'user',
-    gstMaster: 'gst',
-    courierMaster: 'courier',
-    brandMaster: 'brand',
-    orderMaster: 'order',
-  
-    list: 'list',
-    create: 'create',
-    view: 'view',
-    edit: 'edit',
+  master: 'master',
+  order: 'order',
+
+  aosUser: 'aos-user',
+  customerMaster: 'customer',
+  item: 'item',
+  itemCategory: 'item-category',
+  itemPrice: 'item-price',
+  user: 'user',
+  gstMaster: 'gst',
+  file: 'file',
+  courierMaster: 'courier',
+  brandMaster: 'brand',
+  orderMaster: 'order',
+
+  list: 'list',
+  create: 'create',
+  view: 'view',
+  edit: 'edit',
   };
   

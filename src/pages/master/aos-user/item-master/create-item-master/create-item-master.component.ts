@@ -15,6 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { Brand } from '../../../../../interfaces/brand';
 import { BrandService } from '../../../../../services/brand.service';
 import { MatButtonModule } from '@angular/material/button';
+import { GstService } from '../../../../../services/gst.service';
+import { Gst } from '../../../../../interfaces/gst';
 
 @Component({
   selector: 'app-create-item-master',
@@ -28,6 +30,7 @@ export class CreateItemMasterComponent implements OnInit {
   selectedFile: File | undefined;
   categories: ItemCategory[] = [];
   brands: Brand[] = [];
+  gsts: Gst[] = [];
   sizeUnits: string[] = ['cm', 'inch', 'reams'];
   weightUnits: string[] = ['gm', 'kg'];
   packingUnits: string[] = [
@@ -36,7 +39,7 @@ export class CreateItemMasterComponent implements OnInit {
     'File',
     'Nos',
     'Pcs',
-    'Pkts', 
+    'Pkts',
     'Reams',
     'Set',
   ];
@@ -46,7 +49,8 @@ export class CreateItemMasterComponent implements OnInit {
     private itemService: ItemService,
     private itemCategoryService: ItemCategoryService,
     private router: Router,
-    private brandService: BrandService
+    private brandService: BrandService,
+    private gstService: GstService
   ) {
     this.form = this.fb.group({
       name: [null, Validators.required],
@@ -68,23 +72,54 @@ export class CreateItemMasterComponent implements OnInit {
   }
 
   loadData() {
-    this.itemCategoryService.getAll().subscribe(
-      (res) => {
-        this.categories = res;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    const itemPromise = new Promise((resolve, rej) => {
+      this.itemCategoryService.getAll().subscribe(
+        (res) => {
+          resolve(res);
+        },
+        (err) => {
+          rej(err);
+        }
+      );
+    });
 
-    this.brandService.getAll().subscribe(
-      (res) => {
+    const brandPromise = new Promise((resolve, rej) => {
+      this.brandService.getAll().subscribe(
+        (res) => {
+          resolve(res);
+        },
+        (err) => {
+          rej(err);
+        }
+      );
+    });
+
+    const gstPromise = new Promise((resolve, rej) => {
+      this.gstService.getValidGsts().subscribe(
+        (res) => {
+          resolve(res);
+        },
+        (err) => {
+          rej(err);
+        }
+      );
+    });
+
+    itemPromise
+      .then((res: any) => {
+        this.categories = res;
+        return brandPromise;
+      })
+      .then((res: any) => {
         this.brands = res;
-      },
-      (err) => {
+        return gstPromise;
+      })
+      .then((res: any) => {
+        this.gsts = res;
+      })
+      .catch((err) => {
         console.log(err);
-      }
-    );
+      });
   }
 
   submit() {

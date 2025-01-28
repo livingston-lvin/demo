@@ -78,7 +78,11 @@
     </div>
     <div class="input-field">
       <label for="gst">GST Rate(in %)<span class="imp">*</span></label>
-      <input type="text" formControlName="gst">
+      <select formControlName="gst" required>
+        @for (gst of gsts; track gst) {
+        <option [value]="gst.id">{{ gst.rate }}</option>
+        }
+      </select>
     </div>
     <div class="input-field"></div>
     <div class="input-field"></div>

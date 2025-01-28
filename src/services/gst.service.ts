@@ -31,6 +31,10 @@ export class GstService {
     return this.http.delete<HttpResponseBase>(`${this.url}/${id}`);
   }
 
+  getValidGsts(): Observable<Gst> {
+    return this.http.get<Gst>(`${this.url}/valid`);
+  }
+
   search(search: string, limit: number, offset: number): Observable<any> {
       const params = new HttpParams()
         .set('s', search)
