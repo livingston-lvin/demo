@@ -20,12 +20,16 @@ import { filter } from 'rxjs';
   ],
 })
 export class LayoutComponent {
-  sideMenuOpened = signal(false);
+  sideMenuOpened = signal(true);
   sideMenusWidth = computed(() => (this.sideMenuOpened() ? 350 : 80));
   items: any[] = [];
-  username: string;
+  username!: string;
   constructor(private router: Router) {
-    this.username = JSON.parse(localStorage.getItem('user')!).username;
+    const user=localStorage.getItem('user');
+    if(user){
+      const appUser= JSON.parse(user)
+      this.username = appUser.username;
+    }
     this.items = [
       {
         icon: 'grid_view',

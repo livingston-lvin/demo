@@ -36,7 +36,7 @@ export class CreateItemMasterComponent implements OnInit {
     'File',
     'Nos',
     'Pcs',
-    'Pkts',
+    'Pkts', 
     'Reams',
     'Set',
   ];

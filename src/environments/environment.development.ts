@@ -13,6 +13,7 @@ export const environment = {
   itemPrice: 'item-price',
   user: 'user',
   gstMaster: 'gst',
+  file: 'file',
   courierMaster: 'courier',
   brandMaster: 'brand',
   orderMaster: 'order',
