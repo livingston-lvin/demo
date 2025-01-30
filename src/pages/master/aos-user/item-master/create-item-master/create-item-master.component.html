@@ -9,7 +9,7 @@
     </div>
     <div class="input-field">
       <label for="code">Item Code<span class="imp">*</span></label>
-      <input type="text" formControlName="code">
+      <input type="text" formControlName="code" required>
     </div> 
     <div class="input-field">
       <label for="category">Item Category<span class="imp">*</span></label>
@@ -21,7 +21,7 @@
     </div>
     <div class="input-field">
       <label for="image">Item Picture (Fileupload/Image Link)<span class="imp">*</span></label>
-      <input type="file" #fileInput hidden (change)="onFileSelected($event)" />
+      <input type="file" #fileInput hidden (change)="onFileSelected($event)"/>
       @if(selectedFile){
       <div class="file">
         {{ selectedFile.name }}
@@ -34,12 +34,13 @@
     </div>
     <div class="input-field">
       <label for="attribute">Item Attribute(Color/Size)<span class="imp">*</span></label>
-      <input type="text" formControlName="attribute">
+      <input type="text" formControlName="attribute" required>
     </div>
     <div class="input-field">
       <label for="weight">Weight<span class="imp">*</span></label>
-      <input type="text" formControlName="weight">
+      <input type="number" formControlName="weight" required>
     </div>
+
     <div class="input-field">
       <label for="weightUnit">Weight Unit<span class="imp">*</span></label>
       <select formControlName="weightUnit" required>
@@ -50,7 +51,7 @@
     </div>
     <div class="input-field">
       <label for="packingQty">Packing Quantity<span class="imp">*</span></label>
-      <input type="text" formControlName="packingQty">
+      <input type="number" formControlName="packingQty" required>
     </div>
     <div class="input-field">
       <label for="packingUnit">Packing Quantity Unit<span class="imp">*</span></label>
@@ -62,7 +63,7 @@
     </div>
     <div class="input-field">
       <label for="minOrderQty">Minimum Order Quantity<span class="imp">*</span></label>
-      <input type="text" formControlName="minOrderQty">
+      <input type="number" formControlName="minOrderQty" required>
     </div>
     <div class="input-field">
       <label for="brand">Item Brand<span class="imp">*</span></label>
@@ -74,7 +75,7 @@
     </div>
     <div class="input-field">
       <label for="hsnCode">HSN Code<span class="imp">*</span></label>
-      <input type="text" formControlName="hsnCode">
+      <input type="text" formControlName="hsnCode" required>
     </div>
     <div class="input-field">
       <label for="gst">GST Rate(in %)<span class="imp">*</span></label>
@@ -88,7 +89,7 @@
     <div class="input-field"></div>
     <div class="action-btns">
       <button mat-flat-button type="submit">Submit</button>
-      <button mat-button type="button" style="color: red;padding: 0 20px;" (click)="navigateToListItemPage()">
+      <button mat-button type="button" style="padding: 0 20px;" (click)="navigateToListItemPage()">
         Cancel
       </button>
     </div>

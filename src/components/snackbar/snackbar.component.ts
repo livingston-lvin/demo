@@ -8,7 +8,7 @@ import {
   MatSnackBarLabel,
   MatSnackBarRef,
 } from '@angular/material/snack-bar';
-import { Success } from '../../constants/AppData';
+import { Error, Success, Warning } from '../../constants/AppData';
 
 @Component({
   selector: 'app-snackbar',
@@ -26,7 +26,17 @@ export class SnackbarComponent {
   snackBarRef = inject(MatSnackBarRef);
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {
     if(data.type===Success){
-      data.backgroundColor = '#06D001'
+      data.backgroundColor = '#27ae60'
+      data.color = '#fff'
+      console.log(data);
+    }
+    else if(data.type===Warning){
+      data.backgroundColor = '#ffb142'
+      data.color = '#fff'
+      console.log(data);
+    }
+    else if(data.type===Error){
+      data.backgroundColor = '#ff5252'
       data.color = '#fff'
       console.log(data);
     }

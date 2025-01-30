@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormGroup,
@@ -43,6 +43,9 @@ export class CreateCustomerMasterComponent {
   firstName = new FormControl();
   contacts: any[] = [];
   billings: any[] = [];
+  openContact = signal(false);
+  openBilling = signal(false);
+
   constructor(
     private fb: FormBuilder,
     private customerService: CustomerService,
@@ -59,6 +62,12 @@ export class CreateCustomerMasterComponent {
       gstNo: [null, Validators.required],
       state: [null, Validators.required],
       city: [null, Validators.required],
+    });
+
+    effect(() => {
+      if (this.openBilling()) {
+        console.log(this.openBilling());
+      }
     });
   }
 

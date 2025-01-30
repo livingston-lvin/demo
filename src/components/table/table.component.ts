@@ -40,6 +40,7 @@ import { ImageComponent } from '../image/image.component';
 import { CustomerService } from '../../services/customer.service';
 import { CustomerItemService } from '../../services/customer-item.service';
 import { OrderService } from '../../services/order.service';
+import { LoaderService } from '../../services/loader.service';
 
 @Component({
   selector: 'app-table',
@@ -95,7 +96,8 @@ export class TableComponent implements OnInit {
     private customerService: CustomerService,
     private customerItemService: CustomerItemService,
     private orderService: OrderService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private loader: LoaderService
   ) {
     this.selectedCustomerId.set(1);
   }
@@ -105,10 +107,12 @@ export class TableComponent implements OnInit {
   }
 
   loadData() {
+    this.loader.showLoader(true);
     if (this.curModule() === userMaster) {
       this.loadUser();
     } else if (this.curModule() === itemMaster) {
       this.loadItem();
+      
     } else if (this.curModule() === itemCategoryMaster) {
       this.loadItemCategory();
     } else if (this.curModule() === itemPriceMaster) {
@@ -126,6 +130,7 @@ export class TableComponent implements OnInit {
     } else if (this.curModule() === orderMaster) {
       this.loadOrders();
     }
+     
   }
 
   navigateToCreateData() {
@@ -559,9 +564,11 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
+        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
+        this.loader.showLoader(false);   
       }
     );
   }
@@ -573,9 +580,11 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
+        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
+        this.loader.showLoader(false);   
       }
     );
   }
@@ -589,9 +598,11 @@ export class TableComponent implements OnInit {
           this.size = +res.totalPages;
           this.records = +res.totalElements;
           this.page = this.items.length > 0 ? 1 : 0;
+          this.loader.showLoader(false);   
         },
         (err) => {
           console.log(err);
+          this.loader.showLoader(false);   
         }
       );
   }
@@ -603,9 +614,11 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
+        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
+        this.loader.showLoader(false);   
       }
     );
   }
@@ -617,9 +630,11 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
+        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
+        this.loader.showLoader(false);   
       }
     );
   }
@@ -631,9 +646,11 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
+        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
+        this.loader.showLoader(false);   
       }
     );
   }
@@ -645,9 +662,11 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
+        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
+        this.loader.showLoader(false);   
       }
     );
   }
@@ -659,9 +678,11 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
+        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
+        this.loader.showLoader(false);   
       }
     );
   }
@@ -670,9 +691,11 @@ export class TableComponent implements OnInit {
     this.customerItemService.getData().subscribe(
       (res) => {
         this.items = res;
+        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
+        this.loader.showLoader(false);   
       }
     );
   }
@@ -688,9 +711,11 @@ export class TableComponent implements OnInit {
         this.customerService.getValidCustomers().subscribe(
           (res) => {
             this.customers = res;
+            this.loader.showLoader(false);   
           },
           (err) => {
             console.log(err);
+            this.loader.showLoader(false);   
           }
         );
       },
@@ -714,9 +739,11 @@ export class TableComponent implements OnInit {
             this.size = +res.totalPages;
             this.records = +res.totalElements;
             this.page = this.items.length > 0 ? 1 : 0;
+            this.loader.showLoader(false);   
           },
           (err) => {
             console.log(err);
+            this.loader.showLoader(false);   
           }
         );
     }

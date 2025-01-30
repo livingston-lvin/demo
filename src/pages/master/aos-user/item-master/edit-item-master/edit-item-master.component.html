@@ -9,7 +9,7 @@
     </div>
     <div class="input-field">
       <label for="code">Item Code</label>
-      <input type="text" class="input-txt" formControlName="code">
+      <input type="text" class="input-txt" formControlName="code" required>
     </div>
     <div class="input-field">
       <label for="category">Item Category<span class="imp">*</span></label>
@@ -33,15 +33,15 @@
       </button>
     </div>
     <div class="input-field">
-      <label for="attribute">Item Attribute(Color/Size)</label>
-      <input type="text" class="input-txt" formControlName="attribute">
+      <label for="attribute">Item Attribute(Color/Size)<span class="imp">*</span></label>
+      <input type="text" class="input-txt" formControlName="attribute" required>
     </div>
     <div class="input-field">
-      <label for="weight">Weight</label>
-      <input type="text" class="input-txt" formControlName="weight">
+      <label for="weight">Weight<span class="imp">*</span></label>
+      <input type="text" class="input-txt" formControlName="weight" required>
     </div>
     <div class="input-field">
-      <label for="weightUnit">Weight Unit</label>
+      <label for="weightUnit">Weight Unit<span class="imp">*</span></label>
       <select formControlName="weightUnit" required>
         @for (weightUnit of weightUnits; track weightUnit) {
         <option [value]="weightUnit">{{ weightUnit }}</option>
@@ -49,11 +49,11 @@
       </select>
     </div>
     <div class="input-field">
-      <label for="packingQty">Packing Quantity</label>
-      <input type="text" class="input-txt" formControlName="packingQty">
+      <label for="packingQty">Packing Quantity<span class="imp">*</span></label>
+      <input type="text" class="input-txt" formControlName="packingQty" required>
     </div>
     <div class="input-field">
-      <label for="packingUnit">Packing Quantity Unit</label>
+      <label for="packingUnit">Packing Quantity Unit<span class="imp">*</span></label>
       <select formControlName="packingUnit" required>
         @for (packingUnit of packingUnits; track packingUnit) {
         <option [value]="packingUnit">{{ packingUnit }}</option>
@@ -61,16 +61,30 @@
       </select>
     </div>
     <div class="input-field">
-      <label for="minOrderQty">Minimum Order Quantity</label>
-      <input type="text" class="input-txt" formControlName="minOrderQty">
+      <label for="minOrderQty">Minimum Order Quantity<span class="imp">*</span></label>
+      <input type="text" class="input-txt" formControlName="minOrderQty" required>
     </div>
     <div class="input-field">
-      <label for="brand">Item Brand</label>
+      <label for="brand">Item Brand<span class="imp">*</span></label>
       <select formControlName="brand" required>
         @for (brand of brands; track brand) {
         <option [value]="brand.id">{{ brand.name }}</option>
         }
       </select>
+    </div>
+    <div class="input-field">
+      <label for="hsnCode">HSN Code<span class="imp">*</span></label>
+      <input type="text" formControlName="hsnCode" required>
+    </div>
+    <div class="input-field">
+      <label for="gst">GST Rate(in %)<span class="imp">*</span></label>
+      <select formControlName="gst" required>
+        @for (gst of gsts; track gst) {
+        <option [value]="gst.id">{{ gst.rate }}</option>
+        }
+      </select>
+    </div>
+    <div class="input-field">
     </div>
     <div class="input-field"></div>
     <div class="action-btns">

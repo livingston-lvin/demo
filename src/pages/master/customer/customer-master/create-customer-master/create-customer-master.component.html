@@ -49,14 +49,14 @@
             <h3>2. Customer Contact Detail</h3>
             <div class="flex">
                 @for (contact of contacts; track $index) {
-                <div class="customer-contact" (click)="editContact(contact ,$index)">
+                <div class="customer-contact">
                     <div class="close"><mat-icon (click)="removeContacts($index)">cancel</mat-icon></div>
-                    <span>{{ contact.name | shorten }}</span>
-                    <span>{{ contact.mobileNo }}</span>
-                    <span>{{ contact.landLineNo }}</span>
-                    <span>{{ contact.email }}</span>
-                    <span>{{ contact.designation }}</span>
-                    <span>{{ contact.remark }}</span>
+                    <span (click)="openContact.set(true)">{{ contact.name | shorten }}</span>
+                    <span (click)="openContact.set(true)">{{ contact.mobileNo }}</span>
+                    <span (click)="openContact.set(true)">{{ contact.landLineNo }}</span>
+                    <span (click)="openContact.set(true)">{{ contact.email }}</span>
+                    <span (click)="openContact.set(true)">{{ contact.designation }}</span>
+                    <span (click)="openContact.set(true)">{{ contact.remark }}</span>
                 </div>
                 }
                 <div class="contact-add" matRipple>
@@ -71,11 +71,11 @@
                 @for (billing of billings; track $index) {
                 <div class="customer-contact" (click)="editBilling(billing ,$index)">
                     <div class="close"><mat-icon (click)="removeBillings($index)">cancel</mat-icon></div>
-                    <span>{{ billing.address }}</span>
-                    <span>{{ billing.mobileNo }}</span>
-                    <span>{{ billing.state }}</span>
-                    <span>{{ billing.city }}</span>
-                    <span>{{ billing.pincode }}</span>
+                    <span (click)="openBilling.set(true)">{{ billing.address }}</span>
+                    <span (click)="openBilling.set(true)">{{ billing.mobileNo }}</span>
+                    <span (click)="openBilling.set(true)">{{ billing.state }}</span>
+                    <span (click)="openBilling.set(true)">{{ billing.city }}</span>
+                    <span (click)="openBilling.set(true)">{{ billing.pincode }}</span>
                 </div>
                 }
                 <div class="contact-add">

@@ -17,6 +17,8 @@ import { BrandService } from '../../../../../services/brand.service';
 import { MatButtonModule } from '@angular/material/button';
 import { GstService } from '../../../../../services/gst.service';
 import { Gst } from '../../../../../interfaces/gst';
+import { SnackbarService } from '../../../../../services/snackbar.service';
+import { Error, Success, Warning } from '../../../../../constants/AppData';
 
 @Component({
   selector: 'app-create-item-master',
@@ -50,7 +52,8 @@ export class CreateItemMasterComponent implements OnInit {
     private itemCategoryService: ItemCategoryService,
     private router: Router,
     private brandService: BrandService,
-    private gstService: GstService
+    private gstService: GstService,
+    private snackBarService: SnackbarService
   ) {
     this.form = this.fb.group({
       name: [null, Validators.required],
@@ -67,6 +70,14 @@ export class CreateItemMasterComponent implements OnInit {
       gst: [null, Validators.required],
     });
   }
+
+  open(type:string) {
+    this.snackBarService.openSnackBar({
+      msg: 'Item successfully saved.',
+      type: type,
+    });
+  }
+
   ngOnInit(): void {
     this.loadData();
   }
@@ -123,6 +134,13 @@ export class CreateItemMasterComponent implements OnInit {
   }
 
   submit() {
+    if (!this.selectedFile) {
+      this.snackBarService.openSnackBar({
+        msg: 'Please select item image',
+        type: Warning,
+      });
+      return;
+    }
     if (this.form.valid) {
       const value = this.form.value;
       const formData: FormData = new FormData();
@@ -132,7 +150,11 @@ export class CreateItemMasterComponent implements OnInit {
       );
       formData.append('file', this.selectedFile!);
       this.itemService.create(formData).subscribe(
-        (res) => {
+        (_) => {
+          this.snackBarService.openSnackBar({
+            msg: 'Item created...',
+            type: Success,
+          });
           this.navigateToListItemPage();
         },
         (err) => {

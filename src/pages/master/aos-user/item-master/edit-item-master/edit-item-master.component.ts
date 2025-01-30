@@ -16,6 +16,10 @@ import { Brand } from '../../../../../interfaces/brand';
 import { BrandService } from '../../../../../services/brand.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { Gst } from '../../../../../interfaces/gst';
+import { GstService } from '../../../../../services/gst.service';
+import { SnackbarService } from '../../../../../services/snackbar.service';
+import { Success, Warning } from '../../../../../constants/AppData';
 
 @Component({
   selector: 'app-edit-item-master',
@@ -32,6 +36,7 @@ export class EditItemMasterComponent implements OnInit {
   categories: ItemCategory[] = [];
   sizeUnits: string[] = ['cm', 'inch', 'reams'];
   weightUnits: string[] = ['gm', 'kg'];
+  gsts: Gst[] = [];
   packingUnits: string[] = [
     'Bottle',
     'Box',
@@ -49,7 +54,9 @@ export class EditItemMasterComponent implements OnInit {
     private itemCategoryService: ItemCategoryService,
     private router: Router,
     private route: ActivatedRoute,
-    private brandService: BrandService
+    private brandService: BrandService,
+    private gstService: GstService,
+    private snackBarService: SnackbarService
   ) {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.form = this.fb.group({
@@ -73,55 +80,96 @@ export class EditItemMasterComponent implements OnInit {
   }
 
   loadData() {
-    this.itemCategoryService.getAll().subscribe(
-      (res) => {
+    const itemCategoryPromise = new Promise((resolve, rej) => {
+      this.itemCategoryService.getAll().subscribe(
+        (res) => {
+          resolve(res);
+        },
+        (err) => {
+          rej(err);
+        }
+      );
+    });
+
+    const brandPromise = new Promise((resolve, rej) => {
+      this.brandService.getAll().subscribe(
+        (res) => {
+          resolve(res);
+        },
+        (err) => {
+          rej(err);
+        }
+      );
+    });
+
+    const itemPromise = new Promise((resolve, rej) => {
+      this.itemService.get(this.id).subscribe(
+        (res) => {
+          resolve(res);
+        },
+        (err) => {
+          rej(err);
+        }
+      );
+    });
+
+    const gstPromise = new Promise((resolve, rej) => {
+      this.gstService.getValidGsts().subscribe(
+        (res) => {
+          resolve(res);
+        },
+        (err) => {
+          rej(err);
+        }
+      );
+    });
+
+    itemCategoryPromise
+      .then((res: any) => {
         this.categories = res;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-    this.brandService.getAll().subscribe(
-      (res) => {
+        return brandPromise;
+      })
+      .then((res: any) => {
         this.brands = res;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-    this.itemService.get(this.id).subscribe(
-      (res) => {
-        this.item = res;
-        this.selectedFile = new File([], res.fileData.name);
-        const category = this.categories.filter(
-          (category) => category.id === res.category.id
-        )[0];
-        const brand = this.brands.filter(
-          (brand) => brand.id === res.brand.id
-        )[0];
+        return gstPromise;
+      })
+      .then((res: any) => {
+        this.gsts = res;
+        return itemPromise;
+      })
+      .then((res: any) => {
         this.form.patchValue({
           id: res.id,
           name: res.name,
           code: res.code,
-          category: category.id,
+          category: res.category,
           weight: res.weight,
           weightUnit: res.weightUnit,
           packingQty: res.packingQty,
           packingUnit: res.packingUnit,
           minOrderQty: res.minOrderQty,
           attribute: res.attribute,
-          brand: brand.id,
+          brand: res.brand,
           hsnCode: res.hsnCode,
           gst: res.gst,
         });
-      },
-      (err) => {
+        if (res.fileName) {
+          this.selectedFile = new File([], res.fileName);
+        }
+      })
+      .catch((err) => {
         console.log(err);
-      }
-    );
+      });
   }
 
   submit() {
+    if (!this.selectedFile) {
+      this.snackBarService.openSnackBar({
+        msg: 'Please select item image',
+        type: Warning,
+      });
+      return;
+    }
     if (this.form.valid) {
       const value = this.form.value;
       console.log(value);
@@ -130,9 +178,17 @@ export class EditItemMasterComponent implements OnInit {
         'data',
         new Blob([JSON.stringify(value)], { type: 'application/json' })
       );
-      formData.append('file', this.selectedFile!);
+
+      if (this.selectedFile && this.selectedFile.size > 0) {
+        formData.append('file', this.selectedFile!);
+      }
+
       this.itemService.update(formData).subscribe(
-        (res) => {
+        (_) => {
+          this.snackBarService.openSnackBar({
+            msg: 'Item updated',
+            type: Success,
+          });
           this.navigateToListItemPage();
         },
         (err) => {

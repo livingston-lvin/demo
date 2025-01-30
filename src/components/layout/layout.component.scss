@@ -94,7 +94,7 @@
 .content {
   width: calc(100vw - 80px);
   height: 100%;
-  overflow: hidden;
+  overflow-y: scroll;
   background-color: color.$bodyBackgroundColor;
   padding: 20px 40px;
 }
