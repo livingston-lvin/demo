@@ -5,11 +5,10 @@
             <label for="name">Brand Name<span class="imp">*</span></label>
             <input type="text" class="input-txt" formControlName="name" required>
         </div>
+        <br>
+        <div class="action-btns">
+            <button type="submit" (click)="submit()">Update</button>
+            <button type="button" (click)="closeDialog()">Cancel</button>
+        </div>
     </form>
 </mat-dialog-content>
-<mat-dialog-actions>
-    <div class="action-btns">
-        <button type="submit" (click)="submit()">Update</button>
-        <button type="button" (click)="closeDialog()">Cancel</button>
-    </div>
-</mat-dialog-actions>

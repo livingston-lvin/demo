@@ -65,9 +65,7 @@ export class EditGstRateMasterComponent implements OnInit {
           console.log(err);
         }
       );
-    } else {
-      alert('Please fill all mandetory fields...');
-    }
+    } 
   }
 
   navigateToListGstPage() {

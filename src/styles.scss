@@ -161,7 +161,7 @@ h3 {
   button {
     padding: 0.5rem 1.5rem;
     font-size: 1rem;
-    font-family: ROBOTO-LIGHT;
+    font-family: ROBOTO-REGULAR;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -177,12 +177,12 @@ h3 {
     }
 
     &[type="button"] {
-      background-color: #ff5252;
+      background-color: #ff2323;
       color: #f8f9fa;
       border: 1px solid #ced4da;
 
       &:hover {
-        background-color: #e2e6ea;
+        background-color: #ff5252;
       }
     }
   }

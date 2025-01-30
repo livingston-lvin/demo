@@ -46,4 +46,14 @@ export class ItemService {
   getValidItems(): Observable<any> {
     return this.http.get<any>(`${this.url}/all`);
   }
+
+  upload(payload: FormData): Observable<any> {
+    return this.http.post(`${this.url}/upload`, payload);
+  }
+
+  download(): Observable<any> {
+    return this.http.get(`${this.url}/download-format`, {
+      responseType: 'blob',
+    });
+  }
 }

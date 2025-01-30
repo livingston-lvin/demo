@@ -28,17 +28,14 @@ export class SnackbarComponent {
     if(data.type===Success){
       data.backgroundColor = '#27ae60'
       data.color = '#fff'
-      console.log(data);
     }
     else if(data.type===Warning){
       data.backgroundColor = '#ffb142'
       data.color = '#fff'
-      console.log(data);
     }
     else if(data.type===Error){
       data.backgroundColor = '#ff5252'
       data.color = '#fff'
-      console.log(data);
     }
   }
 }

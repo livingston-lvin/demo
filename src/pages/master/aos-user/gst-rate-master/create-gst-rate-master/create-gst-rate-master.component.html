@@ -2,7 +2,7 @@
   <header>
     <h3>Create GST</h3>
   </header>
-  <form [formGroup]="form">
+  <form [formGroup]="form" ngNativeValidate>
     <div class="input-field">
       <label for="rate">GST Rate(in %)<span class="imp">*</span></label>
       <input type="number" class="input-txt" formControlName="rate" required>

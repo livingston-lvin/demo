@@ -51,9 +51,7 @@ export class CreateGstRateMasterComponent {
           console.log(err);
         }
       );
-    } else {
-      alert('Please fill all mandetory fields...');
-    }
+    } 
   }
 
   navigateToListGstPage() {

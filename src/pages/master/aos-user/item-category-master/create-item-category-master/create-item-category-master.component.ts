@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  MatDialogActions,
   MatDialogTitle,
   MatDialogContent,
   MatDialogRef,
@@ -18,13 +17,7 @@ import { ItemCategoryService } from '../../../../../services/item-category.servi
   selector: 'app-create-item-category-master',
   templateUrl: './create-item-category-master.component.html',
   styleUrl: './create-item-category-master.component.scss',
-  imports: [
-    MatDialogActions,
-    MatDialogTitle,
-    MatDialogContent,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+  imports: [MatDialogTitle, MatDialogContent, FormsModule, ReactiveFormsModule],
 })
 export class CreateItemCategoryMasterComponent {
   readonly dialogRef = inject(MatDialogRef<CreateItemCategoryMasterComponent>);

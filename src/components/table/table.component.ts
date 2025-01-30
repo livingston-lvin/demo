@@ -1,15 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, input, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule, MatIconButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialog,
   MatDialogModule,
-  MatDialogRef,
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment.development';
@@ -40,7 +37,6 @@ import { ImageComponent } from '../image/image.component';
 import { CustomerService } from '../../services/customer.service';
 import { CustomerItemService } from '../../services/customer-item.service';
 import { OrderService } from '../../services/order.service';
-import { LoaderService } from '../../services/loader.service';
 
 @Component({
   selector: 'app-table',
@@ -97,7 +93,6 @@ export class TableComponent implements OnInit {
     private customerItemService: CustomerItemService,
     private orderService: OrderService,
     private dialog: MatDialog,
-    private loader: LoaderService
   ) {
     this.selectedCustomerId.set(1);
   }
@@ -107,12 +102,10 @@ export class TableComponent implements OnInit {
   }
 
   loadData() {
-    this.loader.showLoader(true);
     if (this.curModule() === userMaster) {
       this.loadUser();
     } else if (this.curModule() === itemMaster) {
       this.loadItem();
-      
     } else if (this.curModule() === itemCategoryMaster) {
       this.loadItemCategory();
     } else if (this.curModule() === itemPriceMaster) {
@@ -130,7 +123,6 @@ export class TableComponent implements OnInit {
     } else if (this.curModule() === orderMaster) {
       this.loadOrders();
     }
-     
   }
 
   navigateToCreateData() {
@@ -564,11 +556,9 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
-        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
-        this.loader.showLoader(false);   
       }
     );
   }
@@ -580,11 +570,9 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
-        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
-        this.loader.showLoader(false);   
       }
     );
   }
@@ -598,11 +586,9 @@ export class TableComponent implements OnInit {
           this.size = +res.totalPages;
           this.records = +res.totalElements;
           this.page = this.items.length > 0 ? 1 : 0;
-          this.loader.showLoader(false);   
         },
         (err) => {
           console.log(err);
-          this.loader.showLoader(false);   
         }
       );
   }
@@ -614,11 +600,9 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
-        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
-        this.loader.showLoader(false);   
       }
     );
   }
@@ -630,11 +614,9 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
-        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
-        this.loader.showLoader(false);   
       }
     );
   }
@@ -646,11 +628,9 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
-        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
-        this.loader.showLoader(false);   
       }
     );
   }
@@ -662,11 +642,9 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
-        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
-        this.loader.showLoader(false);   
       }
     );
   }
@@ -678,11 +656,9 @@ export class TableComponent implements OnInit {
         this.size = +res.totalPages;
         this.records = +res.totalElements;
         this.page = this.items.length > 0 ? 1 : 0;
-        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
-        this.loader.showLoader(false);   
       }
     );
   }
@@ -691,11 +667,9 @@ export class TableComponent implements OnInit {
     this.customerItemService.getData().subscribe(
       (res) => {
         this.items = res;
-        this.loader.showLoader(false);   
       },
       (err) => {
         console.log(err);
-        this.loader.showLoader(false);   
       }
     );
   }
@@ -711,11 +685,9 @@ export class TableComponent implements OnInit {
         this.customerService.getValidCustomers().subscribe(
           (res) => {
             this.customers = res;
-            this.loader.showLoader(false);   
           },
           (err) => {
             console.log(err);
-            this.loader.showLoader(false);   
           }
         );
       },
@@ -739,11 +711,9 @@ export class TableComponent implements OnInit {
             this.size = +res.totalPages;
             this.records = +res.totalElements;
             this.page = this.items.length > 0 ? 1 : 0;
-            this.loader.showLoader(false);   
           },
           (err) => {
             console.log(err);
-            this.loader.showLoader(false);   
           }
         );
     }
@@ -773,8 +743,10 @@ export class TableComponent implements OnInit {
       data: { id },
     });
     dialog.afterClosed().subscribe((res) => {
-      this.reset();
-      this.loadData();
+      if (res) {
+        this.reset();
+        this.loadData();
+      }
     });
   }
 
@@ -832,24 +804,64 @@ export class TableComponent implements OnInit {
         });
         break;
       }
+      case itemMaster: {
+        this.itemService.download().subscribe((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'item-upload-format.xlsx';
+          a.click();
+          window.URL.revokeObjectURL(url);
+        });
+        break;
+      }
     }
   }
 
-  onFileSelected(event: Event) {
+  onFileSelected(event: Event, module: string) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       const formData = new FormData();
       formData.append('file', file);
 
-      this.customerItemService.upload(formData).subscribe(
-        (response) => {
-          this.loadData();
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
+      if (module === 'customer-item') {
+        this.customerItemService.upload(formData).subscribe(
+          (response) => {
+            this.loadData();
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+      } else if (module === 'brand') {
+        this.brandService.upload(formData).subscribe(
+          (response) => {
+            this.loadData();
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+      } else if (module === 'item-category') {
+        this.itemCategoryService.upload(formData).subscribe(
+          (response) => {
+            this.loadData();
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+      } else if (module === 'item') {
+        this.itemService.upload(formData).subscribe(
+          (response) => {
+            this.loadData();
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+      }
     }
   }
 }

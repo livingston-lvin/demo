@@ -7,54 +7,52 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  MatDialogActions,
   MatDialogTitle,
   MatDialogContent,
   MatDialogRef,
 } from '@angular/material/dialog';
 import { BrandService } from '../../../../../services/brand.service';
+import { SnackbarService } from '../../../../../services/snackbar.service';
+import { Success } from '../../../../../constants/AppData';
 
 @Component({
   selector: 'app-create-brand-master',
   templateUrl: './create-brand-master.component.html',
   styleUrl: './create-brand-master.component.scss',
-  imports: [
-    MatDialogActions,
-    MatDialogTitle,
-    MatDialogContent,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+  imports: [MatDialogTitle, MatDialogContent, FormsModule, ReactiveFormsModule],
 })
 export class CreateBrandMasterComponent {
   readonly dialogRef = inject(MatDialogRef<CreateBrandMasterComponent>);
-    form: FormGroup;
-    constructor(
-      private fb: FormBuilder,
-      private brandService: BrandService,
-    ) {
-      this.form = this.fb.group({
-        name: [null, Validators.required],
-      });
+  form: FormGroup;
+  constructor(
+    private fb: FormBuilder,
+    private brandService: BrandService,
+    private snackbarService: SnackbarService
+  ) {
+    this.form = this.fb.group({
+      name: [null, Validators.required],
+    });
+  }
+
+  submit() {
+    if (this.form.valid) {
+      const value = this.form.value;
+      this.brandService.create(value).subscribe(
+        (res) => {
+          this.snackbarService.openSnackBar({
+            msg: 'Brand added succssfully!',
+            type: Success,
+          });
+          this.closeDialog();
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     }
-  
-    submit() {
-      if (this.form.valid) {
-        const value = this.form.value;
-        this.brandService.create(value).subscribe(
-          (res) => {
-            this.closeDialog();
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
-      } else {
-        alert('Please fill all mandetory fields...');
-      }
-    }
-  
-    closeDialog() {
-      this.dialogRef.close();
-    }
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
+  }
 }

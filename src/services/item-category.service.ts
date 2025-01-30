@@ -36,10 +36,14 @@ export class ItemCategoryService {
   }
 
   search(search: string, limit: number, offset: number): Observable<any> {
-      const params = new HttpParams()
-        .set('s', search)
-        .set('limit', limit)
-        .set('offset', offset);
-      return this.http.get<any>(this.url, { params });
-    }
+    const params = new HttpParams()
+      .set('s', search)
+      .set('limit', limit)
+      .set('offset', offset);
+    return this.http.get<any>(this.url, { params });
+  }
+
+  upload(payload: FormData): Observable<any> {
+    return this.http.post(`${this.url}/upload`, payload);
+  }
 }

@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  MatDialogActions,
   MatDialogTitle,
   MatDialogContent,
   MatDialogRef,
@@ -20,13 +19,7 @@ import { CreateItemCategoryMasterComponent } from '../create-item-category-maste
   selector: 'app-edit-item-category-master',
   templateUrl: './edit-item-category-master.component.html',
   styleUrl: './edit-item-category-master.component.scss',
-  imports: [
-    MatDialogActions,
-    MatDialogTitle,
-    MatDialogContent,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+  imports: [MatDialogTitle, MatDialogContent, FormsModule, ReactiveFormsModule],
 })
 export class EditItemCategoryMasterComponent implements OnInit {
   id: number;

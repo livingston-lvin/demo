@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  MatDialogActions,
   MatDialogTitle,
   MatDialogContent,
   MatDialogRef,
@@ -19,13 +18,7 @@ import { BrandService } from '../../../../../services/brand.service';
   selector: 'app-edit-brand-master',
   templateUrl: './edit-brand-master.component.html',
   styleUrl: './edit-brand-master.component.scss',
-  imports: [
-    MatDialogActions,
-    MatDialogTitle,
-    MatDialogContent,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+  imports: [MatDialogTitle, MatDialogContent, FormsModule, ReactiveFormsModule],
 })
 export class EditBrandMasterComponent implements OnInit {
   id: number;
@@ -70,8 +63,6 @@ export class EditBrandMasterComponent implements OnInit {
         }
       );
       this.dialogRef.close();
-    } else {
-      alert('Please fill all mandetory fields...');
     }
   }
 
