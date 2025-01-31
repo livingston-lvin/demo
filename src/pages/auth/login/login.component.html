@@ -1,18 +1,24 @@
 <div class="container">
-    <form [formGroup]="form" (ngSubmit)="submit()">
-        <div class="input-field">
-            <label for="code">Email : </label>
-            <input type="text" formControlName="code" required>
-        </div>
-        <br>
-        <div class="input-field">
-            <label for="password">Password :</label> 
-            <input type="password" formControlName="password" required>
-        </div>
-        <br>
-        <div class="action-btns">
-            <button class="submit" type="submit">Login</button>
-            <button type="reset">Clear</button>
-        </div>
-    </form>
+    <div class="app-data">
+        <img class="icon" src="/images/app-icon.png">
+        <img class="title" src="/images/app-title.png">
+    </div>
+    <div class="login-form">
+        <form [formGroup]="form" (ngSubmit)="submit()" ngNativeValidate>
+            <div class="input-field">
+                <label for="code">Email : </label>
+                <input type="text" formControlName="code" required>
+            </div>
+            <br>
+            <div class="input-field">
+                <label for="password">Password :</label>
+                <input type="password" formControlName="password" required>
+            </div>
+            <br>
+            <div class="action-btns">
+                <button class="submit" type="submit">Login</button>
+                <button type="button" (click)="form.reset()">Clear</button>
+            </div>
+        </form>
+    </div>
 </div>

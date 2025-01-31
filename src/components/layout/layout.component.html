@@ -11,18 +11,18 @@
         </div>
         <div class="spacing"></div>
         <div class="user">
-            <div [matMenuTriggerFor]="menu">
-                <span class="username">{{ username }}</span>
+            <div [matMenuTriggerFor]="menu" class="user-area">
+                <span class="username">{{ username }}</span> &nbsp;&nbsp;
                 <mat-icon>person</mat-icon>
             </div>
             <mat-menu #menu="matMenu" yPosition="below">
                 <button mat-menu-item>
-                    <mat-icon>person_edit</mat-icon>
-                    <span class="options">Update Profile</span>
+                    <mat-icon style="color: #76838f;">person_edit</mat-icon>
+                    <span style="color: #76838f;" class="options">Update Profile</span>
                 </button>
                 <button mat-menu-item (click)="logout()">
-                    <mat-icon>logout</mat-icon>
-                    <span class="options">Logout</span>
+                    <mat-icon style="color: #76838f;">logout</mat-icon>
+                    <span style="color: #76838f;" class="options">Logout</span>
                 </button>
             </mat-menu>
         </div>
@@ -71,8 +71,7 @@
                 @if(sideMenuOpened() && item.showSubItem()){
                 @for (subItem of item.subItems; track $index) {
                 @if(subItem.subItemsItems?.length){
-                    <div
-                    (click)="subItem.subItemsItems.length === 0 ? navigate([item.route,subItem.route],[item,subItem]) : ''"
+                <div (click)="subItem.subItemsItems.length === 0 ? navigate([item.route,subItem.route],[item,subItem]) : ''"
                     (click)="subItem.showSubItemsItem.set(!subItem.showSubItemsItem())">
                     <ul class="center submenu">
                         <mat-icon [ngClass]="subItem.selected() ? 'selected' : ''">{{subItem.icon}}</mat-icon>
@@ -87,7 +86,7 @@
                 }
 
                 @else {
-                    <div
+                <div
                     (click)="subItem.subItemsItems.length === 0 ? navigate([item.route,subItem.route],[item,subItem]) : ''">
                     <ul class="center submenu">
                         <mat-icon [ngClass]="subItem.selected() ? 'selected' : ''">{{subItem.icon}}</mat-icon>
