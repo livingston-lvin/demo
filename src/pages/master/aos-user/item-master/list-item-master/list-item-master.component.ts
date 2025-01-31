@@ -10,7 +10,6 @@ export class ListItemMasterComponent  {
   headers: string[] = [
     'S.No.',
             'Item Name',
-            'Item Code',
             'Category',
             'Item Image',
             'Date Added',

@@ -62,7 +62,6 @@ export class EditItemMasterComponent implements OnInit {
     this.form = this.fb.group({
       id: [null, Validators.required],
       name: [null, Validators.required],
-      code: [null, Validators.required],
       category: [null, Validators.required],
       weight: [null, Validators.required],
       weightUnit: [null, Validators.required],
@@ -141,7 +140,6 @@ export class EditItemMasterComponent implements OnInit {
         this.form.patchValue({
           id: res.id,
           name: res.name,
-          code: res.code,
           category: res.category,
           weight: res.weight,
           weightUnit: res.weightUnit,

@@ -8,10 +8,6 @@
       <input type="text" class="input-txt" formControlName="name" required>
     </div>
     <div class="input-field">
-      <label for="code">Item Code</label>
-      <input type="text" class="input-txt" formControlName="code" required>
-    </div>
-    <div class="input-field">
       <label for="category">Item Category<span class="imp">*</span></label>
       <select formControlName="category" required>
         @for (category of categories; track category) {
@@ -84,9 +80,6 @@
         }
       </select>
     </div>
-    <div class="input-field">
-    </div>
-    <div class="input-field"></div>
     <div class="action-btns">
       <button mat-flat-button type="submit">Submit</button>
       <button mat-button type="button" style="padding: 0 20px;" (click)="navigateToListItemPage()">

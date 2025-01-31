@@ -31,8 +31,8 @@ export class CustomerItemService {
     return this.http.get<CustomerItem>(`${this.url}/${id}`);
   }
 
-  updateCustomerItem(payload: CustomerItem): Observable<CustomerItem> {
-    return this.http.put<CustomerItem>(`${this.url}`, payload);
+  updateCustomerItem(payload: any): Observable<any> {
+    return this.http.put<any>(`${this.url}`, payload);
   }
 
   deleteCustomerItem(id: number): Observable<HttpResponseBase> {

@@ -167,7 +167,8 @@ img {
 }
 
 .select {
-  width: 150px;
+  min-width: 250px;
+  width: auto;
   padding: 5px 8px;
   border: 1px solid color.$borderColor;
   border-radius: 3px;

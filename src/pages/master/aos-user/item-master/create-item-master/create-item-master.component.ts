@@ -57,7 +57,6 @@ export class CreateItemMasterComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       name: [null, Validators.required],
-      code: [null, Validators.required],
       category: [null, Validators.required],
       weight: [null, Validators.required],
       weightUnit: [null, Validators.required],

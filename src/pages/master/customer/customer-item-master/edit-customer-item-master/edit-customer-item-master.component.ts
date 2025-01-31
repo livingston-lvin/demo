@@ -12,6 +12,7 @@ import { CustomerItemService } from '../../../../../services/customer-item.servi
 import { CustomerService } from '../../../../../services/customer.service';
 import { ItemService } from '../../../../../services/item.service';
 import { HttpClient } from '@angular/common/http';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-customer-item-master',
@@ -33,7 +34,7 @@ export class EditCustomerItemMasterComponent implements OnInit {
     private customerService: CustomerService,
     private customerItemService: CustomerItemService,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private location: Location
   ) {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.form = this.fb.group({
@@ -148,10 +149,8 @@ export class EditCustomerItemMasterComponent implements OnInit {
 
   submit() {
     const value = this.form.value;
-    const payload = {
-    };
     if (this.form.valid) {
-      this.customerItemService.create(payload).subscribe(
+      this.customerItemService.updateCustomerItem(value).subscribe(
         (res) => {
           this.navigateToListCustomerItemPage();
         },
@@ -165,12 +164,6 @@ export class EditCustomerItemMasterComponent implements OnInit {
   }
 
   navigateToListCustomerItemPage() {
-    this.router.navigate([
-      environment.servletPath,
-      environment.master,
-      environment.customerMaster,
-      environment.item,
-      environment.list,
-    ]);
+    this.location.back();
   }
 }

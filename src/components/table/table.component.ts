@@ -752,7 +752,6 @@ export class TableComponent implements OnInit {
 
   openImage(fileId: number) {
     this.dialog.open(ImageComponent, {
-      // width: '500px',
       enterAnimationDuration: '0ms',
       exitAnimationDuration: '0ms',
       data: { fileId },
