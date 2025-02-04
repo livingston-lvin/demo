@@ -37,7 +37,7 @@ export class LayoutComponent {
     private urlService: UrlChangeInterceptorService
   ) {
     const user = localStorage.getItem('user');
-    this.navigateRoute = urlService.tarUrls;
+    this.navigateRoute = this.urlService.tarUrls;
     if (user) {
       const appUser = JSON.parse(user);
       this.username = appUser.username;
