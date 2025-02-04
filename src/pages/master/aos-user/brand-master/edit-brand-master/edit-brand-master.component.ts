@@ -13,6 +13,8 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { BrandService } from '../../../../../services/brand.service';
+import { SnackbarService } from '../../../../../services/snackbar.service';
+import { Success } from '../../../../../constants/AppData';
 
 @Component({
   selector: 'app-edit-brand-master',
@@ -27,6 +29,7 @@ export class EditBrandMasterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private brandService: BrandService,
+    private snackbarService: SnackbarService,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     this.id = this.data.id;
@@ -52,21 +55,24 @@ export class EditBrandMasterComponent implements OnInit {
   }
 
   submit() {
-    if (this.form.valid) {
-      const value = this.form.value;
-      this.brandService.updateBrand(value).subscribe(
-        (res) => {
-          this.closeDialog();
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-      this.dialogRef.close();
-    }
+    const value = this.form.value;
+    this.brandService.updateBrand(value).subscribe(
+      (res) => {
+        this.snackbarService.openSnackBar({
+          msg: 'Brand updated succssfully!',
+          type: Success,
+        });
+        this.closeDialog(Success);
+      },
+      (err) => {
+        console.log(err);
+        this.closeDialog(err);
+      }
+    );
+    this.dialogRef.close();
   }
 
-  closeDialog() {
-    this.dialogRef.close();
+  closeDialog(status: any) {
+    this.dialogRef.close(status);
   }
 }

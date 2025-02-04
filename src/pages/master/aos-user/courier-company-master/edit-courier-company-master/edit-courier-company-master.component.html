@@ -2,7 +2,7 @@
   <header>
     <h3>Update Courier</h3>
   </header>
-  <form [formGroup]="form" (ngSubmit)="submit()">
+  <form [formGroup]="form" (ngSubmit)="submit()" ngNativeValidate>
     <div class="input-field">
       <label for="companyName">Courier Company Name<span class="imp">*</span></label>
       <input type="text" formControlName="companyName" required>

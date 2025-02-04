@@ -9,23 +9,22 @@ import {
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment.development';
 import { CourierService } from '../../../../../services/courier.service';
+import { SnackbarService } from '../../../../../services/snackbar.service';
+import { Success } from '../../../../../constants/AppData';
 
 @Component({
   selector: 'app-create-courier-company-master',
   templateUrl: './create-courier-company-master.component.html',
   styleUrl: './create-courier-company-master.component.scss',
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+  imports: [FormsModule, ReactiveFormsModule],
 })
 export class CreateCourierCompanyMasterComponent {
-
   form: FormGroup;
   constructor(
     private fb: FormBuilder,
     private courierService: CourierService,
-    private router: Router
+    private router: Router,
+    private snackBarService: SnackbarService
   ) {
     this.form = this.fb.group({
       companyName: [null, Validators.required],
@@ -41,6 +40,10 @@ export class CreateCourierCompanyMasterComponent {
       const value = this.form.value;
       this.courierService.create(value).subscribe(
         (res) => {
+          this.snackBarService.openSnackBar({
+            msg: 'Courier created successfully!',
+            type: Success,
+          });
           this.navigateToListCourierPage();
         },
         (err) => {

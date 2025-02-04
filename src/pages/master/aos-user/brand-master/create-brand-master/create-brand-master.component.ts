@@ -35,24 +35,23 @@ export class CreateBrandMasterComponent {
   }
 
   submit() {
-    if (this.form.valid) {
-      const value = this.form.value;
-      this.brandService.create(value).subscribe(
-        (res) => {
-          this.snackbarService.openSnackBar({
-            msg: 'Brand added succssfully!',
-            type: Success,
-          });
-          this.closeDialog();
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    }
+    const value = this.form.value;
+    this.brandService.create(value).subscribe(
+      (res) => {
+        this.snackbarService.openSnackBar({
+          msg: 'Brand added succssfully!',
+          type: Success,
+        });
+        this.closeDialog(Success);
+      },
+      (err) => {
+        console.log(err);
+        this.closeDialog(err);
+      }
+    );
   }
 
-  closeDialog() {
-    this.dialogRef.close();
+  closeDialog(status: any) {
+    this.dialogRef.close(status);
   }
 }

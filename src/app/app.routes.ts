@@ -22,10 +22,6 @@ import { CreateCourierCompanyMasterComponent } from '../pages/master/aos-user/co
 import { ViewCourierCompanyMasterComponent } from '../pages/master/aos-user/courier-company-master/view-courier-company-master/view-courier-company-master.component';
 import { EditCourierCompanyMasterComponent } from '../pages/master/aos-user/courier-company-master/edit-courier-company-master/edit-courier-company-master.component';
 import { DashboardComponent } from '../pages/dashboard/dashboard.component';
-import { ListItemPriceMasterComponent } from '../pages/master/aos-user/item-price/list-item-price-master/list-item-price-master.component';
-import { CreateItemPriceMasterComponent } from '../pages/master/aos-user/item-price/create-item-price-master/create-item-price-master.component';
-import { ViewItemPriceMasterComponent } from '../pages/master/aos-user/item-price/view-item-price-master/view-item-price-master.component';
-import { EditItemPriceMasterComponent } from '../pages/master/aos-user/item-price/edit-item-price-master/edit-item-price-master.component';
 import { ListBrandMasterComponent } from '../pages/master/aos-user/brand-master/list-brand-master/list-brand-master.component';
 import { CreateBrandMasterComponent } from '../pages/master/aos-user/brand-master/create-brand-master/create-brand-master.component';
 import { ViewBrandMasterComponent } from '../pages/master/aos-user/brand-master/view-brand-master/view-brand-master.component';
@@ -108,30 +104,6 @@ export const routes: Routes = [
                   {
                     path: `${environment.edit}/:id`,
                     component: EditItemCategoryMasterComponent,
-                  },
-                ],
-              },
-
-              // ITEM PRICE MASTER
-
-              {
-                path: environment.itemPrice,
-                children: [
-                  {
-                    path: environment.list,
-                    component: ListItemPriceMasterComponent,
-                  },
-                  {
-                    path: environment.create,
-                    component: CreateItemPriceMasterComponent,
-                  },
-                  {
-                    path: `${environment.view}/:id`,
-                    component: ViewItemPriceMasterComponent,
-                  },
-                  {
-                    path: `${environment.edit}/:id`,
-                    component: EditItemPriceMasterComponent,
                   },
                 ],
               },

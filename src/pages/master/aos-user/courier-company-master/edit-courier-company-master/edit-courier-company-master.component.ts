@@ -13,6 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment.development';
 import { CourierService } from '../../../../../services/courier.service';
+import { SnackbarService } from '../../../../../services/snackbar.service';
+import { Success } from '../../../../../constants/AppData';
 
 @Component({
   selector: 'app-edit-courier-company-master',
@@ -34,7 +36,8 @@ export class EditCourierCompanyMasterComponent implements OnInit {
     private fb: FormBuilder,
     private courierService: CourierService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBarService: SnackbarService
   ) {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.form = this.fb.group({
@@ -74,6 +77,10 @@ export class EditCourierCompanyMasterComponent implements OnInit {
       const value = this.form.value;
       this.courierService.create(value).subscribe(
         (res) => {
+          this.snackBarService.openSnackBar({
+            msg: 'Courier updated successfully!',
+            type: Success,
+          });
           this.navigateToListCourierPage();
         },
         (err) => {

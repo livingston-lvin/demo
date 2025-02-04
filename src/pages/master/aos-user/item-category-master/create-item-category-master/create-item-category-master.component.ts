@@ -12,6 +12,8 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { ItemCategoryService } from '../../../../../services/item-category.service';
+import { Success } from '../../../../../constants/AppData';
+import { SnackbarService } from '../../../../../services/snackbar.service';
 
 @Component({
   selector: 'app-create-item-category-master',
@@ -24,7 +26,8 @@ export class CreateItemCategoryMasterComponent {
   form: FormGroup;
   constructor(
     private fb: FormBuilder,
-    private itemCategoryService: ItemCategoryService
+    private itemCategoryService: ItemCategoryService,
+    private snackbarService: SnackbarService
   ) {
     this.form = this.fb.group({
       id: [null],
@@ -33,22 +36,23 @@ export class CreateItemCategoryMasterComponent {
   }
 
   submit() {
-    if (this.form.valid) {
-      const value = this.form.value;
-      this.itemCategoryService.createItemCategory(value).subscribe(
-        (res) => {
-          this.closeDialog();
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    } else {
-      alert('Please fill all mandetory fields...');
-    }
+    const value = this.form.value;
+    this.itemCategoryService.createItemCategory(value).subscribe(
+      (res) => {
+        this.snackbarService.openSnackBar({
+          msg: 'Category added succssfully!',
+          type: Success,
+        });
+        this.closeDialog(Success);
+      },
+      (err) => {
+        console.log(err);
+        this.closeDialog(err);
+      }
+    );
   }
 
-  closeDialog() {
-    this.dialogRef.close();
+  closeDialog(status: any) {
+    this.dialogRef.close(status);
   }
 }

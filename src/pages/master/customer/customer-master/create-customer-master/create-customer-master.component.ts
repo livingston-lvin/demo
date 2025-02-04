@@ -97,12 +97,10 @@ export class CreateCustomerMasterComponent {
       this.customerService.create(payload).subscribe(
         (res) => {
           this.snackBarService.openSnackBar({
-            msg: 'User created successfully',
+            msg: 'Customer created successfully!',
             type: Success,
           });
-          setTimeout(() => {
-            this.navigateToListUserPage();
-          }, 3000);
+          this.navigateToListUserPage();
         },
         (err) => {
           console.log(err);

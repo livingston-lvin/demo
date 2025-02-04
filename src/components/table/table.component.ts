@@ -2,10 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, input, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  MatDialog,
-  MatDialogModule,
-} from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { Router } from '@angular/router';
@@ -15,7 +12,6 @@ import { ItemService } from '../../services/item.service';
 import { ItemCategoryService } from '../../services/item-category.service';
 import { GstService } from '../../services/gst.service';
 import { CourierService } from '../../services/courier.service';
-import { ItemPriceService } from '../../services/item-price.service';
 import {
   brandMaster,
   courierMaster,
@@ -24,7 +20,6 @@ import {
   gstMaster,
   itemCategoryMaster,
   itemMaster,
-  itemPriceMaster,
   orderMaster,
   userMaster,
 } from '../../constants/Module';
@@ -37,6 +32,8 @@ import { ImageComponent } from '../image/image.component';
 import { CustomerService } from '../../services/customer.service';
 import { CustomerItemService } from '../../services/customer-item.service';
 import { OrderService } from '../../services/order.service';
+import { AlertService } from '../../services/alert.service';
+import { Success } from '../../constants/AppData';
 
 @Component({
   selector: 'app-table',
@@ -72,7 +69,6 @@ export class TableComponent implements OnInit {
   userMaster = signal(userMaster);
   itemMaster = signal(itemMaster);
   itemCategoryMaster = signal(itemCategoryMaster);
-  itemPriceMaster = signal(itemPriceMaster);
   gstMaster = signal(gstMaster);
   courierMaster = signal(courierMaster);
   brandMaster = signal(brandMaster);
@@ -85,7 +81,6 @@ export class TableComponent implements OnInit {
     private userService: UserService,
     private itemService: ItemService,
     private itemCategoryService: ItemCategoryService,
-    private itemPriceService: ItemPriceService,
     private gstService: GstService,
     private courierService: CourierService,
     private brandService: BrandService,
@@ -93,6 +88,7 @@ export class TableComponent implements OnInit {
     private customerItemService: CustomerItemService,
     private orderService: OrderService,
     private dialog: MatDialog,
+    private alertService: AlertService
   ) {
     this.selectedCustomerId.set(1);
   }
@@ -108,8 +104,6 @@ export class TableComponent implements OnInit {
       this.loadItem();
     } else if (this.curModule() === itemCategoryMaster) {
       this.loadItemCategory();
-    } else if (this.curModule() === itemPriceMaster) {
-      this.loadItemPrice();
     } else if (this.curModule() === gstMaster) {
       this.loadGst();
     } else if (this.curModule() === courierMaster) {
@@ -132,8 +126,6 @@ export class TableComponent implements OnInit {
       this.navigateToCreateItem();
     } else if (this.curModule() === itemCategoryMaster) {
       this.openDialog(null, 'item-category');
-    } else if (this.curModule() === itemPriceMaster) {
-      this.navigateToCreateItemPrice();
     } else if (this.curModule() === gstMaster) {
       this.navigateToCreateGst();
     } else if (this.curModule() === courierMaster) {
@@ -154,8 +146,6 @@ export class TableComponent implements OnInit {
       this.editItem(id);
     } else if (this.curModule() === itemCategoryMaster) {
       this.openDialog(id, 'item-category');
-    } else if (this.curModule() === itemPriceMaster) {
-      this.editItemPrice(id);
     } else if (this.curModule() === gstMaster) {
       this.editGst(id);
     } else if (this.curModule() === courierMaster) {
@@ -170,12 +160,12 @@ export class TableComponent implements OnInit {
   deleteData(id: number) {
     if (this.curModule() === userMaster) {
       this.deleteUser(id);
+    } else if (this.curModule() === brandMaster) {
+      this.deleteBrand(id);
     } else if (this.curModule() === itemMaster) {
       this.deleteItem(id);
     } else if (this.curModule() === itemCategoryMaster) {
       this.deleteItemCategory(id);
-    } else if (this.curModule() === itemPriceMaster) {
-      this.deleteItemPrice(id);
     } else if (this.curModule() === gstMaster) {
       this.deleteGst(id);
     } else if (this.curModule() === courierMaster) {
@@ -183,7 +173,6 @@ export class TableComponent implements OnInit {
     } else if (this.curModule() === customerMaster) {
       this.deleteCustomer(id);
     }
-    this.reset();
   }
 
   search() {
@@ -194,8 +183,6 @@ export class TableComponent implements OnInit {
         this.searchItem();
       } else if (this.curModule() === itemCategoryMaster) {
         this.searchItemCategory();
-      } else if (this.curModule() === itemPriceMaster) {
-        this.searchItemPrice();
       } else if (this.curModule() === gstMaster) {
         this.searchGst();
       } else if (this.curModule() === courierMaster) {
@@ -246,16 +233,6 @@ export class TableComponent implements OnInit {
       environment.master,
       environment.aosUser,
       environment.item,
-      environment.create,
-    ]);
-  }
-
-  navigateToCreateItemPrice() {
-    this.router.navigate([
-      environment.servletPath,
-      environment.master,
-      environment.aosUser,
-      environment.itemPrice,
       environment.create,
     ]);
   }
@@ -332,17 +309,6 @@ export class TableComponent implements OnInit {
     ]);
   }
 
-  editItemPrice(id: number) {
-    this.router.navigate([
-      environment.servletPath,
-      environment.master,
-      environment.aosUser,
-      environment.itemPrice,
-      environment.edit,
-      id,
-    ]);
-  }
-
   editGst(id: number) {
     this.router.navigate([
       environment.servletPath,
@@ -377,80 +343,165 @@ export class TableComponent implements OnInit {
   }
 
   deleteUser(id: number) {
-    this.userService.deleteUser(id).subscribe(
-      (res) => {
-        this.loadData();
-      },
-      (err) => {
+    this.alertService
+      .alert('Warning!', 'Do you want delete this user?', 'question', 'Delete')
+      .then((res) => {
+        if (res.isConfirmed) {
+          this.userService.deleteUser(id).subscribe(
+            (res) => {
+              this.reset();
+              this.loadData();
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        }
+      })
+      .catch((err) => {
         console.log(err);
-      }
-    );
+      });
+  }
+
+  deleteBrand(id: number) {
+    this.alertService
+      .alert('Warning!', 'Do you want delete this brand?', 'question', 'Delete')
+      .then((res) => {
+        if (res.isConfirmed) {
+          this.brandService.deleteBrand(id).subscribe(
+            (res) => {
+              this.reset();
+              this.loadData();
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   deleteItem(id: number) {
-    this.itemService.delete(id).subscribe(
-      (res) => {
-        this.loadData();
-      },
-      (err) => {
+    this.alertService
+      .alert('Warning!', 'Do you want delete this item?', 'question', 'Delete')
+      .then((res) => {
+        if (res.isConfirmed) {
+          this.itemService.delete(id).subscribe(
+            (res) => {
+              this.reset();
+              this.loadData();
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        }
+      })
+      .catch((err) => {
         console.log(err);
-      }
-    );
+      });
   }
 
   deleteItemCategory(id: number) {
-    this.itemCategoryService.deleteItemCategory(id).subscribe(
-      (res) => {
-        this.loadData();
-      },
-      (err) => {
+    this.alertService
+      .alert(
+        'Warning!',
+        'Do you want delete this category?',
+        'question',
+        'Delete'
+      )
+      .then((res) => {
+        if (res.isConfirmed) {
+          this.itemCategoryService.deleteItemCategory(id).subscribe(
+            (res) => {
+              this.reset();
+              this.loadData();
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        }
+      })
+      .catch((err) => {
         console.log(err);
-      }
-    );
-  }
-
-  deleteItemPrice(id: number) {
-    this.itemPriceService.delete(id).subscribe(
-      (res) => {
-        this.loadData();
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+      });
   }
 
   deleteGst(id: number) {
-    this.gstService.deleteGst(id).subscribe(
-      (res) => {
-        this.loadData();
-      },
-      (err) => {
+    this.alertService
+      .alert('Warning!', 'Do you want delete this gst?', 'question', 'Delete')
+      .then((res) => {
+        if (res.isConfirmed) {
+          this.gstService.deleteGst(id).subscribe(
+            (res) => {
+              this.reset();
+              this.loadData();
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        }
+      })
+      .catch((err) => {
         console.log(err);
-      }
-    );
+      });
   }
 
   deleteCourier(id: number) {
-    this.courierService.deleteCourier(id).subscribe(
-      (res) => {
-        this.loadData();
-      },
-      (err) => {
+    this.alertService
+      .alert(
+        'Warning!',
+        'Do you want delete this courier?',
+        'question',
+        'Delete'
+      )
+      .then((res) => {
+        if (res.isConfirmed) {
+          this.courierService.deleteCourier(id).subscribe(
+            (res) => {
+              this.reset();
+              this.loadData();
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        }
+      })
+      .catch((err) => {
         console.log(err);
-      }
-    );
+      });
   }
 
   deleteCustomer(id: number) {
-    this.customerService.deleteCustomer(id).subscribe(
-      (res) => {
-        this.loadData();
-      },
-      (err) => {
+    this.alertService
+      .alert(
+        'Warning!',
+        'Do you want delete this customer?',
+        'question',
+        'Delete'
+      )
+      .then((res) => {
+        if (res.isConfirmed) {
+          this.customerService.deleteCustomer(id).subscribe(
+            (res) => {
+              this.reset();
+              this.loadData();
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        }
+      })
+      .catch((err) => {
         console.log(err);
-      }
-    );
+      });
   }
 
   searchUser() {
@@ -487,22 +538,6 @@ export class TableComponent implements OnInit {
 
   searchItemCategory() {
     this.itemCategoryService
-      .search(this.searchTxt, this.limit(), this.offset())
-      .subscribe(
-        (res) => {
-          this.items = res.content;
-          this.size = +res.totalPages;
-          this.records = +res.totalElements;
-          this.page = this.items.length > 0 ? 1 : 0;
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-  }
-
-  searchItemPrice() {
-    this.itemPriceService
       .search(this.searchTxt, this.limit(), this.offset())
       .subscribe(
         (res) => {
@@ -591,20 +626,6 @@ export class TableComponent implements OnInit {
           console.log(err);
         }
       );
-  }
-
-  loadItemPrice() {
-    this.itemPriceService.getAll(this.limit(), this.offset()).subscribe(
-      (res) => {
-        this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
   }
 
   loadGst() {
@@ -743,7 +764,8 @@ export class TableComponent implements OnInit {
       data: { id },
     });
     dialog.afterClosed().subscribe((res) => {
-      if (res) {
+      console.log(res);
+      if (res === Success) {
         this.reset();
         this.loadData();
       }

@@ -80,9 +80,10 @@ export class CreateUserMasterComponent {
       this.userService.create(value).subscribe(
         (res) => {
           this.snackBarService.openSnackBar({
-            msg: 'User created successfully',
+            msg: 'User created successfully!',
             type: Success,
           });
+          this.navigateToListUserPage();
         },
         (err) => {
           console.log(err);

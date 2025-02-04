@@ -146,30 +146,6 @@
                 }
                 }
 
-                @else if (curModule() === itemPriceMaster()) {
-                @for (item of items; track $index) {
-                <tr class="row-data">
-                    <td>{{ $index + 1 + offset() * limit() }}.</td>
-                    <td>{{ item.item.name }}</td>
-                    <td>{{ item.item.code }}</td>
-                    <td>{{ item.itemPrice }}</td>
-                    <td>{{ item.itemHsnCode }}</td>
-                    <td>{{ item.itemGstRate }}</td>
-                    <td>{{ item.itemGstRate }}</td>
-                    <td>{{ item.itemGstRate }}</td>
-                    <td>{{ item.saveDt }}</td>
-                    <td>
-                        <button mat-icon-button (click)="editData(item.id)">
-                            <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">edit_note</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="deleteData(item.id)">
-                            <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">delete</mat-icon>
-                        </button>
-                    </td>
-                </tr>
-                }
-                }
-
                 @else if (curModule() === gstMaster()) {
                 @for (item of items; track $index) {
                 <tr class="row-data">

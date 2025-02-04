@@ -75,14 +75,14 @@ export class EditCustomerMasterComponent implements OnInit {
       (res: any) => {
         const customer: any = res.customer;
         this.form.patchValue({
-          customerName: [customer.customerName],
-          customerLoginPageUrl: [customer.customerLoginPageUrl],
-          email: [customer.email],
-          modeOfPayment: [customer.modeOfPayment],
-          shippingChargesPaidBy: [customer.shippingChargesPaidBy],
-          gstNo: [customer.gstNo],
-          state: [customer.state],
-          city: [customer.city],
+          customerName: customer.customerName,
+          customerLoginPageUrl: customer.customerLoginPageUrl,
+          email: customer.email,
+          modeOfPayment: customer.modeOfPayment,
+          shippingChargesPaidBy: customer.shippingChargesPaidBy,
+          gstNo: customer.gstNo,
+          state: customer.state,
+          city: customer.city,
         });
         const contacts: any[] = res.contacts;
         contacts.forEach((contact) => this.contacts.push(contact));

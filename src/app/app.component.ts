@@ -2,7 +2,6 @@ import { Component, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { LoaderService } from '../services/loader.service';
 import { UrlChangeInterceptorService } from '../services/url-change.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

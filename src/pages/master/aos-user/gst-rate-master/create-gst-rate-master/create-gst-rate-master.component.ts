@@ -13,6 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment.development';
 import { GstService } from '../../../../../services/gst.service';
+import { SnackbarService } from '../../../../../services/snackbar.service';
+import { Success } from '../../../../../constants/AppData';
 
 @Component({
   selector: 'app-create-gst-rate-master',
@@ -32,7 +34,8 @@ export class CreateGstRateMasterComponent {
   constructor(
     private fb: FormBuilder,
     private gstService: GstService,
-    private router: Router
+    private router: Router,
+    private snackBarService: SnackbarService
   ) {
     this.form = this.fb.group({
       rate: [null, Validators.required],
@@ -45,13 +48,17 @@ export class CreateGstRateMasterComponent {
       const value = this.form.value;
       this.gstService.create(value).subscribe(
         (res) => {
+          this.snackBarService.openSnackBar({
+            msg: 'Gst Rate created successfully!',
+            type: Success,
+          });
           this.navigateToListGstPage();
         },
         (err) => {
           console.log(err);
         }
       );
-    } 
+    }
   }
 
   navigateToListGstPage() {
