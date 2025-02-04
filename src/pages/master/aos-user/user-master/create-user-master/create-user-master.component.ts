@@ -75,7 +75,6 @@ export class CreateUserMasterComponent {
   }
 
   submit() {
-    console.log(this.form.value);
     if (this.form.valid) {
       const value = this.form.value;
       this.userService.create(value).subscribe(
@@ -84,9 +83,6 @@ export class CreateUserMasterComponent {
             msg: 'User created successfully',
             type: Success,
           });
-          setTimeout(() => {
-            this.navigateToListUserPage();
-          }, 3000);
         },
         (err) => {
           console.log(err);
