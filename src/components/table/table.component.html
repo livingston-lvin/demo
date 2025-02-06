@@ -65,7 +65,7 @@
             }
             <div class="input-container">
                 <input type="text" placeholder="Enter search term ..." [(ngModel)]="searchTxt" />
-                <button mat-icon-button class="search" (click)="search()">
+                <button mat-icon-button class="search" (click)="search()" [disabled]="!(searchTxt && searchTxt.length)">
                     <mat-icon>search</mat-icon>
                 </button>
             </div>
@@ -110,10 +110,10 @@
                 @for (item of items; track $index) {
                 <tr class="row-data">
                     <td>{{ $index + 1 + offset() * limit() }}.</td>
-                    <td>{{ item.name }}</td>
+                    <td style="text-align: left;">{{ item.name }}</td>
                     <td>{{ item.category.name }}</td>
                     <td>
-                        <button mat-icon-button (click)="openImage(item.fileId)"><mat-icon>image</mat-icon></button>
+                        <button mat-icon-button (click)="openImage(item.fileId,item.name)"><mat-icon>image</mat-icon></button>
                     </td>
                     <td>{{ item.saveDt }}</td>
                     <td>

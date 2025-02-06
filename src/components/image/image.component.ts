@@ -10,15 +10,17 @@ import { FileService } from '../../services/file.service';
 })
 export class ImageComponent implements OnInit {
   url = signal<string | null>(null);
+  name = signal<string | null>(null);
   readonly dialogRef = inject(MatDialogRef<ImageComponent>);
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fileService: FileService
-  ) {}
+  ) {
+    this.name.set(data.name)
+  }
   ngOnInit(): void {
     this.fileService.download(this.data.fileId).subscribe((blob) => {
       const url = window.URL.createObjectURL(blob);
-      this.data.srcUl = url;
       this.url.set(url)
     });
   }

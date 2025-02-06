@@ -33,7 +33,8 @@ import { CustomerService } from '../../services/customer.service';
 import { CustomerItemService } from '../../services/customer-item.service';
 import { OrderService } from '../../services/order.service';
 import { AlertService } from '../../services/alert.service';
-import { Success } from '../../constants/AppData';
+import { Success, Warning } from '../../constants/AppData';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-table',
@@ -88,7 +89,8 @@ export class TableComponent implements OnInit {
     private customerItemService: CustomerItemService,
     private orderService: OrderService,
     private dialog: MatDialog,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private snackBarSErvice: SnackbarService
   ) {
     this.selectedCustomerId.set(1);
   }
@@ -177,16 +179,25 @@ export class TableComponent implements OnInit {
 
   search() {
     if (this.searchTxt) {
+      const payload = {
+        searchTxt: this.searchTxt,
+        limit: this.limit(),
+        offset: this.offset(),
+      };
       if (this.curModule() === userMaster) {
-        this.searchUser();
+        this.searchUser(payload);
+      } else if (this.curModule() === brandMaster) {
+        this.searchBrand(payload);
       } else if (this.curModule() === itemMaster) {
-        this.searchItem();
+        this.searchItem(payload);
       } else if (this.curModule() === itemCategoryMaster) {
-        this.searchItemCategory();
+        this.searchItemCategory(payload);
       } else if (this.curModule() === gstMaster) {
-        this.searchGst();
+        this.searchGst(payload);
       } else if (this.curModule() === courierMaster) {
-        this.searchCourier();
+        this.searchCourier(payload);
+      } else if (this.curModule() === customerMaster) {
+        this.searchCustomer(payload);
       }
     }
   }
@@ -504,84 +515,102 @@ export class TableComponent implements OnInit {
       });
   }
 
-  searchUser() {
-    this.userService
-      .search(this.searchTxt, this.limit(), this.offset())
-      .subscribe(
-        (res) => {
-          this.items = res.content;
-          this.size = +res.totalPages;
-          this.records = +res.totalElements;
-          this.page = this.items.length > 0 ? 1 : 0;
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+  searchUser(payload: any) {
+    this.userService.search(payload).subscribe(
+      (res) => {
+        this.items = res.content;
+        this.size = +res.totalPages;
+        this.records = +res.totalElements;
+        this.page = this.items.length > 0 ? 1 : 0;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
-  searchItem() {
-    this.itemService
-      .search(this.searchTxt, this.limit(), this.offset())
-      .subscribe(
-        (res) => {
-          this.items = res.content;
-          this.size = +res.totalPages;
-          this.records = +res.totalElements;
-          this.page = this.items.length > 0 ? 1 : 0;
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+  searchBrand(payload: any) {
+    this.brandService.search(payload).subscribe(
+      (res) => {
+        this.items = res.content;
+        this.size = +res.totalPages;
+        this.records = +res.totalElements;
+        this.page = this.items.length > 0 ? 1 : 0;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
-  searchItemCategory() {
-    this.itemCategoryService
-      .search(this.searchTxt, this.limit(), this.offset())
-      .subscribe(
-        (res) => {
-          this.items = res.content;
-          this.size = +res.totalPages;
-          this.records = +res.totalElements;
-          this.page = this.items.length > 0 ? 1 : 0;
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+  searchItem(payload: any) {
+    this.itemService.search(payload).subscribe(
+      (res) => {
+        this.items = res.content;
+        this.size = +res.totalPages;
+        this.records = +res.totalElements;
+        this.page = this.items.length > 0 ? 1 : 0;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
-  searchGst() {
-    this.gstService
-      .search(this.searchTxt, this.limit(), this.offset())
-      .subscribe(
-        (res) => {
-          this.items = res.content;
-          this.size = +res.totalPages;
-          this.records = +res.totalElements;
-          this.page = this.items.length > 0 ? 1 : 0;
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+  searchItemCategory(payload: any) {
+    this.itemCategoryService.search(payload).subscribe(
+      (res) => {
+        this.items = res.content;
+        this.size = +res.totalPages;
+        this.records = +res.totalElements;
+        this.page = this.items.length > 0 ? 1 : 0;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
-  searchCourier() {
-    this.courierService
-      .search(this.searchTxt, this.limit(), this.offset())
-      .subscribe(
-        (res) => {
-          this.items = res.content;
-          this.size = +res.totalPages;
-          this.records = +res.totalElements;
-          this.page = this.items.length > 0 ? 1 : 0;
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+  searchGst(payload: any) {
+    this.gstService.search(payload).subscribe(
+      (res) => {
+        this.items = res.content;
+        this.size = +res.totalPages;
+        this.records = +res.totalElements;
+        this.page = this.items.length > 0 ? 1 : 0;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  searchCourier(payload: any) {
+    this.courierService.search(payload).subscribe(
+      (res) => {
+        this.items = res.content;
+        this.size = +res.totalPages;
+        this.records = +res.totalElements;
+        this.page = this.items.length > 0 ? 1 : 0;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  searchCustomer(payload: any) {
+    this.customerService.search(payload).subscribe(
+      (res) => {
+        this.items = res.content;
+        this.size = +res.totalPages;
+        this.records = +res.totalElements;
+        this.page = this.items.length > 0 ? 1 : 0;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   loadUser() {
@@ -772,12 +801,20 @@ export class TableComponent implements OnInit {
     });
   }
 
-  openImage(fileId: number) {
-    this.dialog.open(ImageComponent, {
-      enterAnimationDuration: '0ms',
-      exitAnimationDuration: '0ms',
-      data: { fileId },
-    });
+  openImage(fileId: number, name: string) {
+    if (!fileId) {
+      this.snackBarSErvice.openSnackBar({
+        msg: 'Image not added',
+        type: Warning,
+      });
+      return;
+    } else {
+      this.dialog.open(ImageComponent, {
+        enterAnimationDuration: '0ms',
+        exitAnimationDuration: '0ms',
+        data: { fileId, name },
+      });
+    }
   }
 
   viewData(id: number) {

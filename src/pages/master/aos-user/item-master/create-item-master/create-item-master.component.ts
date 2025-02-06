@@ -34,7 +34,7 @@ export class CreateItemMasterComponent implements OnInit {
   brands: Brand[] = [];
   gsts: Gst[] = [];
   sizeUnits: string[] = ['cm', 'inch', 'reams'];
-  weightUnits: string[] = ['gm', 'kg'];
+  weightUnits: string[] = ['Gm', 'Kg'];
   packingUnits: string[] = [
     'Bottle',
     'Box',

@@ -9,6 +9,8 @@ import {
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
 import { AuthService } from '../../../services/auth.service';
+import { SnackbarService } from '../../../services/snackbar.service';
+import { Error } from '../../../constants/AppData';
 
 @Component({
   selector: 'app-login',
@@ -21,13 +23,13 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {
     this.form = this.fb.group({
       code: [null, Validators.required],
       password: [null, Validators.required],
     });
-    localStorage.clear()
+    localStorage.clear();
   }
 
   submit() {

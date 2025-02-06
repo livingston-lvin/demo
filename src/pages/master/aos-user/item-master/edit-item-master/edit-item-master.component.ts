@@ -35,7 +35,7 @@ export class EditItemMasterComponent implements OnInit {
   selectedFile: File | undefined;
   categories: ItemCategory[] = [];
   sizeUnits: string[] = ['cm', 'inch', 'reams'];
-  weightUnits: string[] = ['gm', 'kg'];
+  weightUnits: string[] = ['Gm', 'Kg'];
   gsts: Gst[] = [];
   packingUnits: string[] = [
     'Bottle',

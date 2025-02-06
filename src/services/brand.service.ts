@@ -35,12 +35,8 @@ export class BrandService {
     return this.http.delete<HttpResponseBase>(`${this.url}/${id}`);
   }
 
-  search(search: string, limit: number, offset: number): Observable<any> {
-    const params = new HttpParams()
-      .set('s', search)
-      .set('limit', limit)
-      .set('offset', offset);
-    return this.http.get<any>(this.url, { params });
+  search(payload: any): Observable<any> {
+    return this.http.post<any>(`${this.url}/search`, payload);
   }
 
   upload(payload: FormData): Observable<any> {
