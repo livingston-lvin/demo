@@ -1,3 +1,7 @@
+<div class="breadcrumb">
+    <div class="title">Customer Item List</div>
+</div>
+
 <div class="container">
     <h3></h3>
     <header>
@@ -55,6 +59,7 @@
         @if(items.length){
         <app-paginator (page)="navigate($event)" [size]="size" [records]="records" [from]="from()"
             [to]="to()"></app-paginator>
+            <br>
         } @else {
         <h2>No Data in the table...</h2>
         }

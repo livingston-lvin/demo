@@ -4,14 +4,17 @@
   border-bottom-left-radius: 5px;
 }
 
-.flex{
+.flex {
   display: flex;
-
+  flex-direction: row;
+  gap: 0;
 }
 
 .title {
-  font-size: 2rem;
-  font-family: ROBOTO-MEDIUM;
+  font-size: 1.5rem;
+  font-family: POPPIN-MEDIUM;
+  text-transform: capitalize;
+  margin-bottom: -10px;
 }
 
 .msg {

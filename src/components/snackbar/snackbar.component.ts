@@ -26,7 +26,7 @@ export class SnackbarComponent {
   snackBarRef = inject(MatSnackBarRef);
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {
     if(data.type===Success){
-      data.backgroundColor = '#00ff3b'
+      data.backgroundColor = '#04dd8a'
       data.color = '#fff'
     }
     else if(data.type===Warning){

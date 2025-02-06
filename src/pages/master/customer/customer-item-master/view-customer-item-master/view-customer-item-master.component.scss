@@ -3,44 +3,29 @@
 .breadcrumb {
   background-color: #fff;
   margin-bottom: 15px;
-  padding: 10px 40px;
+  padding: 10px 25px;
   font-family: ROBOTO-MEDIUM;
   color: #76838f;
 
   display: flex;
   justify-content: space-between;
+  border-radius: 5px;
 
   .title {
     font-size: 1.1rem;
     color: #0057a1;
   }
-
-  .route {
-    &:hover {
-      text-decoration: underline;
-      cursor: pointer;
-    }
-    font-family: ROBOTO-THIN;
-    font-size: 0.8rem;
-    font-weight: bold;
-  }
 }
 
 .container {
   background-color: #fff;
-  padding: 20px 40px;
+  padding: 10px 25px;
 }
 
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.data {
-  height: auto;
-  max-height: 380px;
-  overflow-y: scroll;
 }
 
 table {

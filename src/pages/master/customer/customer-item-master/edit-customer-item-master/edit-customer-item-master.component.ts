@@ -38,7 +38,7 @@ export class EditCustomerItemMasterComponent implements OnInit {
     private customerItemService: CustomerItemService,
     private route: ActivatedRoute,
     private location: Location,
-    private snackbarService: SnackbarService,
+    private snackbarService: SnackbarService
   ) {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.form = this.fb.group({
@@ -53,6 +53,7 @@ export class EditCustomerItemMasterComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+    this.submit();
   }
 
   loadData() {
@@ -117,26 +118,23 @@ export class EditCustomerItemMasterComponent implements OnInit {
   }
 
   submit() {
-    // const value = this.form.value;
-    // this.customerItemService.updateCustomerItem(value).subscribe(
-    //   (res) => {
-
-    //     this.navigateToListCustomerItemPage();
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //   }
-    // );
-    // this.snackbarService.openSnackBar({
-    //   title: Success,
-    //   msg: 'Item updated successfully!',
-    //   type: Success,
-    // });
-    // return;
+    const value = this.form.value;
+    this.customerItemService.updateCustomerItem(value).subscribe(
+      (res) => {
+        this.snackbarService.openSnackBar({
+          title: Success,
+          msg: 'Item updated successfully!',
+          type: Success,
+        });
+        this.navigateToListCustomerItemPage();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   navigateToListCustomerItemPage() {
     this.location.back();
   }
-
 }
