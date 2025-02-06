@@ -1,7 +1,8 @@
+<div class="breadcrumb">
+  <div class="title">Edit GST rate</div>
+</div>
+
 <div class="container">
-  <header>
-    <h3>Update GST</h3>
-  </header>
   <form [formGroup]="form" ngNativeValidate>
     <div class="input-field">
       <label for="rate">GST Rate(in %)<span class="imp">*</span></label>
@@ -11,6 +12,7 @@
       <label for="rate">GST Applicable From<span class="imp">*</span></label>
       <input type="date" class="input-txt" formControlName="applicableDt" required>
     </div>
+    <div class="input-field"></div>
     <div class="action-btns">
       <button type="submit" (click)="submit()">Update</button>
       <button type="button" (click)="navigateToListGstPage()">Cancel</button>

@@ -59,6 +59,7 @@ export class EditBrandMasterComponent implements OnInit {
     this.brandService.updateBrand(value).subscribe(
       (res) => {
         this.snackbarService.openSnackBar({
+          title:'Success',
           msg: 'Brand updated succssfully!',
           type: Success,
         });

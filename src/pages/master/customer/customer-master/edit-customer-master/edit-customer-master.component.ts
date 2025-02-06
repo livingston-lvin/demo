@@ -121,6 +121,7 @@ export class EditCustomerMasterComponent implements OnInit {
       this.customerService.create(payload).subscribe(
         (res) => {
           this.snackBarService.openSnackBar({
+            title:'Success',
             msg: 'User created successfully',
             type: Success,
           });

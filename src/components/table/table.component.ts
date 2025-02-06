@@ -90,7 +90,7 @@ export class TableComponent implements OnInit {
     private orderService: OrderService,
     private dialog: MatDialog,
     private alertService: AlertService,
-    private snackBarSErvice: SnackbarService
+    private snackBarService: SnackbarService
   ) {
     this.selectedCustomerId.set(1);
   }
@@ -803,9 +803,10 @@ export class TableComponent implements OnInit {
 
   openImage(fileId: number, name: string) {
     if (!fileId) {
-      this.snackBarSErvice.openSnackBar({
-        msg: 'Image not added',
+      this.snackBarService.openSnackBar({
+        msg: 'Please add image to view.',
         type: Warning,
+        title:'No Image'
       });
       return;
     } else {

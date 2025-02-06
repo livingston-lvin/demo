@@ -40,6 +40,7 @@ export class CreateItemCategoryMasterComponent {
     this.itemCategoryService.createItemCategory(value).subscribe(
       (res) => {
         this.snackbarService.openSnackBar({
+          title:'Success',
           msg: 'Category added succssfully!',
           type: Success,
         });

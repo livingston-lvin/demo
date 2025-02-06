@@ -1,25 +1,37 @@
 @use "../../../../../constants/colors.scss" as color;
 
+.breadcrumb {
+  background-color: #fff;
+  margin-bottom: 15px;
+  padding: 10px 25px;
+  font-family: ROBOTO-MEDIUM;
+  color: #76838f;
+
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+
+  .title {
+    font-size: 1.1rem;
+    color: #0057a1;
+  }
+}
+
 .container {
   width: auto;
   background-color: #fff;
-  padding: 10px 50px 25px;
+  padding: 10px 25px 25px;
   display: flex;
   flex-wrap: wrap;
 
   form {
-    width: auto;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     gap: 15px 30px;
   }
 }
 
-h3 {
-  font-family: ROBOTO-MEDIUM;
-  font-weight: 400;
-  color: #76838f;
-}
 
 .input-field {
 

@@ -41,6 +41,7 @@ export class CreateCourierCompanyMasterComponent {
       this.courierService.create(value).subscribe(
         (res) => {
           this.snackBarService.openSnackBar({
+            title:'Success',
             msg: 'Courier created successfully!',
             type: Success,
           });

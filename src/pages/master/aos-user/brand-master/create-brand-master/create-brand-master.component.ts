@@ -39,6 +39,7 @@ export class CreateBrandMasterComponent {
     this.brandService.create(value).subscribe(
       (res) => {
         this.snackbarService.openSnackBar({
+          title:'Success',
           msg: 'Brand added succssfully!',
           type: Success,
         });

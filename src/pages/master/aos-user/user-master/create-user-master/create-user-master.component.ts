@@ -75,23 +75,20 @@ export class CreateUserMasterComponent {
   }
 
   submit() {
-    if (this.form.valid) {
-      const value = this.form.value;
-      this.userService.create(value).subscribe(
-        (res) => {
-          this.snackBarService.openSnackBar({
-            msg: 'User created successfully!',
-            type: Success,
-          });
-          this.navigateToListUserPage();
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    } else {
-      alert('Please fill all mandetory fields...');
-    }
+    const value = this.form.value;
+    this.userService.create(value).subscribe(
+      (res) => {
+        this.snackBarService.openSnackBar({
+          title: 'Success',
+          msg: 'User created successfully!',
+          type: Success,
+        });
+        this.navigateToListUserPage();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   navigateToListUserPage() {

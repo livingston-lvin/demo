@@ -90,11 +90,11 @@ export class EditUserMasterComponent implements OnInit {
   }
 
   submit() {
-    if (this.form.valid) {
-      const value = this.form.value;
+   const value = this.form.value;
       this.userService.updateUser(value).subscribe(
         (res) => {
           this.snackBarService.openSnackBar({
+            title:'Success',
             msg: 'User updated successfully!',
             type: Success,
           });
@@ -104,9 +104,6 @@ export class EditUserMasterComponent implements OnInit {
           console.log(err);
         }
       );
-    } else {
-      alert('Please fill all mandetory fields...');
-    }
   }
 
   navigateToListUserPage() {

@@ -60,6 +60,7 @@ export class EditItemCategoryMasterComponent implements OnInit {
     this.itemCategoryService.updateItemCategory(value).subscribe(
       (res) => {
         this.snackbarService.openSnackBar({
+          title:'Success',
           msg: 'Category udated succssfully!',
           type: Success,
         });

@@ -73,23 +73,20 @@ export class EditCourierCompanyMasterComponent implements OnInit {
   }
 
   submit() {
-    if (this.form.valid) {
-      const value = this.form.value;
-      this.courierService.create(value).subscribe(
-        (res) => {
-          this.snackBarService.openSnackBar({
-            msg: 'Courier updated successfully!',
-            type: Success,
-          });
-          this.navigateToListCourierPage();
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    } else {
-      alert('Please fill all mandetory fields...');
-    }
+    const value = this.form.value;
+    this.courierService.create(value).subscribe(
+      (res) => {
+        this.snackBarService.openSnackBar({
+          title: 'Success',
+          msg: 'Courier updated successfully!',
+          type: Success,
+        });
+        this.navigateToListCourierPage();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   navigateToListCourierPage() {

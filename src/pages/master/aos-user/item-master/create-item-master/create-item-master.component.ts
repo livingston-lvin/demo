@@ -72,6 +72,7 @@ export class CreateItemMasterComponent implements OnInit {
 
   open(type:string) {
     this.snackBarService.openSnackBar({
+      title:'Success',
       msg: 'Item successfully saved.',
       type: type,
     });
@@ -135,6 +136,7 @@ export class CreateItemMasterComponent implements OnInit {
   submit() {
     if (!this.selectedFile) {
       this.snackBarService.openSnackBar({
+        title:'Info',
         msg: 'Please select item image',
         type: Warning,
       });
@@ -151,6 +153,7 @@ export class CreateItemMasterComponent implements OnInit {
       this.itemService.create(formData).subscribe(
         (_) => {
           this.snackBarService.openSnackBar({
+            title:'Success',
             msg: 'Item created...',
             type: Success,
           });

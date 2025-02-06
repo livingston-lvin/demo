@@ -97,6 +97,7 @@ export class CreateCustomerMasterComponent {
       this.customerService.create(payload).subscribe(
         (res) => {
           this.snackBarService.openSnackBar({
+            title:'Success',
             msg: 'Customer created successfully!',
             type: Success,
           });

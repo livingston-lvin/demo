@@ -1,5 +1,8 @@
+<div class="breadcrumb">
+    <div class="title">Create Customer Item</div>
+</div>
+
 <div class="form-container">
-    <h3>Create Customer Item</h3>
     <form [formGroup]="form">
         <div class="input-field">
             <label for="item">AOS Item Name<span class="imp">*</span></label>
@@ -30,18 +33,6 @@
             <label for="itemPrice">Customer Item Price <span class="imp">*</span></label>
             <input type="text" formControlName="itemPrice" (keydown)="validateNumberInput($event)" required>
         </div>
-        <!-- <div class="input-field">
-            <label for="gst">GST Rate(in %) <span class="imp">*</span></label>
-            <input type="text" formControlName="gst">
-        </div>
-        <div class="input-field">
-            <label for="itemHsnCode">Item HSN Code<span class="imp">*</span></label>
-            <input type="text" formControlName="itemHsnCode">
-        </div>
-        <div class="input-field">
-            <label for="priceIncGST">Price including GST<span class="imp">*</span></label>
-            <input type="text" formControlName="priceIncGST">
-        </div> -->
         <div class="action-btns">
             <button mat-flat-button type="submit" (click)="submit()">Submit</button>
             <button mat-button type="button" (click)="navigateToListCustomerItemPage()">

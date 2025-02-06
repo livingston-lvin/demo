@@ -55,11 +55,11 @@ export class EditGstRateMasterComponent implements OnInit {
   }
 
   submit() {
-    if (this.form.valid) {
-      const value = this.form.value;
+    const value = this.form.value;
       this.gstService.create(value).subscribe(
         (res) => {
           this.snackBarService.openSnackBar({
+            title:'Success',
             msg: 'Gst Rate updated successfully!',
             type: Success,
           });
@@ -69,7 +69,6 @@ export class EditGstRateMasterComponent implements OnInit {
           console.log(err);
         }
       );
-    }
   }
 
   navigateToListGstPage() {
