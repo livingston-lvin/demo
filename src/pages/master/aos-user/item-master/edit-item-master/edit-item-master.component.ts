@@ -163,6 +163,7 @@ export class EditItemMasterComponent implements OnInit {
   submit() {
     if (!this.selectedFile) {
       this.snackBarService.openSnackBar({
+        title:'Success',
         msg: 'Please select item image',
         type: Warning,
       });
@@ -184,6 +185,7 @@ export class EditItemMasterComponent implements OnInit {
       this.itemService.update(formData).subscribe(
         (_) => {
           this.snackBarService.openSnackBar({
+            title:'Success',
             msg: 'Item updated',
             type: Success,
           });

@@ -41,7 +41,11 @@ export class LoginComponent {
       },
       (err) => {
         console.log(err);
-        this.snackbarService.openSnackBar({ msg: err.error, type: Error });
+        this.snackbarService.openSnackBar({
+          title: 'Error',
+          msg: err.error,
+          type: Error,
+        });
       }
     );
   }
