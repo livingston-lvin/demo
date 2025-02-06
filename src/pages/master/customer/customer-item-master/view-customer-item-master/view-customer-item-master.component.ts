@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { PaginatorComponent } from '../../../../../components/paginator/paginator.component';
 import { MatButtonModule } from '@angular/material/button';
+import { AlertService } from '../../../../../services/alert.service';
 
 @Component({
   selector: 'app-view-customer-item-master',
@@ -29,7 +30,8 @@ export class ViewCustomerItemMasterComponent implements OnInit {
   constructor(
     private router: Router,
     private customerItemService: CustomerItemService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alertService: AlertService,
   ) {
     this.id = +this.route.snapshot.paramMap.get('id')!;
   }
@@ -86,19 +88,22 @@ export class ViewCustomerItemMasterComponent implements OnInit {
   }
 
   search() {
-    this.customerItemService
-      .search(this.searchTxt, this.limit(), this.offset())
-      .subscribe(
-        (res) => {
-          this.items = res.content;
-          this.size = +res.totalPages;
-          this.records = +res.totalElements;
-          this.page = this.items.length > 0 ? 1 : 0;
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+    const payload = {
+      searchTxt: this.searchTxt,
+      limit: this.limit(),
+      offset: this.offset(),
+    };
+    this.customerItemService.search(payload).subscribe(
+      (res) => {
+        this.items = res.content;
+        this.size = +res.totalPages;
+        this.records = +res.totalElements;
+        this.page = this.items.length > 0 ? 1 : 0;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   editData(id: number) {
@@ -112,5 +117,24 @@ export class ViewCustomerItemMasterComponent implements OnInit {
     ]);
   }
 
-  deleteData(id: number) {}
+  deleteData(id: number) {
+    this.alertService
+      .alert('Warning!', 'Do you want delete this item?', 'question', 'Delete')
+      .then((res) => {
+        if (res.isConfirmed) {
+          this.customerItemService.deleteCustomerItem(id).subscribe(
+            (res) => {
+              this.reset();
+              this.loadData();
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }

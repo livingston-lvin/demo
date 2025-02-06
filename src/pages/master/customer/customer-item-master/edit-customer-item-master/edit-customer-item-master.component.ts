@@ -13,12 +13,15 @@ import { CustomerService } from '../../../../../services/customer.service';
 import { ItemService } from '../../../../../services/item.service';
 import { HttpClient } from '@angular/common/http';
 import { Location } from '@angular/common';
+import { SnackbarService } from '../../../../../services/snackbar.service';
+import { Success } from '../../../../../constants/AppData';
 
 @Component({
   selector: 'app-edit-customer-item-master',
   templateUrl: './edit-customer-item-master.component.html',
   styleUrl: './edit-customer-item-master.component.scss',
   imports: [FormsModule, ReactiveFormsModule],
+  providers: [],
 })
 export class EditCustomerItemMasterComponent implements OnInit {
   form: FormGroup;
@@ -34,18 +37,17 @@ export class EditCustomerItemMasterComponent implements OnInit {
     private customerService: CustomerService,
     private customerItemService: CustomerItemService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private snackbarService: SnackbarService,
   ) {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.form = this.fb.group({
+      customerItemId: this.id,
       item: [null, Validators.required],
       customer: [null, Validators.required],
-      itemName: [null],
-      itemCode: [null, Validators.required],
-      itemPrice: [null, Validators.required],
-      // itemHsnCode: [null, Validators.required],
-      // priceIncGST: [null, Validators.required],
-      // gst: [null, Validators.required],
+      aliasItemName: [null, Validators.required],
+      aliasItemCode: [null, Validators.required],
+      aliasItemPrice: [null, Validators.required],
     });
   }
 
@@ -102,11 +104,11 @@ export class EditCustomerItemMasterComponent implements OnInit {
           (customer) => customer.field === res.customerId
         )[0];
         this.form.patchValue({
-          item: item.field,
-          customer: customer.field,
-          itemName: res.itemName,
-          itemCode: res.itemCode,
-          itemPrice: res.itemPrice,
+          item: item.value,
+          customer: customer.value,
+          aliasItemName: res.itemName,
+          aliasItemCode: res.itemCode,
+          aliasItemPrice: res.itemPrice,
         });
       })
       .catch((err) => {
@@ -114,56 +116,27 @@ export class EditCustomerItemMasterComponent implements OnInit {
       });
   }
 
-  onSelect(event: any) {
-    // const itemId: number = +event.target.value;
-    // console.log(itemId);
-    // const item: any = this.items.filter((item) => item.id === itemId)[0];
-    // console.log(item);
-    // const category = item.category;
-    // this.form.patchValue({
-    //   category: category.name,
-    //   gst: item.gst,
-    //   itemHsnCode: item.hsnCode,
-    // });
-  }
-
-  validateNumberInput(event: any): void {
-    const allowedKeys = [
-      'Backspace',
-      'ArrowLeft',
-      'ArrowRight',
-      'Tab',
-      'Delete',
-    ];
-
-    if (!/^\d$/.test(event.key) && !allowedKeys.includes(event.key)) {
-      event.preventDefault();
-    }
-    const val = +event.target!.value;
-    if (val && this.form.get('item')?.value) {
-      this.form.patchValue({
-        priceIncGST: val * (1 + this.form.get('gst')?.value / 100),
-      });
-    }
-  }
-
   submit() {
-    const value = this.form.value;
-    if (this.form.valid) {
-      this.customerItemService.updateCustomerItem(value).subscribe(
-        (res) => {
-          this.navigateToListCustomerItemPage();
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    } else {
-      alert('Please fill all mandetory fields...');
-    }
+    // const value = this.form.value;
+    // this.customerItemService.updateCustomerItem(value).subscribe(
+    //   (res) => {
+
+    //     this.navigateToListCustomerItemPage();
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //   }
+    // );
+    // this.snackbarService.openSnackBar({
+    //   title: Success,
+    //   msg: 'Item updated successfully!',
+    //   type: Success,
+    // });
+    // return;
   }
 
   navigateToListCustomerItemPage() {
     this.location.back();
   }
+
 }

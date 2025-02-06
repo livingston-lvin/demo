@@ -1,51 +1,33 @@
+<div class="breadcrumb">
+    <div class="title">Edit Customer Item</div>
+</div>
+
 <div class="form-container">
-    <h3>Edit Customer Item</h3>
-    <form [formGroup]="form">
+    <form [formGroup]="form" ngNativeValidate (ngSubmit)="submit()">
         <div class="input-field">
             <label for="item">AOS Item Name<span class="imp">*</span></label>
-            <select formControlName="item" (change)="onSelect($event)">
-                @for (item of items; track item) {
-                <option [value]="item.field">{{ item.value }}</option>
-                }
-            </select>
+            <input type="text" formControlName="item" required readonly>
         </div>
         <div class="input-field">
             <label for="customer">Select Customer<span class="imp">*</span></label>
-            <select formControlName="customer">
-                @for (customer of customers; track customer) {
-                <option [value]="customer.field">{{ customer.value }}</option>
-                }
-            </select>
+            <input type="text" formControlName="customer" required readonly>
         </div>
+        <div class="input-field"></div>
         <div class="input-field">
             <label for="itemName">Customer Item Name Alias</label>
-            <input type="text" formControlName="itemName">
+            <input type="text" formControlName="aliasItemName" required>
         </div>
         <div class="input-field">
             <label for="itemCode">Customer Item Code Alias<span class="imp">*</span></label>
-            <input type="text" formControlName="itemCode">
+            <input type="text" formControlName="aliasItemCode" required>
         </div>
         <div class="input-field">
             <label for="itemPrice">Customer Item Price <span class="imp">*</span></label>
-            <input type="text" formControlName="itemPrice" (keydown)="validateNumberInput($event)" required>
+            <input type="number" step="any" formControlName="aliasItemPrice" required>
         </div>
-        <!-- <div class="input-field">
-            <label for="gst">GST Rate(in %) <span class="imp">*</span></label>
-            <input type="text" formControlName="gst">
-        </div>
-        <div class="input-field">
-            <label for="itemHsnCode">Item HSN Code<span class="imp">*</span></label>
-            <input type="text" formControlName="itemHsnCode">
-        </div>
-        <div class="input-field">
-            <label for="priceIncGST">Price including GST<span class="imp">*</span></label>
-            <input type="text" formControlName="priceIncGST">
-        </div> -->
         <div class="action-btns">
-            <button mat-flat-button type="submit" (click)="submit()">Submit</button>
-            <button mat-button type="button" (click)="navigateToListCustomerItemPage()">
-                Cancel
-            </button>
+            <button mat-flat-button type="submit">Submit</button>
+            <button mat-button type="button" (click)="navigateToListCustomerItemPage()">Cancel</button>
         </div>
     </form>
 </div>

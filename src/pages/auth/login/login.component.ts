@@ -24,6 +24,7 @@ export class LoginComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    private snackbarService: SnackbarService
   ) {
     this.form = this.fb.group({
       code: [null, Validators.required],
@@ -40,6 +41,7 @@ export class LoginComponent {
       },
       (err) => {
         console.log(err);
+        this.snackbarService.openSnackBar({ msg: err.error, type: Error });
       }
     );
   }

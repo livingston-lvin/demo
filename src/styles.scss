@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @use "@angular/material" as mat;
 @use "constants/colors.scss" as color;
-@import "primeicons/primeicons.css";
 
 @font-face {
   font-family: ROBOTO-THIN;
@@ -43,11 +42,6 @@ body {
   background-color: #fff !important;
   width: 200px;
 }
-
-// .mat-mdc-text-field-wrapper {
-//   border: 1px solid #CED4DA;
-//   border-radius: 5px;
-// }
 
 .mat-mdc-dialog-surface {
   border-radius: 5px !important;

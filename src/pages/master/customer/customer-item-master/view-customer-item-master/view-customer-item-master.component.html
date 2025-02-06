@@ -34,7 +34,7 @@
                 @for (item of items; track $index) {
                 <tr class="row-data">
                     <td>{{ $index + 1 + offset() * limit() }}.</td>
-                    <td>{{ item.itemName }}</td>
+                    <td style="text-align: left;">{{ item.itemName }}</td>
                     <td>{{ item.customerName }}</td>
                     <td>{{ item.itemAliasName }}</td>
                     <td>{{ item.itemAliasCode }}</td>
