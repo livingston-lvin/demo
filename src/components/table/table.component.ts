@@ -65,7 +65,7 @@ export class TableComponent implements OnInit {
   module = input.required<string[]>();
   curModule = computed(() => this.module()[this.module().length - 1]);
   selectedCustomerId = signal<null | number>(null);
-  customers: any[] = [];
+  customers: any[] = [{ field: null, value: '-- select customer --' }];
 
   userMaster = signal(userMaster);
   itemMaster = signal(itemMaster);
@@ -91,9 +91,7 @@ export class TableComponent implements OnInit {
     private dialog: MatDialog,
     private alertService: AlertService,
     private snackBarService: SnackbarService
-  ) {
-    this.selectedCustomerId.set(1);
-  }
+  ) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -117,8 +115,19 @@ export class TableComponent implements OnInit {
     } else if (this.curModule() === customerItemMaster) {
       this.loadCustomerItem();
     } else if (this.curModule() === orderMaster) {
-      this.loadOrders();
+      this.loadCustomers();
     }
+  }
+
+  loadCustomers() {
+    this.customerService.getValidCustomers().subscribe(
+      (res) => {
+        res.forEach((r) => this.customers.push(r));
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   navigateToCreateData() {
@@ -725,26 +734,25 @@ export class TableComponent implements OnInit {
   }
 
   loadOrders() {
-    this.orderService.getAll(this.limit(), this.offset()).subscribe(
-      (res) => {
-        this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
-
-        this.customerService.getValidCustomers().subscribe(
+    if (this.selectedCustomerId()) {
+      this.orderService
+        .getAllByCustomerId(
+          this.selectedCustomerId()!,
+          this.limit(),
+          this.offset()
+        )
+        .subscribe(
           (res) => {
-            this.customers = res;
+            this.items = res.content;
+            this.size = +res.totalPages;
+            this.records = +res.totalElements;
+            this.page = this.items.length > 0 ? 1 : 0;
           },
           (err) => {
             console.log(err);
           }
         );
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    }
   }
 
   loadOrdersById() {
@@ -806,7 +814,7 @@ export class TableComponent implements OnInit {
       this.snackBarService.openSnackBar({
         msg: 'Please add image to view.',
         type: Warning,
-        title:'No Image'
+        title: 'No Image',
       });
       return;
     } else {
@@ -853,14 +861,18 @@ export class TableComponent implements OnInit {
         break;
       }
       case orderMaster: {
-        this.orderService.download().subscribe((blob) => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'orders-all.xlsx';
-          a.click();
-          window.URL.revokeObjectURL(url);
-        });
+        if (this.selectedCustomerId()) {
+          this.orderService
+            .download(this.selectedCustomerId()!)
+            .subscribe((blob) => {
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'orders-all.xlsx';
+              a.click();
+              window.URL.revokeObjectURL(url);
+            });
+        }
         break;
       }
       case itemMaster: {

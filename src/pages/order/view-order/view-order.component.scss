@@ -1,8 +1,26 @@
 @use "../../../constants/colors.scss" as color;
 
-.form-container {
+.breadcrumb {
   background-color: #fff;
-  padding: 10px 50px 25px;
+  margin-bottom: 15px;
+  padding: 10px 25px;
+  font-family: ROBOTO-MEDIUM;
+  color: #76838f;
+
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+
+  .title {
+    font-size: 1.1rem;
+    color: #0057a1;
+  }
+}
+
+.form-container {
+  width: auto;
+  background-color: #fff;
+  padding: 20px 25px 25px;
   display: flex;
   flex-wrap: wrap;
 
@@ -111,11 +129,11 @@ h3 {
     transition: background-color 0.3s ease, color 0.3s ease;
 
     &[type="submit"],&[type="button"] {
-      background-color: #007bff;
+      background-color: #ff2323;
       color: white;
 
       &:hover {
-        background-color: #0056b3;
+        background-color: #ff5252;
       }
     }
 

@@ -1,5 +1,8 @@
+<div class="breadcrumb">
+  <div class="title">Order Details</div>
+</div>
+
 <div class="form-container">
-    <h3>Order Details</h3>
     <form [formGroup]="form">
       <div class="data">
         <table>
@@ -17,7 +20,7 @@
               <td>{{ i + 1 }}.</td>
               <td>
                 <div class="input-field">
-                    <input type="text" formControlName="item" required readonly>
+                    <input type="text" formControlName="itemName" required readonly>
                 </div>
               </td>
               <td>
@@ -41,6 +44,6 @@
       </div>
     </form>
     <div class="action-btns">
-      <button mat-button type="reset" (click)="navigateToListStationery()">Cancel</button>
+      <button mat-button type="button" (click)="navigateToListStationery()">Cancel</button>
     </div>
   </div>

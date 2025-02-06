@@ -19,8 +19,8 @@ export class ItemService {
     return this.http.get<any>(`${this.url}/${limit}/${offset}`);
   }
 
-  getAll(): Observable<any> {
-    return this.http.get<any>(`${this.url}/valid`);
+  getAll(orderId: number): Observable<any> {
+    return this.http.get<any>(`${this.url}/valid/${orderId}`);
   }
 
   get(id: number): Observable<any> {
