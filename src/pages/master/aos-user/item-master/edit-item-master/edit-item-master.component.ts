@@ -67,7 +67,6 @@ export class EditItemMasterComponent implements OnInit {
       weightUnit: [null, Validators.required],
       packingQty: [null, Validators.required],
       packingUnit: [null, Validators.required],
-      minOrderQty: [null, Validators.required],
       brand: [null, Validators.required],
       attribute: [null, Validators.required],
       hsnCode: [null, Validators.required],
@@ -145,7 +144,6 @@ export class EditItemMasterComponent implements OnInit {
           weightUnit: res.weightUnit,
           packingQty: res.packingQty,
           packingUnit: res.packingUnit,
-          minOrderQty: res.minOrderQty,
           attribute: res.attribute,
           brand: res.brand,
           hsnCode: res.hsnCode,
@@ -160,10 +158,10 @@ export class EditItemMasterComponent implements OnInit {
       });
   }
 
-  submit() {
+  submit(mode: string) {
     if (!this.selectedFile) {
       this.snackBarService.openSnackBar({
-        title:'Success',
+        title: 'Warning',
         msg: 'Please select item image',
         type: Warning,
       });
@@ -185,11 +183,23 @@ export class EditItemMasterComponent implements OnInit {
       this.itemService.update(formData).subscribe(
         (_) => {
           this.snackBarService.openSnackBar({
-            title:'Success',
+            title: 'Success',
             msg: 'Item updated',
             type: Success,
           });
-          this.navigateToListItemPage();
+          if (mode === 'save') {
+            this.navigateToListItemPage();
+          } else if (mode === 'next') {
+            this.selectedFile = undefined;
+            this.router.navigate([
+              environment.servletPath,
+              environment.master,
+              environment.aosUser,
+              environment.item,
+              environment.edit,
+              this.id + 1,
+            ]);
+          }
         },
         (err) => {
           console.log(err);

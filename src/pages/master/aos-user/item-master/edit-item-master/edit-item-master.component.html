@@ -3,7 +3,7 @@
 </div>
 
 <div class="container">
-  <form [formGroup]="form" (ngSubmit)="submit()" ngNativeValidate>
+  <form [formGroup]="form" (ngSubmit)="submit('save')" ngNativeValidate>
     <div class="input-field">
       <label for="name">Item Name<span class="imp">*</span></label>
       <input type="text" class="input-txt" formControlName="name" required>
@@ -58,10 +58,6 @@
       </select>
     </div>
     <div class="input-field">
-      <label for="minOrderQty">Minimum Order Quantity<span class="imp">*</span></label>
-      <input type="text" class="input-txt" formControlName="minOrderQty" required>
-    </div>
-    <div class="input-field">
       <label for="brand">Item Brand<span class="imp">*</span></label>
       <select formControlName="brand" required>
         @for (brand of brands; track brand) {
@@ -81,11 +77,11 @@
         }
       </select>
     </div>
+    <div class="input-field"></div>
     <div class="action-btns">
       <button mat-flat-button type="submit">Submit</button>
-      <button mat-button type="button" style="padding: 0 20px;" (click)="navigateToListItemPage()">
-        Cancel
-      </button>
+      <button mat-button type="reset" style="padding: 0 20px;" (click)="navigateToListItemPage()">Cancel</button>
+      <button mat-flat-button type="button" (click)="submit('next')">Save & Next</button>
     </div>
   </form>
 

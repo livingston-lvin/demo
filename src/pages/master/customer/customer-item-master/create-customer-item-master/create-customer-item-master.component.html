@@ -6,7 +6,7 @@
     <form [formGroup]="form">
         <div class="input-field">
             <label for="item">AOS Item Name<span class="imp">*</span></label>
-            <select formControlName="item" (change)="onSelect($event)">
+            <select formControlName="item">
                 @for (item of items; track item) {
                 <option [value]="item.field">{{ item.value }}</option>
                 }
@@ -20,9 +20,8 @@
                 }
             </select>
         </div>
-        <div class="input-field"></div>
         <div class="input-field">
-            <label for="itemName">Customer Item Name Alias</label>
+            <label for="itemName">Customer Item Name Alias<span class="imp">*</span></label>
             <input type="text" formControlName="itemName">
         </div>
         <div class="input-field">
@@ -30,9 +29,15 @@
             <input type="text" formControlName="itemCode">
         </div>
         <div class="input-field">
-            <label for="itemPrice">Customer Item Price <span class="imp">*</span></label>
-            <input type="text" formControlName="itemPrice" (keydown)="validateNumberInput($event)" required>
+            <label for="itemPrice">Customer Item Price<span class="imp">*</span></label>
+            <input type="number" step="any" formControlName="itemPrice" required>
         </div>
+        <div class="input-field">
+            <label for="minOrderQty">Minimum Order Qty<span class="imp">*</span></label>
+            <input type="number" formControlName="minOrderQty">
+        </div>
+        <div class="input-field"></div>
+        <div class="input-field"></div>
         <div class="action-btns">
             <button mat-flat-button type="submit" (click)="submit()">Submit</button>
             <button mat-button type="button" (click)="navigateToListCustomerItemPage()">

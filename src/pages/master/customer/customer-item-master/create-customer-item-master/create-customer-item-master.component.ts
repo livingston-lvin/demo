@@ -37,6 +37,7 @@ export class CreateCustomerItemMasterComponent implements OnInit {
       itemName: [null],
       itemCode: [null, Validators.required],
       itemPrice: [null, Validators.required],
+      minOrderQty: [null, Validators.required],
       // itemHsnCode: [null, Validators.required],
       // priceIncGST: [null, Validators.required],
       // gst: [null, Validators.required],
@@ -65,39 +66,6 @@ export class CreateCustomerItemMasterComponent implements OnInit {
         console.log(err);
       }
     );
-  }
-
-  onSelect(event: any) {
-    // const itemId: number = +event.target.value;
-    // console.log(itemId);
-    // const item: any = this.items.filter((item) => item.id === itemId)[0];
-    // console.log(item);
-    // const category = item.category;
-    // this.form.patchValue({
-    //   category: category.name,
-    //   gst: item.gst,
-    //   itemHsnCode: item.hsnCode,
-    // });
-  }
-
-  validateNumberInput(event: any): void {
-    const allowedKeys = [
-      'Backspace',
-      'ArrowLeft',
-      'ArrowRight',
-      'Tab',
-      'Delete',
-    ];
-
-    if (!/^\d$/.test(event.key) && !allowedKeys.includes(event.key)) {
-      event.preventDefault();
-    }
-    const val = +event.target!.value;
-    if (val && this.form.get('item')?.value) {
-      this.form.patchValue({
-        priceIncGST: val * (1 + this.form.get('gst')?.value / 100),
-      });
-    }
   }
 
   submit() {

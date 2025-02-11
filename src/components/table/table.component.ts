@@ -51,7 +51,7 @@ import { SnackbarService } from '../../services/snackbar.service';
 })
 export class TableComponent implements OnInit {
   items: any[] = [];
-  rows: number[] = [5, 10, 20];
+  rows: number[] = [10, 20, 30];
   limit = signal(this.rows[0]);
   offset = signal(0);
   size: number = 0;

@@ -85,3 +85,39 @@
     }
   }
 }
+
+.action-btns {
+  display: flex;
+  justify-content: flex-start;
+  gap: 25px;
+  margin: 10px 0;
+
+  button {
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    font-family: ROBOTO-REGULAR;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &[type="submit"], &[type="button"] {
+      background-color: #007bff;
+      color: white;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+    &[type="reset"] {
+      background-color: #ff2323;
+      color: #f8f9fa;
+      border: 1px solid #ced4da;
+
+      &:hover {
+        background-color: #ff5252;
+      }
+    }
+  }
+}

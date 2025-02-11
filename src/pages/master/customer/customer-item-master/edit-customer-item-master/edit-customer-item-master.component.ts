@@ -48,6 +48,7 @@ export class EditCustomerItemMasterComponent implements OnInit {
       aliasItemName: [null, Validators.required],
       aliasItemCode: [null, Validators.required],
       aliasItemPrice: [null, Validators.required],
+      minOrderQty: [null, Validators.required],
     });
   }
 
@@ -110,6 +111,7 @@ export class EditCustomerItemMasterComponent implements OnInit {
           aliasItemName: res.itemName,
           aliasItemCode: res.itemCode,
           aliasItemPrice: res.itemPrice,
+          minOrderQty: res.minOrderQty,
         });
       })
       .catch((err) => {

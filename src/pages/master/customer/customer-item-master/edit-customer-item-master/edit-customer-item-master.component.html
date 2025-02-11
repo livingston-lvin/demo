@@ -25,6 +25,12 @@
             <label for="itemPrice">Customer Item Price <span class="imp">*</span></label>
             <input type="number" step="any" formControlName="aliasItemPrice" required>
         </div>
+        <div class="input-field">
+            <label for="minOrderQty">Minimum Order Qty<span class="imp">*</span></label>
+            <input type="number" formControlName="minOrderQty">
+        </div>
+        <div class="input-field"></div>
+        <div class="input-field"></div>
         <div class="action-btns">
             <button mat-flat-button type="submit">Submit</button>
             <button mat-button type="button" (click)="navigateToListCustomerItemPage()">Cancel</button>

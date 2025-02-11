@@ -27,14 +27,18 @@ export class LoginComponent {
     private snackbarService: SnackbarService
   ) {
     this.form = this.fb.group({
-      code: [null, Validators.required],
+      email: [null, Validators.required],
       password: [null, Validators.required],
     });
     localStorage.clear();
   }
 
   submit() {
-    this.authService.login(this.form.value).subscribe(
+    const payload = {
+      code: this.form.value.email,
+      password: this.form.value.password,
+    };
+    this.authService.login(payload).subscribe(
       (res) => {
         localStorage.setItem('user', JSON.stringify(res));
         this.router.navigate([environment.servletPath]);
