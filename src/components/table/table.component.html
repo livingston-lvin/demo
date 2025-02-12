@@ -113,7 +113,7 @@
                     <td style="text-align: left;">{{ item.name }}</td>
                     <td>{{ item.category.name }}</td>
                     <td>
-                        <button mat-icon-button (click)="openImage(item.fileId,item.name)"><mat-icon>image</mat-icon></button>
+                        <button mat-icon-button (click)="openImage(item.fileId,item.name)" [style.color]="item.fileId ? 'green' : 'red'" ><mat-icon>image</mat-icon></button>
                     </td>
                     <td>{{ item.saveDt }}</td>
                     <td>
