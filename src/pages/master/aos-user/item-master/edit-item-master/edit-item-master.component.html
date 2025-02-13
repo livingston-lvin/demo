@@ -19,9 +19,9 @@
     <div class="input-field">
       <label for="image">Item Picture (Fileupload/Image Link)<span class="imp">*</span></label>
       <input type="file" #fileInput hidden (change)="onFileSelected($event)" />
-      @if(selectedFile){
+      @if(selectedFile()){
       <div class="file">
-        {{ selectedFile.name }}
+        {{ selectedFile()!.name }}
         <button mat-icon-button type="button" (click)="removeFile()"><mat-icon>cancel</mat-icon></button>
       </div>
       }

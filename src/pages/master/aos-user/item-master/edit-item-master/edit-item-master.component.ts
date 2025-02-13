@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -32,7 +32,8 @@ export class EditItemMasterComponent implements OnInit {
   item!: Item;
   form: FormGroup;
   brands: Brand[] = [];
-  selectedFile: File | undefined;
+  selectedFile = signal<File | null>(null);
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   categories: ItemCategory[] = [];
   sizeUnits: string[] = ['cm', 'inch', 'reams'];
   weightUnits: string[] = ['Gm', 'Kg'];
@@ -150,7 +151,9 @@ export class EditItemMasterComponent implements OnInit {
           gst: res.gst,
         });
         if (res.fileName) {
-          this.selectedFile = new File([], res.fileName);
+          this.selectedFile.set(new File([], res.fileName));
+        } else {
+          this.resetFileInput()
         }
       })
       .catch((err) => {
@@ -169,15 +172,14 @@ export class EditItemMasterComponent implements OnInit {
     }
     if (this.form.valid) {
       const value = this.form.value;
-      console.log(value);
       const formData: FormData = new FormData();
       formData.append(
         'data',
         new Blob([JSON.stringify(value)], { type: 'application/json' })
       );
 
-      if (this.selectedFile && this.selectedFile.size > 0) {
-        formData.append('file', this.selectedFile!);
+      if (this.selectedFile && this.selectedFile()!.size > 0) {
+        formData.append('file', this.selectedFile()!);
       }
 
       this.itemService.update(formData).subscribe(
@@ -199,7 +201,6 @@ export class EditItemMasterComponent implements OnInit {
               this.id + 1,
             ]);
             this.id = this.id + 1;
-            this.selectedFile = undefined;
             this.loadData();
           }
         },
@@ -213,16 +214,21 @@ export class EditItemMasterComponent implements OnInit {
   }
 
   onFileSelected(event: Event): void {
+    console.log(event);
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-      this.selectedFile = file;
-      console.log(this.selectedFile);
+      this.selectedFile.set(file);
     }
   }
 
+  resetFileInput(): void {
+    this.selectedFile.set(null); 
+    this.fileInput.nativeElement.value = ''; 
+  }
+
   removeFile() {
-    this.selectedFile = undefined;
+    this.resetFileInput()
   }
 
   navigateToListItemPage() {
