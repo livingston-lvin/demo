@@ -13,6 +13,8 @@ import {
 } from '@angular/core';
 import { Paginator } from '../../interfaces/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { PaginationDataService } from '../../services/pagination-data.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-paginator',
@@ -32,17 +34,32 @@ export class PaginatorComponent implements OnInit, OnChanges {
   pages: Paginator[] = [];
   currentPage!: Paginator | undefined;
 
-  constructor() {}
+  constructor(private paginationDataService: PaginationDataService) {}
 
   ngOnInit(): void {
     this.initData();
     if (this.to > this.records) {
       this.to = this.records;
     }
+    const offset: number = +this.paginationDataService.get('offset')!;
+    if (offset) {
+      this.pages.forEach((p) => {
+        if (p.index === offset) {
+          p.active = true;
+          this.currentPage = p;
+        } else {
+          p.active = false;
+        }
+      });
+    }
+  }
+
+  roundDownToNearestTen(num: number): number {
+    return Math.floor(Math.floor(num / 10) * 10);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // if size changes, ie) the user selected different row size then recalculate
+    // if size changes, ie) the user selected different row size(no of pages changed) then recalculate
     if (changes['size']) {
       this.initData();
     }

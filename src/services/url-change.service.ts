@@ -8,6 +8,7 @@ import {
 } from '@angular/router';
 import { filter } from 'rxjs';
 import { environment } from '../environments/environment.development';
+import { PaginationDataService } from './pagination-data.service';
 
 @Injectable({
   providedIn: 'root',

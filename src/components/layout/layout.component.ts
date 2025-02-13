@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { filter } from 'rxjs';
 import { UrlChangeInterceptorService } from '../../services/url-change.service';
+import { PaginationDataService } from '../../services/pagination-data.service';
 
 @Component({
   selector: 'app-layout',
@@ -26,7 +27,10 @@ import { UrlChangeInterceptorService } from '../../services/url-change.service';
   ],
 })
 export class LayoutComponent {
-  sideMenuOpened = signal(false);
+  clear() {
+    this.paginationDataService.clearAll();
+  }
+  sideMenuOpened = signal(true);
   sideMenusWidth = computed(() => (this.sideMenuOpened() ? 400 : 80));
   items: any[] = [];
   username!: string;
@@ -34,7 +38,8 @@ export class LayoutComponent {
 
   constructor(
     private router: Router,
-    private urlService: UrlChangeInterceptorService
+    private urlService: UrlChangeInterceptorService,
+    private paginationDataService: PaginationDataService
   ) {
     const user = localStorage.getItem('user');
     this.navigateRoute = this.urlService.tarUrls;
@@ -146,7 +151,7 @@ export class LayoutComponent {
           for (let i = 0; i < this.items.length; i++) {
             const url = urls[0];
             const item = this.items[i];
-            if ( item && url === item.route) {
+            if (item && url === item.route) {
               items.push(item);
               if (length === 1) {
                 break;

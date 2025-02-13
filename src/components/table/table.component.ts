@@ -55,10 +55,12 @@ export class TableComponent implements OnInit {
   rows: number[] = [10, 20, 30];
   limit = signal(this.rows[0]);
   offset = signal(0);
-  size: number = 0;
-  page: number = 0;
-  records: number = 0;
+  // total no of pages available for selected limit, offset
+  size = signal(0);
+  // total no of records available in the db for selected module
+  records = signal(0);
   searchTxt!: string;
+  // to show in pagination --> Showing {from} to {to} of {records} entries
   from = computed(() => this.offset() * this.limit() + 1);
   to = computed(() => this.offset() * this.limit() + this.limit());
   headers = input.required<string[]>();
@@ -93,35 +95,14 @@ export class TableComponent implements OnInit {
     private alertService: AlertService,
     private snackBarService: SnackbarService,
     private paginationDataService: PaginationDataService
-  ) {
-    if (!paginationDataService.exist('limit'))
-      this.paginationDataService.put({ key: 'limit', value: this.limit() });
-    else this.limit.set(+paginationDataService.get('limit')!);
-
-    if (!paginationDataService.exist('offset'))
-      this.paginationDataService.put({ key: 'offset', value: this.offset() });
-    else this.offset.set(+paginationDataService.get('offset')!);
-
-    if (!paginationDataService.exist('size'))
-      this.paginationDataService.put({ key: 'size', value: this.size });
-    else this.size = +paginationDataService.get('size')!;
-
-    if (!paginationDataService.exist('page'))
-      this.paginationDataService.put({ key: 'page', value: this.page });
-    else this.page = +paginationDataService.get('page')!;
-
-    if (!paginationDataService.exist('records'))
-      this.paginationDataService.put({ key: 'records', value: this.records });
-    else this.records = +paginationDataService.get('records')!;
-  }
+  ) {}
 
   reset() {
     this.items = [];
     this.limit.set(this.rows[0]);
     this.offset.set(0);
-    this.size = 0;
-    this.page = 0;
-    this.records = 0;
+    this.size.set(0);
+    this.records.set(0);
   }
 
   ngOnInit(): void {
@@ -129,6 +110,25 @@ export class TableComponent implements OnInit {
   }
 
   loadData() {
+    if (
+      this.paginationDataService.get('curModule') !== null &&
+      this.paginationDataService.get('curModule') === this.curModule()
+    ) {
+      if (!this.paginationDataService.exist('limit'))
+        this.paginationDataService.put({ key: 'limit', value: this.limit() });
+      else this.limit.set(+this.paginationDataService.get('limit')!);
+      if (!this.paginationDataService.exist('offset'))
+        this.paginationDataService.put({ key: 'offset', value: this.offset() });
+      else this.offset.set(+this.paginationDataService.get('offset')!);
+    } else {
+      this.paginationDataService.clearAll();
+      this.paginationDataService.put({ key: 'limit', value: this.limit() });
+      this.paginationDataService.put({ key: 'offset', value: this.offset() });
+      this.paginationDataService.put({
+        key: 'curModule',
+        value: this.curModule(),
+      });
+    }
     if (this.curModule() === userMaster) {
       this.loadUser();
     } else if (this.curModule() === itemMaster) {
@@ -245,6 +245,7 @@ export class TableComponent implements OnInit {
   onSelectRow(event: any) {
     this.reset();
     this.limit.set(+event.target.value);
+    this.paginationDataService.put({ key: 'limit', value: this.limit() });
     this.loadData();
   }
 
@@ -254,9 +255,7 @@ export class TableComponent implements OnInit {
   }
 
   navigate(targetPage: any) {
-    this.page = targetPage;
     this.offset.set(targetPage - 1);
-    this.paginationDataService.put({ key: 'page', value: this.page });
     this.paginationDataService.put({ key: 'offset', value: this.offset() });
     this.loadData();
   }
@@ -552,9 +551,8 @@ export class TableComponent implements OnInit {
     this.userService.search(payload).subscribe(
       (res) => {
         this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
+        this.size.set(+res.totalPages);
+        this.records.set(+res.totalElements);
       },
       (err) => {
         console.log(err);
@@ -566,9 +564,8 @@ export class TableComponent implements OnInit {
     this.brandService.search(payload).subscribe(
       (res) => {
         this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
+        this.size.set(+res.totalPages);
+        this.records.set(+res.totalElements);
       },
       (err) => {
         console.log(err);
@@ -580,9 +577,8 @@ export class TableComponent implements OnInit {
     this.itemService.search(payload).subscribe(
       (res) => {
         this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
+        this.size.set(+res.totalPages);
+        this.records.set(+res.totalElements);
       },
       (err) => {
         console.log(err);
@@ -594,9 +590,8 @@ export class TableComponent implements OnInit {
     this.itemCategoryService.search(payload).subscribe(
       (res) => {
         this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
+        this.size.set(+res.totalPages);
+        this.records.set(+res.totalElements);
       },
       (err) => {
         console.log(err);
@@ -608,9 +603,8 @@ export class TableComponent implements OnInit {
     this.gstService.search(payload).subscribe(
       (res) => {
         this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
+        this.size.set(+res.totalPages);
+        this.records.set(+res.totalElements);
       },
       (err) => {
         console.log(err);
@@ -622,9 +616,8 @@ export class TableComponent implements OnInit {
     this.courierService.search(payload).subscribe(
       (res) => {
         this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
+        this.size.set(+res.totalPages);
+        this.records.set(+res.totalElements);
       },
       (err) => {
         console.log(err);
@@ -636,9 +629,8 @@ export class TableComponent implements OnInit {
     this.customerService.search(payload).subscribe(
       (res) => {
         this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
+        this.size.set(+res.totalPages);
+        this.records.set(+res.totalElements);
       },
       (err) => {
         console.log(err);
@@ -650,9 +642,8 @@ export class TableComponent implements OnInit {
     this.userService.getUsers(this.limit(), this.offset()).subscribe(
       (res) => {
         this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
+        this.size.set(+res.totalPages);
+        this.records.set(+res.totalElements);
       },
       (err) => {
         console.log(err);
@@ -664,9 +655,8 @@ export class TableComponent implements OnInit {
     this.itemService.getItems(this.limit(), this.offset()).subscribe(
       (res) => {
         this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
+        this.size.set(+res.totalPages);
+        this.records.set(+res.totalElements);
       },
       (err) => {
         console.log(err);
@@ -680,9 +670,8 @@ export class TableComponent implements OnInit {
       .subscribe(
         (res) => {
           this.items = res.content;
-          this.size = +res.totalPages;
-          this.records = +res.totalElements;
-          this.page = this.items.length > 0 ? 1 : 0;
+          this.size.set(+res.totalPages);
+          this.records.set(+res.totalElements);
         },
         (err) => {
           console.log(err);
@@ -694,9 +683,8 @@ export class TableComponent implements OnInit {
     this.gstService.getGsts(this.limit(), this.offset()).subscribe(
       (res) => {
         this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
+        this.size.set(+res.totalPages);
+        this.records.set(+res.totalElements);
       },
       (err) => {
         console.log(err);
@@ -708,9 +696,8 @@ export class TableComponent implements OnInit {
     this.courierService.getCouriers(this.limit(), this.offset()).subscribe(
       (res) => {
         this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
+        this.size.set(+res.totalPages);
+        this.records.set(+res.totalElements);
       },
       (err) => {
         console.log(err);
@@ -722,9 +709,8 @@ export class TableComponent implements OnInit {
     this.brandService.getBrands(this.limit(), this.offset()).subscribe(
       (res) => {
         this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
+        this.size.set(+res.totalPages);
+        this.records.set(+res.totalElements);
       },
       (err) => {
         console.log(err);
@@ -736,9 +722,8 @@ export class TableComponent implements OnInit {
     this.customerService.getCustomers(this.limit(), this.offset()).subscribe(
       (res) => {
         this.items = res.content;
-        this.size = +res.totalPages;
-        this.records = +res.totalElements;
-        this.page = this.items.length > 0 ? 1 : 0;
+        this.size.set(+res.totalPages);
+        this.records.set(+res.totalElements);
       },
       (err) => {
         console.log(err);
@@ -768,9 +753,8 @@ export class TableComponent implements OnInit {
         .subscribe(
           (res) => {
             this.items = res.content;
-            this.size = +res.totalPages;
-            this.records = +res.totalElements;
-            this.page = this.items.length > 0 ? 1 : 0;
+            this.size.set(+res.totalPages);
+            this.records.set(+res.totalElements);
           },
           (err) => {
             console.log(err);
@@ -790,9 +774,8 @@ export class TableComponent implements OnInit {
         .subscribe(
           (res) => {
             this.items = res.content;
-            this.size = +res.totalPages;
-            this.records = +res.totalElements;
-            this.page = this.items.length > 0 ? 1 : 0;
+            this.size.set(+res.totalPages);
+            this.records.set(+res.totalElements);
           },
           (err) => {
             console.log(err);

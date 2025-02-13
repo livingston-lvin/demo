@@ -7,12 +7,18 @@ import { Injectable } from '@angular/core';
 export class PaginationDataService {
   constructor() {}
 
-  put(data: { key: string; value: number }) {
+  put(data: { key: string; value: number|string }) {
     localStorage.setItem(data.key, data.value + '');
   }
 
   clear(key: string) {
     localStorage.removeItem(key);
+  }
+  
+  clearAll() {
+    localStorage.removeItem('limit');
+    localStorage.removeItem('offset');
+    localStorage.removeItem('curModule');
   }
 
   exist(key: string): boolean {

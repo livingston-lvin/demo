@@ -14,7 +14,7 @@
             @if(this.curModule() !== customerItemMaster()){
             <select (change)="onSelectRow($event)">
                 @for (row of rows; track row) {
-                <option [value]="row">{{ row }}</option>
+                <option [selected]="row === limit()" [value]="row">{{ row }}</option>
                 }
             </select>
             }
@@ -113,7 +113,8 @@
                     <td style="text-align: left;">{{ item.name }}</td>
                     <td>{{ item.category.name }}</td>
                     <td>
-                        <button mat-icon-button (click)="openImage(item.fileId,item.name)" [style.color]="item.fileId ? 'green' : 'red'" ><mat-icon>image</mat-icon></button>
+                        <button mat-icon-button (click)="openImage(item.fileId,item.name)"
+                            [style.color]="item.fileId ? 'green' : 'red'"><mat-icon>image</mat-icon></button>
                     </td>
                     <td>{{ item.saveDt }}</td>
                     <td>
@@ -266,9 +267,9 @@
         </table>
     </div>
     <div class="paginator">
-        @if(items.length){ 
+        @if(items.length){
         @if(this.curModule() !== customerItemMaster()){
-        <app-paginator (page)="navigate($event)" [size]="size" [records]="records" [from]="from()"
+        <app-paginator (page)="navigate($event)" [size]="size()" [records]="records()" [from]="from()"
             [to]="to()"></app-paginator>
         }
         } @else {

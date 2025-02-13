@@ -16,7 +16,7 @@
                 <mat-icon>person</mat-icon>
             </div>
             <mat-menu #menu="matMenu" yPosition="below">
-                <button mat-menu-item>
+                <button mat-menu-item (click)="clear()">
                     <mat-icon style="color: #76838f;">person_edit</mat-icon>
                     <span style="color: #76838f;" class="options">Update Profile</span>
                 </button>
