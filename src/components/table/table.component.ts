@@ -808,7 +808,6 @@ export class TableComponent implements OnInit {
       data: { id },
     });
     dialog.afterClosed().subscribe((res) => {
-      console.log(res);
       if (res === Success) {
         this.reset();
         this.loadData();

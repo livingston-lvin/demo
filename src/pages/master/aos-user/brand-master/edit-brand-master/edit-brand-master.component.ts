@@ -59,18 +59,17 @@ export class EditBrandMasterComponent implements OnInit {
     this.brandService.updateBrand(value).subscribe(
       (res) => {
         this.snackbarService.openSnackBar({
-          title:'Success',
+          title: 'Success',
           msg: 'Brand updated succssfully!',
           type: Success,
         });
         this.closeDialog(Success);
       },
       (err) => {
-        console.log(err);
+        console.log('err', err);
         this.closeDialog(err);
       }
     );
-    this.dialogRef.close();
   }
 
   closeDialog(status: any) {
