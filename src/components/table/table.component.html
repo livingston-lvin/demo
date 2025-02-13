@@ -266,7 +266,7 @@
         </table>
     </div>
     <div class="paginator">
-        @if(items.length){
+        @if(items.length){ 
         @if(this.curModule() !== customerItemMaster()){
         <app-paginator (page)="navigate($event)" [size]="size" [records]="records" [from]="from()"
             [to]="to()"></app-paginator>

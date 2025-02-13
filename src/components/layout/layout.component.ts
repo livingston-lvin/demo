@@ -26,7 +26,7 @@ import { UrlChangeInterceptorService } from '../../services/url-change.service';
   ],
 })
 export class LayoutComponent {
-  sideMenuOpened = signal(true);
+  sideMenuOpened = signal(false);
   sideMenusWidth = computed(() => (this.sideMenuOpened() ? 400 : 80));
   items: any[] = [];
   username!: string;

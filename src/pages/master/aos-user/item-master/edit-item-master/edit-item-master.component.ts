@@ -190,7 +190,6 @@ export class EditItemMasterComponent implements OnInit {
           if (mode === 'save') {
             this.navigateToListItemPage();
           } else if (mode === 'next') {
-            this.selectedFile = undefined;
             this.router.navigate([
               environment.servletPath,
               environment.master,
@@ -199,6 +198,9 @@ export class EditItemMasterComponent implements OnInit {
               environment.edit,
               this.id + 1,
             ]);
+            this.id = this.id + 1;
+            this.selectedFile = undefined;
+            this.loadData();
           }
         },
         (err) => {
@@ -215,6 +217,7 @@ export class EditItemMasterComponent implements OnInit {
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       this.selectedFile = file;
+      console.log(this.selectedFile);
     }
   }
 

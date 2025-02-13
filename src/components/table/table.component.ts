@@ -35,6 +35,7 @@ import { OrderService } from '../../services/order.service';
 import { AlertService } from '../../services/alert.service';
 import { Success, Warning } from '../../constants/AppData';
 import { SnackbarService } from '../../services/snackbar.service';
+import { PaginationDataService } from '../../services/pagination-data.service';
 
 @Component({
   selector: 'app-table',
@@ -90,8 +91,38 @@ export class TableComponent implements OnInit {
     private orderService: OrderService,
     private dialog: MatDialog,
     private alertService: AlertService,
-    private snackBarService: SnackbarService
-  ) {}
+    private snackBarService: SnackbarService,
+    private paginationDataService: PaginationDataService
+  ) {
+    if (!paginationDataService.exist('limit'))
+      this.paginationDataService.put({ key: 'limit', value: this.limit() });
+    else this.limit.set(+paginationDataService.get('limit')!);
+
+    if (!paginationDataService.exist('offset'))
+      this.paginationDataService.put({ key: 'offset', value: this.offset() });
+    else this.offset.set(+paginationDataService.get('offset')!);
+
+    if (!paginationDataService.exist('size'))
+      this.paginationDataService.put({ key: 'size', value: this.size });
+    else this.size = +paginationDataService.get('size')!;
+
+    if (!paginationDataService.exist('page'))
+      this.paginationDataService.put({ key: 'page', value: this.page });
+    else this.page = +paginationDataService.get('page')!;
+
+    if (!paginationDataService.exist('records'))
+      this.paginationDataService.put({ key: 'records', value: this.records });
+    else this.records = +paginationDataService.get('records')!;
+  }
+
+  reset() {
+    this.items = [];
+    this.limit.set(this.rows[0]);
+    this.offset.set(0);
+    this.size = 0;
+    this.page = 0;
+    this.records = 0;
+  }
 
   ngOnInit(): void {
     this.loadData();
@@ -222,18 +253,11 @@ export class TableComponent implements OnInit {
     this.selectedCustomerId.set(+value);
   }
 
-  reset() {
-    this.items = [];
-    this.limit.set(this.rows[0]);
-    this.offset.set(0);
-    this.size = 0;
-    this.page = 0;
-    this.records = 0;
-  }
-
   navigate(targetPage: any) {
     this.page = targetPage;
     this.offset.set(targetPage - 1);
+    this.paginationDataService.put({ key: 'page', value: this.page });
+    this.paginationDataService.put({ key: 'offset', value: this.offset() });
     this.loadData();
   }
 
