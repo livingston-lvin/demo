@@ -140,6 +140,15 @@ export class LayoutComponent {
         showSubItem: signal(false),
         subItems: [],
       },
+      
+      {
+        icon: 'description',
+        label: 'Dispatch Report',
+        route: 'dispatch-report',
+        selected: signal(false),
+        showSubItem: signal(false),
+        subItems: [],
+      },
     ];
 
     effect(() => {

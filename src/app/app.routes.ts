@@ -37,6 +37,7 @@ import { ViewCustomerItemMasterComponent } from '../pages/master/customer/custom
 import { LoginComponent } from '../pages/auth/login/login.component';
 import { ListOrderComponent } from '../pages/order/list-order/list-order.component';
 import { ViewOrderComponent } from '../pages/order/view-order/view-order.component';
+import { DispatchReportComponent } from '../pages/dispatch-report/dispatch-report.component';
 
 export const routes: Routes = [
   
@@ -267,6 +268,11 @@ export const routes: Routes = [
             component: ViewOrderComponent,
           },
         ]
+      },
+
+      {
+        path:'dispatch-report',
+        component:DispatchReportComponent
       }
     ],
   },

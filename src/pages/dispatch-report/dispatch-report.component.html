@@ -1,0 +1,11 @@
+<div class="breadcrumb">
+    <div class="title">Dispatch Report</div>
+</div>
+
+<div class="container">
+    <input type="file" #appleFileInput hidden (change)="uploadAppleData($event)" multiple />
+    <button (click)="appleFileInput.click()">Upload Apple Data</button><br><br>
+    <input type="file" #iciciFileInput hidden (change)="uploadIciciData($event)" />
+    <button (click)="iciciFileInput.click()">Upload ICICI Data</button><br><br>
+    <button type="button" (click)="download()">Download</button>
+</div>
