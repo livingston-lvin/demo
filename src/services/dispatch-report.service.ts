@@ -24,4 +24,16 @@ export class DispatchReportService {
       responseType: 'blob',
     });
   }
+  
+  downloadApple(): Observable<any> {
+    return this.http.get(`${this.url}/download/apple-format`, {
+      responseType: 'blob',
+    });
+  }
+  
+  downloadIcici(): Observable<any> {
+    return this.http.get(`${this.url}/download/icici-format`, {
+      responseType: 'blob',
+    });
+  }
 }

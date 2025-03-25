@@ -4,8 +4,41 @@
 
 <div class="container">
     <input type="file" #appleFileInput hidden (change)="uploadAppleData($event)" multiple />
-    <button (click)="appleFileInput.click()">Upload Apple Data</button><br><br>
     <input type="file" #iciciFileInput hidden (change)="uploadIciciData($event)" />
+    <!-- <button (click)="downloadAppleFormat()">Download Apple Data</button> &nbsp;&nbsp;&nbsp;
+    <button (click)="appleFileInput.click()">Upload Apple Data</button><br><br>
+    <button (click)="downloadIciciFormat()">Download ICICI Data</button>&nbsp;&nbsp;&nbsp;
     <button (click)="iciciFileInput.click()">Upload ICICI Data</button><br><br>
-    <button type="button" (click)="download()">Download</button>
+    <button type="button" (click)="download()">Download</button> -->
+    <div class="footer">
+        All data in Excel must be in <b style="color: red;">TEXT</b> format.
+    </div>
 </div>
+
+
+<mat-vertical-stepper [linear]="false" #stepper animationDuration="1000">
+    <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Download sample apple data excel format / Upload apple excel data ({{ appleCount() }})</ng-template>
+            <div>
+                <button (click)="downloadAppleFormat()">Download Apple Data</button> &nbsp;&nbsp;&nbsp;
+                <button (click)="appleFileInput.click()">Upload Apple Data</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Download sample icici data excel format / Upload icici excel data ({{ iciciCount() }})</ng-template>
+            <div>
+                <button (click)="downloadIciciFormat()">Download ICICI Data</button>&nbsp;&nbsp;&nbsp;
+                <button (click)="iciciFileInput.click()">Upload ICICI Data</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <div>
+            <button type="button" (click)="download()">Download</button>
+        </div>
+    </mat-step>
+</mat-vertical-stepper>

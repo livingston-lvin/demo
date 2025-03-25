@@ -13,9 +13,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class SnackbarService {
   private _snackBar = inject(MatSnackBar);
 
-  openSnackBar(data: { title: string; msg: string; type: string }) {
+  openSnackBar(data: {
+    title: string;
+    msg: string;
+    type: string;
+    duration?: number;
+  }) {
     this._snackBar.openFromComponent(SnackbarComponent, {
-      duration: SnackBarDuration * 1000,
+      duration: data.duration || SnackBarDuration * 1000,
       horizontalPosition: HorizontalPosition,
       verticalPosition: VerticalPosition,
       data: data,
