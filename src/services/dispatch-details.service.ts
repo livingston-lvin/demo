@@ -7,8 +7,8 @@ import { User } from '../interfaces/user';
 @Injectable({
   providedIn: 'root',
 })
-export class StationeryDispatchService {
-  private url: string = `${environment.url}/${environment.stationeryDispatch}`;
+export class DispatchDetailsService {
+  private url: string = `${environment.url}/${environment.dispatchDetails}`;
   private http: HttpClient = inject(HttpClient);
 
   getStationeryDispatch(limit: number, offset: number): Observable<any> {

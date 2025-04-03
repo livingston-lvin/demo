@@ -2,10 +2,11 @@ import { Component, OnInit, signal } from '@angular/core';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { OrderService } from '../../../../services/order.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StationeryDispatchService } from '../../../../services/stationery-dispatch.service';
+import { environment } from '../../../../environments/environment.development';
 
-class UserData {
+export class UserData {
   key: string;
   value: any;
 
@@ -47,7 +48,8 @@ export class EditStationeryDispatchComponent implements OnInit {
   constructor(
     private orderService: OrderService,
     private route: ActivatedRoute,
-    private stationeryDispatchService: StationeryDispatchService
+    private stationeryDispatchService: StationeryDispatchService,
+    private router: Router
   ) {
     this.orderId = +this.route.snapshot.paramMap.get('id')!;
   }
@@ -57,12 +59,12 @@ export class EditStationeryDispatchComponent implements OnInit {
   }
 
   loadData() {
-    this.orderService.getOrderDetail(this.orderId).subscribe(
+    this.stationeryDispatchService.getOrderDetail(this.orderId).subscribe(
       (res) => {
-        this.items = res;
+        this.items = res.field;
         this.items.forEach((item) => {
           item.checked = false;
-          item.dispatch = '';
+          item.dispatch = item.status === null ? '' : item.status;
         });
       },
       (err) => {
@@ -90,13 +92,23 @@ export class EditStationeryDispatchComponent implements OnInit {
     );
     const data: number[] = [];
     payload.forEach((p) => data.push(p.orderDetailId));
-    this.stationeryDispatchService.dispatchOrder(data).subscribe(
+    this.stationeryDispatchService.dispatchOrder(data, this.orderId).subscribe(
       (res) => {
         console.log(res);
+        this.cancel();
       },
       (err) => {
         console.log(err);
       }
     );
+  }
+
+  cancel() {
+    this.router.navigate([
+      environment.servletPath,
+      environment.dispatch,
+      environment.stationeryDispatch,
+      environment.list,
+    ]);
   }
 }

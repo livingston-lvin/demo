@@ -1,0 +1,71 @@
+@use "../../../../constants/colors.scss" as color;
+
+.container {
+  background-color: #fff;
+  padding: 10px 25px 25px;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-inner {
+  display: flex;
+}
+
+table {
+  font-size: 12px;
+  font-family: ROBOTO-LIGHT;
+}
+
+.title {
+  font-family: ROBOTO-MEDIUM;
+  margin-right: 10px;
+}
+
+.btns {
+  > button {
+    margin-right: 10px;
+  }
+}
+
+.data {
+  margin-top: 15px;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    tr > th,
+    tr > td {
+      border: 1px solid #ccc;
+      text-align: center;
+      padding: 5px 10px;
+    }
+
+    tr > td {
+      select {
+        width: 120px;
+        padding: 0.375rem 0.75rem;
+        height: 1.8rem;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        background-color: #fff;
+        color: #495057;
+      }
+
+      select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDE0IDE0Ij48cGF0aCBkPSJNMiA1bDYgNiA2LTZ6IiBmaWxsPSIjNTE1MTUxIi8+PC9zdmc+");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 12px;
+      }
+
+      select:focus {
+        outline-color: #abc7ff;
+      }
+    }
+  }
+}

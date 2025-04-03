@@ -305,7 +305,7 @@ export const routes: Routes = [
               },
               {
                 path: `${environment.edit}/:id`,
-                component: ListDispatchDetailsComponent,
+                component: EditDispatchDetailsComponent,
               },
             ],
           },
