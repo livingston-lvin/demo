@@ -1,0 +1,76 @@
+<div class="breadcrumb">
+    <div class="title">Stationery Dispatch List</div>
+    <div class="routes">
+        <span class="route">dispatch / stationery-dispatch / list</span>
+    </div>
+</div>
+<div class="container">
+    <header>
+        <div class="center">
+            <select (change)="onSelectRow($event)">
+                @for (row of rows; track row) {
+                <option [selected]="row === limit()" [value]="row">{{ row }}</option>
+                }
+            </select>
+        </div>
+        <div>
+            <div class="input-container">
+                <input type="text" placeholder="Enter search term ..." [(ngModel)]="searchTxt" />
+                <button mat-icon-button class="search" (click)="search()" [disabled]="!(searchTxt && searchTxt.length)">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>
+        </div>
+    </header>
+    <br />
+    <div class="data">
+        <table>
+            <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Order No</th>
+                    <th>Order Date</th>
+                    <th>Approve Date</th>
+                    <th>Emp Code</th>
+                    <th>Emp Name</th>
+                    <th>Store Dispatch Status</th>
+                    <th>Action</th>
+                    <th>Print</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of items; track $index) {
+                <tr class="row-data">
+                    <td>{{ $index + 1 + offset() * limit() }}.</td>
+                    <td>{{ 'ORD' + item.orderId }}</td>
+                    <td>{{ item.orderDate }}</td>
+                    <td>{{ item.approveDate }}</td>
+                    <td>{{ item.employeeId }}</td>
+                    <td>{{ item.employeeName }}</td>
+                    <td>{{ item.storeDispatchStatus }}</td>
+                    <td>
+                        <button mat-icon-button (click)="editData(item.orderId)">
+                            <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">visibility</mat-icon>
+                        </button>
+                    </td>
+                    <td>
+                        @if(item.isPrint){
+                        <button class="print" (click)="changePrintStatus(item.orderId,item.isPrint)">Print</button>
+                        } @else{
+                        <button class="not-print">Print</button>
+                        }
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="paginator">
+        @if(items.length){
+        <app-paginator (page)="navigate($event)" [size]="size()" [records]="records()" [from]="from()"
+            [to]="to()"></app-paginator>
+        } @else {
+        <h2>No Data in the table...</h2>
+        }
+    </div>
+</div>

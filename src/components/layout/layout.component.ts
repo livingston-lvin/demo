@@ -140,7 +140,7 @@ export class LayoutComponent {
         showSubItem: signal(false),
         subItems: [],
       },
-      
+
       {
         icon: 'description',
         label: 'Dispatch Report',
@@ -148,6 +148,32 @@ export class LayoutComponent {
         selected: signal(false),
         showSubItem: signal(false),
         subItems: [],
+      },
+
+      {
+        icon: 'local_shipping',
+        label: 'Dispatch',
+        route: 'dispatch',
+        selected: signal(false),
+        showSubItem: signal(false),
+        subItems: [
+          {
+            icon: 'home_max',
+            label: 'Stationery Dispatch',
+            route: 'stationery-dispatch/list',
+            selected: signal(false),
+            showSubItemsItem: signal(false),
+            subItemsItems: []
+          },
+          {
+            icon: 'golf_course',
+            label: 'Dispatch Details',
+            route: 'dispatch-details/list',
+            selected: signal(false),
+            showSubItemsItem: signal(false),
+            subItemsItems: []
+          },
+        ],
       },
     ];
 

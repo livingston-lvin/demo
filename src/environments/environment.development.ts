@@ -8,6 +8,9 @@ export const environment = {
 
   aosUser: 'aos-user',
   customerMaster: 'customer',
+  dispatch: 'dispatch',
+  stationeryDispatch: 'stationery-dispatch',
+  dispatchDetails: 'dispatch-details',
   item: 'item',
   itemCategory: 'item-category',
   itemPrice: 'item-price',

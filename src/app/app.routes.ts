@@ -38,11 +38,14 @@ import { LoginComponent } from '../pages/auth/login/login.component';
 import { ListOrderComponent } from '../pages/order/list-order/list-order.component';
 import { ViewOrderComponent } from '../pages/order/view-order/view-order.component';
 import { DispatchReportComponent } from '../pages/dispatch-report/dispatch-report.component';
+import { ListStationeryDispatchComponent } from '../pages/dispatch/stationery-dispatch/list-stationery-dispatch/list-stationery-dispatch.component';
+import { EditStationeryDispatchComponent } from '../pages/dispatch/stationery-dispatch/edit-stationery-dispatch/edit-stationery-dispatch.component';
+import { ListDispatchDetailsComponent } from '../pages/dispatch/dispatch-details/list-dispatch-details/list-dispatch-details.component';
+import { EditDispatchDetailsComponent } from '../pages/dispatch/dispatch-details/edit-dispatch-details/edit-dispatch-details.component';
 
 export const routes: Routes = [
-  
-  { path: 'login', component:LoginComponent },
-  
+  { path: 'login', component: LoginComponent },
+
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   {
@@ -53,7 +56,7 @@ export const routes: Routes = [
         path: environment.dashboard,
         component: DashboardComponent,
       },
-      
+
       {
         path: environment.master,
         children: [
@@ -231,7 +234,7 @@ export const routes: Routes = [
                 ],
               },
               {
-                path:environment.item,
+                path: environment.item,
                 children: [
                   {
                     path: environment.list,
@@ -250,15 +253,15 @@ export const routes: Routes = [
                     component: EditCustomerItemMasterComponent,
                   },
                 ],
-              }
+              },
             ],
           },
         ],
       },
-      
+
       {
-        path:environment.order,
-        children:[
+        path: environment.order,
+        children: [
           {
             path: environment.list,
             component: ListOrderComponent,
@@ -267,13 +270,47 @@ export const routes: Routes = [
             path: `${environment.view}/:id`,
             component: ViewOrderComponent,
           },
-        ]
+        ],
       },
 
       {
-        path:'dispatch-report',
-        component:DispatchReportComponent
-      }
+        path: 'dispatch-report',
+        component: DispatchReportComponent,
+      },
+
+      // DISPATCH
+
+      {
+        path: environment.dispatch,
+        children: [
+          {
+            path: environment.stationeryDispatch,
+            children: [
+              {
+                path: environment.list,
+                component: ListStationeryDispatchComponent,
+              },
+              {
+                path: `${environment.edit}/:id`,
+                component: EditStationeryDispatchComponent,
+              },
+            ],
+          },
+          {
+            path: environment.dispatchDetails,
+            children: [
+              {
+                path: environment.list,
+                component: ListDispatchDetailsComponent,
+              },
+              {
+                path: `${environment.edit}/:id`,
+                component: ListDispatchDetailsComponent,
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
 ];

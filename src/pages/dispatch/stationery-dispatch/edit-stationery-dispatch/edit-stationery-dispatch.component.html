@@ -1,0 +1,102 @@
+<div class="container">
+    <div class="flex">
+        <table>
+            <tr>
+                <td>
+                    <span class="title">Order No :</span>
+                </td>
+                <td>
+                    <span class="value">ORD600546</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="title">Approve Date :</span>
+                </td>
+                <td>
+                    <span class="value">02-04-2025</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="title">Employee ID :</span>
+                </td>
+                <td>
+                    <span class="value">261124</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span class="title">Employee Name :</span>
+                </td>
+                <td>
+                    <span class="value">Rashmi Shukla</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="display: flex;">
+                    <span class="title">Remark :</span>
+                </td>
+                <td>
+                    <span class="value">
+                        @for (item of userData; track $index) {
+                        <span>{{item.key}} : {{item.value}}</span><br>
+                        }
+                    </span>
+                </td>
+            </tr>
+            <td>
+                <span class="title">LOB/LOB/CC :</span>
+            </td>
+            <td>
+                <span class="value">0051/2576/0460</span>
+            </td>
+        </table>
+        <div class="btns">
+            <button class="edit">Edit</button>
+            <button class="print">Print</button>
+            <button class="icon" mat-icon-button><mat-icon>print</mat-icon></button>
+            <button class="export">Export</button>
+        </div>
+    </div>
+
+    <div class="data">
+        <table>
+            <thead>
+                <tr>
+                    <th><input (click)="checkAll($event)" type="checkbox"></th>
+                    <th>Order Detail Id</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Dispatch</th>
+                    <th>Remark</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of items; track $index) {
+                <tr>
+                    <td><input type="checkbox" [checked]="item.checked" (click)="check($index)"></td>
+                    <td>{{ item.orderDetailId }}</td>
+                    <td>{{ item.itemName }}</td>
+                    <td>{{ item.qty }}</td>
+                    <td>
+                        <select>
+                            <option value=""></option>
+                            <option [selected]="item.dispatch === 'Dispatch'" value="Dispatch">Dispatch</option>
+                        </select>
+                    </td>
+                    <td>{{ item.remark }}</td>
+                    <td>{{ item.address }}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div class="actn-btns">
+        <button type="submit" (click)="submit()">Submit</button>&nbsp;&nbsp;
+        <button type="button">Cancel</button>
+    </div>
+</div>
