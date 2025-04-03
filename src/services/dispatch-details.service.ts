@@ -23,7 +23,7 @@ export class DispatchDetailsService {
     return this.http.put<any>(`${this.url}`, payload);
   }
 
-  dispatchOrder(data: number[],orderId: number): Observable<any> {
+  updateOrder(data: any,orderId: number): Observable<any> {
     return this.http.post<any>(`${this.url}/dispatch/${orderId}`, data);
   }
 

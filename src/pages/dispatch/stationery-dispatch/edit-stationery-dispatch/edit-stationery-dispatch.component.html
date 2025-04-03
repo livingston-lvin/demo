@@ -6,7 +6,7 @@
                     <span class="title">Order No :</span>
                 </td>
                 <td>
-                    <span class="value">ORD600546</span>
+                    <span class="value">{{'ORD'+orderId}}</span>
                 </td>
             </tr>
             <tr>
@@ -14,7 +14,7 @@
                     <span class="title">Approve Date :</span>
                 </td>
                 <td>
-                    <span class="value">02-04-2025</span>
+                    <span class="value">{{ user.approveDate }}</span>
                 </td>
             </tr>
             <tr>
@@ -22,7 +22,7 @@
                     <span class="title">Employee ID :</span>
                 </td>
                 <td>
-                    <span class="value">261124</span>
+                    <span class="value">{{ user.code }}</span>
                 </td>
             </tr>
 
@@ -31,7 +31,7 @@
                     <span class="title">Employee Name :</span>
                 </td>
                 <td>
-                    <span class="value">Rashmi Shukla</span>
+                    <span class="value">{{ user.name }}</span>
                 </td>
             </tr>
             <tr>
@@ -39,22 +39,20 @@
                     <span class="title">Remark :</span>
                 </td>
                 <td>
-                    <span class="value">
-                        @for (item of userData; track $index) {
-                        <span>{{item.key}} : {{item.value}}</span><br>
-                        }
-                    </span>
+                    <span class="value">Mobile No : {{ user.mobileNo }}</span><br>
+                    <span class="value">designation : {{ user.designation }}</span><br>
+                    <span class="value">Department : {{ user.department }}</span><br>
+                    <span class="value">Address : {{ user.address }}</span><br>
+                    <span class="value">Pincode : {{ user.pincode }}</span><br>
+                    <span class="value">Email : {{ user.email }}</span><br>
+                    <span class="value">LOB/LOC/CC : {{ user.lob+'/'+user.loc+'/'+user.cc }}</span><br>
+                    <span class="value">Zone : {{ user.zone }}</span><br>
+                    <span class="value">Web : {{ user.web }}</span><br>
                 </td>
             </tr>
-            <td>
-                <span class="title">LOB/LOB/CC :</span>
-            </td>
-            <td>
-                <span class="value">0051/2576/0460</span>
-            </td>
         </table>
         <div class="btns">
-            <button class="edit">Edit</button>
+            <!-- <button class="edit">Edit</button> -->
             <button class="print">Print</button>
             <button class="icon" mat-icon-button><mat-icon>print</mat-icon></button>
             <button class="export">Export</button>

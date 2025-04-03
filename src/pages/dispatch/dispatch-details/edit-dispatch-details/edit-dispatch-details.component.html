@@ -6,15 +6,7 @@
                     <span class="title">Order No :</span>
                 </td>
                 <td>
-                    <span class="value">ORD600546</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span class="title">Approve Date :</span>
-                </td>
-                <td>
-                    <span class="value">02-04-2025</span>
+                    <span class="value">{{'ORD'+orderId}}</span>
                 </td>
             </tr>
             <tr>
@@ -22,7 +14,7 @@
                     <span class="title">Employee ID :</span>
                 </td>
                 <td>
-                    <span class="value">261124</span>
+                    <span class="value">{{ user.code }}</span>
                 </td>
             </tr>
 
@@ -31,7 +23,7 @@
                     <span class="title">Employee Name :</span>
                 </td>
                 <td>
-                    <span class="value">Rashmi Shukla</span>
+                    <span class="value">{{ user.name }}</span>
                 </td>
             </tr>
             <tr>
@@ -39,19 +31,17 @@
                     <span class="title">Remark :</span>
                 </td>
                 <td>
-                    <span class="value">
-                        @for (item of userData; track $index) {
-                        <span>{{item.key}} : {{item.value}}</span><br>
-                        }
-                    </span>
+                    <span class="value">Mobile No : {{ user.mobileNo }}</span><br>
+                    <span class="value">designation : {{ user.designation }}</span><br>
+                    <span class="value">Department : {{ user.department }}</span><br>
+                    <span class="value">Address : {{ user.address }}</span><br>
+                    <span class="value">Pincode : {{ user.pincode }}</span><br>
+                    <span class="value">Email : {{ user.email }}</span><br>
+                    <span class="value">LOB/LOC/CC : {{ user.lob+'/'+user.loc+'/'+user.cc }}</span><br>
+                    <span class="value">Zone : {{ user.zone }}</span><br>
+                    <span class="value">Web : {{ user.web }}</span><br>
                 </td>
             </tr>
-            <td>
-                <span class="title">LOB/LOB/CC :</span>
-            </td>
-            <td>
-                <span class="value">0051/2576/0460</span>
-            </td>
         </table>
     </div>
 
@@ -59,7 +49,6 @@
         <table>
             <thead>
                 <tr>
-                    <th><input (click)="checkAll($event)" type="checkbox"></th>
                     <th>Order Detail Id</th>
                     <th>Product</th>
                     <th>Quantity</th>
@@ -69,24 +58,33 @@
                     <th>Weight</th>
                     <th>Boxes</th>
                     <th>Transport</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 @for (item of items; track $index) {
                 <tr>
-                    <td><input type="checkbox" [checked]="item.checked" (click)="check($index)"></td>
                     <td>{{ item.orderDetailId }}</td>
                     <td>{{ item.itemName }}</td>
                     <td>{{ item.qty }}</td>
                     <td>
-                        <select>
-                            <option value=""></option>
-                            <option [selected]="item.dispatch === 'Dispatch'" value="Dispatch">Dispatch</option>
+                        <select (change)="onCourierChange($index, $event)" style="width: 150px;">
+                            @for (courier of couriers; track $index) {
+                            <option [selected]="item.courier === courier" value="{{ courier }}">{{ courier }}</option>
+                            }
                         </select>
                     </td>
-                    <td>{{ item.remark }}</td>
-                    <td>{{ item.address }}</td>
+                    <td><input type="text" (input)="courierNo($index,$event)" [value]="item.courierNo"></td>
+                    <td><input type="date" (input)="date($index,$event)" [value]="item.date"></td>
+                    <td><input style="width: 75px;" type="number" (input)="weight($index,$event)"  [value]="item.weight"></td>
+                    <td><input style="width: 75px;" type="number" (input)="boxes($index,$event)"  [value]="item.boxes"></td>
+                    <td>
+                        <select style="width: 100px;" (change)="onTransportChange($index, $event)">
+                            @for (transport of transports; track $index) {
+                            <option [selected]="item.transport === transport" value="{{ transport }}">{{ transport }}
+                            </option>
+                            }
+                        </select>
+                    </td>
                 </tr>
                 }
             </tbody>

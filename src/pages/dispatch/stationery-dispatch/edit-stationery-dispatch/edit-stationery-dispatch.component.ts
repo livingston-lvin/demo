@@ -6,16 +6,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StationeryDispatchService } from '../../../../services/stationery-dispatch.service';
 import { environment } from '../../../../environments/environment.development';
 
-export class UserData {
-  key: string;
-  value: any;
-
-  constructor(key: string, value: any) {
-    this.key = key;
-    this.value = value;
-  }
-}
-
 @Component({
   selector: 'app-edit-stationery-dispatch',
   templateUrl: './edit-stationery-dispatch.component.html',
@@ -23,27 +13,9 @@ export class UserData {
   imports: [MatIconModule, MatIconButton, MatButtonModule],
 })
 export class EditStationeryDispatchComponent implements OnInit {
-  userData: UserData[] = [
-    new UserData('Name', 'Rashmi Shukla'),
-    new UserData('Mobile No', 7574825803),
-    new UserData('Designation', 'Manager'),
-    new UserData('Department', 'Branch Banking'),
-    new UserData(
-      'Address',
-      '3,4,5 Satyasurya Complex A Block, Satadhar Sola Road Ahmedabad 380061'
-    ),
-    new UserData('Pin code', 380015),
-    new UserData('Direct No', 917574825803),
-    new UserData('Fax No', 'NA'),
-    new UserData('Email', 'rashmi.shukla2@kotak.com'),
-    new UserData('LOB / LOC / CC', '0051 / 2576 / 0460'),
-    new UserData('State', 'Gujarat'),
-    new UserData('City', 'Ahmedabad'),
-    new UserData('Zone', 'Z1'),
-    new UserData('web', 'www.kotak.com'),
-  ];
   items: any[] = [];
   orderId: number;
+  user: any;
 
   constructor(
     private orderService: OrderService,
@@ -62,6 +34,7 @@ export class EditStationeryDispatchComponent implements OnInit {
     this.stationeryDispatchService.getOrderDetail(this.orderId).subscribe(
       (res) => {
         this.items = res.field;
+        this.user = res.value;
         this.items.forEach((item) => {
           item.checked = false;
           item.dispatch = item.status === null ? '' : item.status;
