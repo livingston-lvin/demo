@@ -42,6 +42,7 @@ import { ListStationeryDispatchComponent } from '../pages/dispatch/stationery-di
 import { EditStationeryDispatchComponent } from '../pages/dispatch/stationery-dispatch/edit-stationery-dispatch/edit-stationery-dispatch.component';
 import { ListDispatchDetailsComponent } from '../pages/dispatch/dispatch-details/list-dispatch-details/list-dispatch-details.component';
 import { EditDispatchDetailsComponent } from '../pages/dispatch/dispatch-details/edit-dispatch-details/edit-dispatch-details.component';
+import { PosterComponent } from '../pages/dispatch/dispatch-details/poster/poster.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -311,6 +312,11 @@ export const routes: Routes = [
           },
         ],
       },
+
+      {
+        path: environment.poster,
+        component:PosterComponent
+      }
     ],
   },
 ];

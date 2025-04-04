@@ -1,0 +1,166 @@
+<!-- <button (click)="printPoster()">🖨 Print</button>
+
+<div class="poster" id="printSection">
+    <h2>{{ posterData.companyName }}</h2>
+    <p>{{ posterData.companyAddress }}</p>
+    <p>Contact: {{ posterData.companyContact }}</p>
+    <p>GSTIN: {{ posterData.gstin }} | State: {{ posterData.state }} | Code: {{ posterData.code }}</p>
+
+    <h3>Delivery Note</h3>
+    <table>
+        <tr>
+            <th>PO No.</th>
+            <td>{{ posterData.poNo }}</td>
+            <th>PR No.</th>
+            <td>{{ posterData.prNo }}</td>
+        </tr>
+        <tr>
+            <th>Docket/AWB No.</th>
+            <td>{{ posterData.docketAwbNo }}</td>
+            <th>Challan No.</th>
+            <td>{{ posterData.challanNo }}</td>
+        </tr>
+        <tr>
+            <th>PO Date</th>
+            <td>{{ posterData.poDate }}</td>
+            <th>Dispatched Through</th>
+            <td>{{ posterData.dispatchedThrough }}</td>
+        </tr>
+        <tr>
+            <th>Docket/AWB Date</th>
+            <td>{{ posterData.docketAwbDate }}</td>
+            <th>Challan Date</th>
+            <td>{{ posterData.challanDate }}</td>
+        </tr>
+    </table>
+
+    <h3>Items</h3>
+    <table>
+        <tr>
+            <th>Description</th>
+            <th>Qty</th>
+            <th>GST Rate</th>
+            <th>HSN/SAC</th>
+        </tr>
+        <tr *ngFor="let item of posterData.items">
+            <td>{{ item.description }}</td>
+            <td>{{ item.qty }}</td>
+            <td>{{ item.gstRate }}</td>
+            <td>{{ item.hsnSac }}</td>
+        </tr>
+    </table>
+
+    <h3>Delivery Details</h3>
+    <p><strong>Contact Person:</strong> {{ posterData.deliveryContact.person }}</p>
+    <p><strong>Phone:</strong> {{ posterData.deliveryContact.phone }}</p>
+    <p><strong>Address:</strong> {{ posterData.deliveryContact.address }}</p>
+    <p><strong>Email:</strong> {{ posterData.deliveryContact.email }}</p>
+    <p><strong>Cost Center:</strong> {{ posterData.deliveryContact.costCenter }}</p>
+    <p><strong>GST No.:</strong> {{ posterData.deliveryContact.gstNo }}</p>
+</div> -->
+
+
+<div class="container">
+    <h3>DELIVERY NOTE</h3>
+    <table>
+        <tr>
+            <td>
+                PO No. <br>
+                1000172155
+            </td>
+            <td>
+                PR No. <br>
+                1001369923
+            </td>
+            <td>
+                Docket/AWB No. <br>
+                GSN24090300360067
+            </td>
+            <td colspan="2">
+                Challan No. <br>
+                I/22795
+            </td>
+        </tr>
+        <tr>
+            <td>
+                PO Date
+            </td>
+            <td>
+                Dispatched Through
+            </td>
+            <td>
+                Docket/AWB Date
+            </td>
+            <td colspan="2">
+                Challan Date
+            </td>
+        </tr>
+        <tr>
+            <td>
+                30-Jan-25
+            </td>
+            <td>
+                GRANDSPEED COURIER AWB NO / DOCKET NO
+            </td>
+            <td>
+                3-Feb-25
+            </td>
+            <td colspan="2">
+                1-Feb-25
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <span style="font-size: 1.2rem;">Apple Office Stationers Private Limited</span> <br>
+                WE BELIVE IN SUPPLIES <br>
+                C - 18, GR FLR, GHATKOPAR IND EST,, NR AMRUT NAGAR, GHATKOPAR(W),MUMBAI - 86. <br>
+                {{'Tel. No.:022 - 4120 0847 - 80800 21333, Mob. No.:80800 21333, Email-Id :info@applestationers.com'}}
+                <br>
+                GSTIN : 27AAMCA5565B1ZO, State : Maharashtra, Code : 27 <br>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <div class="flex">
+                    <div>M/s. : ICICI BANK LTD. - MAHARASHTRA</div>
+                    <div>No. of Box : 1</div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Sr No</td>
+            <td>Description of Goods</td>
+            <td>HSN/SAC</td>
+            <td>GST Rate</td>
+            <td>Qty</td>
+        </tr>
+        @for (item of items; track $index) {
+        <tr>
+            <td><span style="width: 15px;">{{ $index + 1 }}</span></td>
+            <td>{{ item.product }}</td>
+            <td>{{ item.hsn }}</td>
+            <td>{{ item.gstRate + ' %'}}</td>
+            <td>{{ item.qty + ' Nos' }}</td>
+        </tr>
+        }
+        <tr>
+            <td></td>
+            <td>Total</td>
+            <td></td>
+            <td></td>
+            <td>{{ total() + ' Nos'}}</td>
+        </tr>
+        <tr>
+            <td colspan="5" style="text-align: left;">
+                PLACE OF DELIVERY ADDRESS <br>
+                Contact Person : Manisha Poojary <br>
+                Contact Nos. : 8879167378 <br>
+                ICICI BANK LTD. - MAHARASHTRA <br>
+                2779-KALAMBOLI,SECTOR 9E, KALAMBOLI, NAVI MUMBA,,SHOP NO 6 <br>
+                & 7, PARTH SOLITIRE,KALAMBOLI-410218 <br>
+                {{'Email : manisha.poojary@icicibank.com Cost Center : 2779'}} <br>
+                GST No. : 27AAACI1195H1ZM State : Maharashtra, Code : 27 <br>
+            </td>
+        </tr>
+    </table>
+</div>

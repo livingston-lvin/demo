@@ -84,4 +84,11 @@ export class EditStationeryDispatchComponent implements OnInit {
       environment.list,
     ]);
   }
+
+  print(){
+    this.router.navigate([
+      environment.servletPath,
+      environment.poster,
+    ]);
+  }
 }
