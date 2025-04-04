@@ -29,36 +29,47 @@
 //   background-color: #f4f4f4;
 // }
 
-// @media print {
-//   button {
-//     display: none;
-//   }
-// }
 
 
-.container{
+.fluid-container {
+  display: flex;
+  flex: 1 1 auto;
+  gap: 50px;
+}
+
+.container {
   background-color: #fff;
   text-align: center;
+  padding: 0 25px 25px;
 }
 
-h3{
+h3 {
   color: #000;
+  margin-bottom: 5px;
+  font-size: 1rem;
 }
 
-table{
-  width: 50%;
+table {
+  width: 90%;
   border-collapse: collapse;
   margin: 0 auto;
   font-family: ROBOTO-MEDIUM;
 
-  tr>td{
-    border: 1px solid #ddd;
+  tr > td {
+    border: 1px solid #000;
     text-align: center;
+    padding: 5px;
+    font-size: 0.7rem;
   }
-
 }
 
-.flex{
+.flex {
   display: flex;
   justify-content: space-between;
+}
+
+@media print {
+  .toolbar {
+    display: none;
+  }
 }

@@ -43,6 +43,7 @@ import { EditStationeryDispatchComponent } from '../pages/dispatch/stationery-di
 import { ListDispatchDetailsComponent } from '../pages/dispatch/dispatch-details/list-dispatch-details/list-dispatch-details.component';
 import { EditDispatchDetailsComponent } from '../pages/dispatch/dispatch-details/edit-dispatch-details/edit-dispatch-details.component';
 import { PosterComponent } from '../pages/dispatch/dispatch-details/poster/poster.component';
+import { BulkDispatchDetailsComponent } from '../pages/dispatch/dispatch-details/bulk-dispatch-details/bulk-dispatch-details.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -261,15 +262,15 @@ export const routes: Routes = [
       },
 
       {
-        path: environment.order,
+        path: environment.stationeryDispatch,
         children: [
           {
             path: environment.list,
-            component: ListOrderComponent,
+            component: ListStationeryDispatchComponent,
           },
           {
-            path: `${environment.view}/:id`,
-            component: ViewOrderComponent,
+            path: `${environment.edit}/:id`,
+            component: EditStationeryDispatchComponent,
           },
         ],
       },
@@ -285,19 +286,6 @@ export const routes: Routes = [
         path: environment.dispatch,
         children: [
           {
-            path: environment.stationeryDispatch,
-            children: [
-              {
-                path: environment.list,
-                component: ListStationeryDispatchComponent,
-              },
-              {
-                path: `${environment.edit}/:id`,
-                component: EditStationeryDispatchComponent,
-              },
-            ],
-          },
-          {
             path: environment.dispatchDetails,
             children: [
               {
@@ -310,13 +298,17 @@ export const routes: Routes = [
               },
             ],
           },
+          {
+            path: environment.courierDetails,
+            component: BulkDispatchDetailsComponent,
+          },
         ],
       },
 
       {
         path: environment.poster,
-        component:PosterComponent
-      }
+        component: PosterComponent,
+      },
     ],
   },
 ];

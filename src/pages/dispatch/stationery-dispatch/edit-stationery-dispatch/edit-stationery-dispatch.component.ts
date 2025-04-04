@@ -79,7 +79,6 @@ export class EditStationeryDispatchComponent implements OnInit {
   cancel() {
     this.router.navigate([
       environment.servletPath,
-      environment.dispatch,
       environment.stationeryDispatch,
       environment.list,
     ]);

@@ -1,0 +1,50 @@
+<div class="container">
+
+    <div class="header">
+        <h2>Courier Detail Upload</h2>
+        <div class="flex">
+            <input type="file" (change)="fileSelected($event)">
+            <button mat-flat-button color="primary" (click)="uploadFile()">Upload</button>
+        </div>
+    </div>
+
+    @if(empDataSource.length > 0){
+    <div class="body">
+
+        <div class="employee-tbl">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Source</th>
+                        <th>Destination</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of empDataSource;let i = index">
+                        <td>{{i+1}}.</td>
+                        <td>{{data.source}}</td>
+                        <td>
+                            <select (change)="optionSelected($event,i)">
+                                <option [selected]="option.selected" *ngFor="let option of data.mappings">
+                                    {{option.colName}}
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+
+            <div class="header-1" *ngIf="empDataSource.length > 0">
+                <button mat-flat-button color="primary" (click)="employeeInsert()">Insert</button>
+            </div>
+
+        </div>
+    </div>
+    }
+
+
+
+</div>

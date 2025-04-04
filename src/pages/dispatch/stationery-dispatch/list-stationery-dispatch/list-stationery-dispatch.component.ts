@@ -90,7 +90,7 @@ export class ListStationeryDispatchComponent implements OnInit {
 
 
   editData(id: number) {
-    this.router.navigate(['/app/dispatch/stationery-dispatch/edit', id]);
+    this.router.navigate(['/app/stationery-dispatch/edit', id]);
   }
 
   changePrintStatus(orderId: number,isPrint: boolean) {

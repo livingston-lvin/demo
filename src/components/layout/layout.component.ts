@@ -133,9 +133,9 @@ export class LayoutComponent {
       },
 
       {
-        icon: 'list_alt',
-        label: 'Orders',
-        route: 'order/list',
+        icon: 'home_max',
+        label: 'Stationery Dispatch',
+        route: 'stationery-dispatch/list',
         selected: signal(false),
         showSubItem: signal(false),
         subItems: [],
@@ -158,20 +158,20 @@ export class LayoutComponent {
         showSubItem: signal(false),
         subItems: [
           {
-            icon: 'home_max',
-            label: 'Stationery Dispatch',
-            route: 'stationery-dispatch/list',
-            selected: signal(false),
-            showSubItemsItem: signal(false),
-            subItemsItems: []
-          },
-          {
             icon: 'golf_course',
             label: 'Dispatch Details',
             route: 'dispatch-details/list',
             selected: signal(false),
             showSubItemsItem: signal(false),
-            subItemsItems: []
+            subItemsItems: [],
+          },
+          {
+            icon: 'cloud_upload',
+            label: 'Upload Courier Details',
+            route: 'courier-details',
+            selected: signal(false),
+            showSubItemsItem: signal(false),
+            subItemsItems: [],
           },
         ],
       },

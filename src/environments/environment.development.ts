@@ -21,6 +21,7 @@ export const environment = {
   brandMaster: 'brand',
   orderMaster: 'order',
   poster:'poster',
+  courierDetails: 'courier-details',
 
   list: 'list',
   create: 'create',
