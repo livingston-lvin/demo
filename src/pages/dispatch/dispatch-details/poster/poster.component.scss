@@ -67,3 +67,41 @@ table {
   display: flex;
   justify-content: space-between;
 }
+
+
+.container-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 10px; /* Optional, space between two containers */
+}
+
+.container {
+  flex: 1;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  // border: 1px solid black; /* Optional for better separation */
+}
+
+/* PRINT specific adjustments */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .container-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .container {
+    page-break-inside: avoid;
+    height: 100vh; /* force both container height same */
+    overflow: hidden;
+  }
+}
