@@ -44,6 +44,7 @@ import { ListDispatchDetailsComponent } from '../pages/dispatch/dispatch-details
 import { EditDispatchDetailsComponent } from '../pages/dispatch/dispatch-details/edit-dispatch-details/edit-dispatch-details.component';
 import { PosterComponent } from '../pages/dispatch/dispatch-details/poster/poster.component';
 import { BulkDispatchDetailsComponent } from '../pages/dispatch/dispatch-details/bulk-dispatch-details/bulk-dispatch-details.component';
+import { ReportsComponent } from '../pages/dispatch/dispatch-details/reports/reports.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -301,6 +302,10 @@ export const routes: Routes = [
           {
             path: environment.courierDetails,
             component: BulkDispatchDetailsComponent,
+          },
+          {
+            path: environment.reports,
+            component: ReportsComponent,
           },
         ],
       },

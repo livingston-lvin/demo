@@ -22,6 +22,7 @@ export const environment = {
   orderMaster: 'order',
   poster:'poster',
   courierDetails: 'courier-details',
+  reports: 'reports',
 
   list: 'list',
   create: 'create',

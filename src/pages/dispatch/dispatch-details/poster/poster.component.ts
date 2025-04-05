@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import { Poster } from '../../../../interfaces/poster';
 import { NgFor } from '@angular/common';
 
@@ -97,5 +97,10 @@ export class PosterComponent implements OnInit {
       printWindow?.print();
       printWindow?.close();
     }
+  }
+
+  print() {
+    const printContent = document.getElementById('printSection')?.innerHTML;
+    window.print();
   }
 }

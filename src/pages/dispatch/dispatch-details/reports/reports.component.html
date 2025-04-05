@@ -1,0 +1,33 @@
+<div class="breadcrumb">
+    <div class="title">Reports</div>
+</div>
+
+<div class="container">
+    <mat-radio-group name="reports">
+        <div class="header">
+            From : <input type="date" [(ngModel)]="from">
+            To : <input type="date" [(ngModel)]="to">
+            <!-- Items : <div class="input-field">
+                <select style="width: 500px;height: 2rem;" [(ngModel)]="itemId">
+                    @for (item of items; track item) {
+                    <option [value]="item.itemId">{{ item.itemName }}</option>
+                    }
+                </select>
+            </div> -->
+        </div>
+        <mat-radio-button value="total_orders" (change)="type.set($event.value)"><span class="type">Total
+                Orders</span></mat-radio-button>
+        &nbsp;&nbsp;<br>
+        <mat-radio-button value="order_dispatch" (change)="type.set($event.value)"><span class="type"> Order
+                Dispatch</span></mat-radio-button>
+        &nbsp;&nbsp;<br>
+        <mat-radio-button value="order_not_dispatch" (change)="type.set($event.value)"><span class="type"> Order Not
+                Dispatch</span></mat-radio-button> &nbsp;&nbsp;<br>
+        <mat-radio-button value="all_approved_orders" (change)="type.set($event.value)"><span class="type">All Approved
+                Orders</span></mat-radio-button><br>
+    </mat-radio-group>
+    <div class="action-btns">
+        <button type="button" (click)="download()">Download</button>
+        <button type="reset" (click)="reset()">Clear</button>
+    </div>
+</div>

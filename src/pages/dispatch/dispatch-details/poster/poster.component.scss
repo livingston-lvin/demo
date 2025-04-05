@@ -29,15 +29,15 @@
 //   background-color: #f4f4f4;
 // }
 
-
-
 .fluid-container {
   display: flex;
   flex: 1 1 auto;
   gap: 50px;
+  width: 100%;
 }
 
 .container {
+  width: 50%;
   background-color: #fff;
   text-align: center;
   padding: 0 25px 25px;
@@ -66,10 +66,4 @@ table {
 .flex {
   display: flex;
   justify-content: space-between;
-}
-
-@media print {
-  .toolbar {
-    display: none;
-  }
 }

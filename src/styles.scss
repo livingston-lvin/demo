@@ -240,3 +240,17 @@ h3 {
   gap: 20px;
   flex-wrap: wrap;
 }
+
+
+@media print {
+  .toolbar, button, .sidebar {
+    display: none !important;
+  }
+
+  @page {
+    margin: 0; 
+  }
+  body {
+    margin: 1cm; 
+  }
+}
