@@ -273,16 +273,18 @@ export const routes: Routes = [
             path: environment.courierDetails,
             component: BulkDispatchDetailsComponent,
           },
-          {
-            path: environment.reports,
-            component: ReportsComponent,
-          },
         ],
       },
 
       {
         path: environment.poster+'/:id',
         component: PosterComponent,
+      },
+
+      
+      {
+        path: environment.reports,
+        component: ReportsComponent,
       },
     ],
   },

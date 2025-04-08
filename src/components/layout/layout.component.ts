@@ -164,20 +164,21 @@ export class LayoutComponent {
             showSubItemsItem: signal(false),
             subItemsItems: [],
           },
-          {
-            icon: 'summarize',
-            label: 'Report',
-            route: 'reports',
-            selected: signal(false),
-            showSubItemsItem: signal(false),
-            subItemsItems: [],
-          },
         ],
       },
 
       {
+        icon: 'summarize',
+        label: 'Report',
+        route: 'reports',
+        selected: signal(false),
+        showSubItem: signal(false),
+        subItems: [],
+      },
+
+      {
         icon: 'description',
-        label: 'Dispatch Report',
+        label: 'Inventory Report',
         route: 'dispatch-report',
         selected: signal(false),
         showSubItem: signal(false),

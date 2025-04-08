@@ -1,21 +1,22 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { LoaderService } from '../../../../services/loader.service';
 import { ProductDetailUpdateService } from '../../../../services/product-detail-update.service';
 import { NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { ShortenPipe } from '../../../../pipes/shorten.pipe';
 
 @Component({
   selector: 'app-bulk-dispatch-details',
-  imports: [NgFor,NgIf,MatButtonModule],
+  imports: [NgFor, NgIf, MatButtonModule, ShortenPipe],
   templateUrl: './bulk-dispatch-details.component.html',
-  styleUrl: './bulk-dispatch-details.component.scss'
+  styleUrl: './bulk-dispatch-details.component.scss',
 })
 export class BulkDispatchDetailsComponent implements OnDestroy {
-
   file!: File;
   empDataSource: any[] = [];
   private subject$ = new Subject<void>();
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   constructor(
     private service: ProductDetailUpdateService,
@@ -31,6 +32,7 @@ export class BulkDispatchDetailsComponent implements OnDestroy {
     const file: File = event.target.files[0];
     if (file) {
       this.file = file;
+      console.log(file);
     }
   }
 
@@ -52,6 +54,9 @@ export class BulkDispatchDetailsComponent implements OnDestroy {
             this.loader.showLoader(false);
           },
         });
+    }
+    else{
+      alert('Please select a file to upload');
     }
   }
 
@@ -95,5 +100,8 @@ export class BulkDispatchDetailsComponent implements OnDestroy {
       window.URL.revokeObjectURL(url);
     });
   }
-}
 
+  selectFile() {
+    this.fileInput.nativeElement.click();
+  }
+}

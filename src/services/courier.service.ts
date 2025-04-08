@@ -9,6 +9,7 @@ import { Courier } from '../interfaces/courier';
   providedIn: 'root',
 })
 export class CourierService {
+  
   private url: string = `${environment.url}/${environment.courierMaster}`;
   private http: HttpClient = inject(HttpClient);
 
@@ -34,5 +35,9 @@ export class CourierService {
 
   search(payload: any): Observable<any> {
     return this.http.post<any>(`${this.url}/search`, payload);
+  }
+
+  getAllCouriers(): Observable<Courier[]> {
+    return this.http.get<Courier[]>(`${this.url}/all`);
   }
 }

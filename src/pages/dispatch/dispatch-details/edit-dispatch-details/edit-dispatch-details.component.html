@@ -69,14 +69,16 @@
                     <td>
                         <select (change)="onCourierChange($index, $event)" style="width: 150px;">
                             @for (courier of couriers; track $index) {
-                            <option [selected]="item.courier === courier" value="{{ courier }}">{{ courier }}</option>
+                            <option [selected]="item.courier ? item.courier.companyName === courier.companyName : false" [value]="courier.id">{{ courier.companyName }}</option>
                             }
                         </select>
                     </td>
                     <td><input type="text" (input)="courierNo($index,$event)" [value]="item.courierNo"></td>
                     <td><input type="date" (input)="date($index,$event)" [value]="item.date"></td>
-                    <td><input style="width: 75px;" type="number" (input)="weight($index,$event)"  [value]="item.weight"></td>
-                    <td><input style="width: 75px;" type="number" (input)="boxes($index,$event)"  [value]="item.boxes"></td>
+                    <td><input style="width: 75px;" type="number" (input)="weight($index,$event)" [value]="item.weight">
+                    </td>
+                    <td><input style="width: 75px;" type="number" (input)="boxes($index,$event)" [value]="item.boxes">
+                    </td>
                     <td>
                         <select style="width: 100px;" (change)="onTransportChange($index, $event)">
                             @for (transport of transports; track $index) {

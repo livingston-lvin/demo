@@ -3,9 +3,21 @@
     <div class="header">
         <h2>Courier Detail Upload</h2>
         <div class="flex">
-            <input type="file" (change)="fileSelected($event)">
-            <button mat-flat-button type="button" color="primary" (click)="downloadFile()">Download Format</button>
-            <button mat-flat-button type="button" color="primary" (click)="uploadFile()">Upload</button>
+            <div style="width: 100%; display: flex;align-items: center;justify-content: space-between;">
+                <div>
+                    <button style="margin-right: 10px;" mat-flat-button type="button" color="primary"
+                        (click)="selectFile()">Select File</button>
+                    <input type="file" #fileInput hidden (change)="fileSelected($event)">
+                    @if(file !== undefined){
+                    <span style="font-size: 14px;">Selected File: {{file.name | shorten}}</span>
+                    }@else{
+                    <span style="font-size: 14px;">No file selected</span>
+                    }
+                </div>
+                <button mat-flat-button type="button" color="primary" (click)="downloadFile()">Download Format</button>
+            </div>
+            <button style="margin-top: 10px;" mat-flat-button type="button" color="primary"
+                (click)="uploadFile()">Upload</button>
         </div>
     </div>
 
