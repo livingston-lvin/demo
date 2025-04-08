@@ -68,7 +68,6 @@ table {
   justify-content: space-between;
 }
 
-
 .container-wrapper {
   display: flex;
   flex-direction: row;
@@ -85,23 +84,43 @@ table {
   // border: 1px solid black; /* Optional for better separation */
 }
 
-/* PRINT specific adjustments */
+// /* PRINT specific adjustments */
+// @media print {
+//   body {
+//     margin: 0;
+//     padding: 0;
+//   }
+
+//   .container-wrapper {
+//     display: flex;
+//     flex-direction: row;
+//     align-items: stretch;
+//     gap: 20px;
+//   }
+
+//   .container {
+//     page-break-inside: avoid;
+//     height: 100vh; /* force both container height same */
+//     overflow: hidden;
+//   }
+// }
+
 @media print {
-  body {
+  @page {
     margin: 0;
-    padding: 0;
+    // size: 50mm 150mm;
   }
 
-  .container-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    gap: 20px;
-  }
+  // .container-wrapper {
+  //   display: flex;
+  //   flex-direction: row;
+  //   align-items: stretch;
+  //   gap: 20px;
+  // }
 
-  .container {
-    page-break-inside: avoid;
-    height: 100vh; /* force both container height same */
-    overflow: hidden;
-  }
+  // .container {
+  //   page-break-inside: avoid;
+  //   height: 100vh; /* force both container height same */
+  //   overflow: hidden;
+  // }
 }

@@ -30,4 +30,8 @@ export class StationeryDispatchService {
   getOrderDetail(orderId: number): Observable<any> {
     return this.http.get<any>(`${this.url}/${orderId}`);
   }
+  
+  getPosterOrderDetail(orderId: number): Observable<any> {
+    return this.http.get<any>(`${this.url}/poster/${orderId}`);
+  }
 }

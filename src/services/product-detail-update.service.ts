@@ -19,5 +19,11 @@ export class ProductDetailUpdateService {
     return this.http.post(`${this.url}/update`, payload);
   }
 
+  download(): Observable<any> {
+    return this.http.get(`${this.url}/download-format`, {
+      responseType: 'blob',
+    });
+  }
+
 }
 

@@ -1,6 +1,8 @@
 import { Component, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import { Poster } from '../../../../interfaces/poster';
 import { NgFor } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { StationeryDispatchService } from '../../../../services/stationery-dispatch.service';
 
 @Component({
   selector: 'app-poster',
@@ -58,16 +60,34 @@ export class PosterComponent implements OnInit {
     },
   };
 
-  items: any[] = [
-    { product: 'PENCIL ERASER-Natraj', hsn: '40169200', gstRate: 5, qty: 6 },
-  ];
+  items: any[] = [];
+  clientDetail: any = {};
 
   total = signal(false);
+  orderId: number;
 
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private stationeryDispatchService: StationeryDispatchService
+  ) {
+    this.orderId = +this.route.snapshot.paramMap.get('id')!;
+  }
 
   ngOnInit(): void {
-    this.total.set(this.items.reduce((acc, item) => acc + item.qty, 0));
+    this.loadData();
+  }
+
+  loadData() {
+    this.stationeryDispatchService.getPosterOrderDetail(this.orderId).subscribe(
+      (res) => {
+        this.items = res.field;
+        this.clientDetail = res.value;
+        this.total.set(this.items.reduce((acc, item) => acc + item.qty, 0));
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   printPoster() {

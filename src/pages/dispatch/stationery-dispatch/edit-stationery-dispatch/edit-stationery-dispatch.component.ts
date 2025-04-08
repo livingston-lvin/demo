@@ -10,7 +10,7 @@ import { environment } from '../../../../environments/environment.development';
   selector: 'app-edit-stationery-dispatch',
   templateUrl: './edit-stationery-dispatch.component.html',
   styleUrl: './edit-stationery-dispatch.component.scss',
-  imports: [MatIconModule, MatIconButton, MatButtonModule],
+  imports: [MatIconModule,  MatButtonModule],
 })
 export class EditStationeryDispatchComponent implements OnInit {
   items: any[] = [];
@@ -84,10 +84,11 @@ export class EditStationeryDispatchComponent implements OnInit {
     ]);
   }
 
-  print(){
+  print() {
     this.router.navigate([
       environment.servletPath,
       environment.poster,
+      this.orderId,
     ]);
   }
 }

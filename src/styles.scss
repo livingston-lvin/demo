@@ -241,16 +241,19 @@ h3 {
   flex-wrap: wrap;
 }
 
-
 @media print {
-  .toolbar, button, .sidebar {
+  .toolbar,
+  button,
+  .sidebar {
     display: none !important;
   }
 
-  @page {
-    margin: 0; 
-  }
   body {
-    margin: 1cm; 
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .content{
+    overflow: hidden !important;
   }
 }

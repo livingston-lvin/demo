@@ -311,7 +311,7 @@ export const routes: Routes = [
       },
 
       {
-        path: environment.poster,
+        path: environment.poster+'/:id',
         component: PosterComponent,
       },
     ],

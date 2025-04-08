@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './bulk-dispatch-details.component.scss'
 })
 export class BulkDispatchDetailsComponent implements OnDestroy {
+
   file!: File;
   empDataSource: any[] = [];
   private subject$ = new Subject<void>();
@@ -82,6 +83,17 @@ export class BulkDispatchDetailsComponent implements OnDestroy {
         this.loader.showLoader(false);
       }
     );
+  }
+
+  downloadFile() {
+    this.service.download().subscribe((blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'courier-details-upload-format.xlsx';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
   }
 }
 
