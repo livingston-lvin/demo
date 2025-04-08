@@ -142,15 +142,6 @@ export class LayoutComponent {
       },
 
       {
-        icon: 'description',
-        label: 'Dispatch Report',
-        route: 'dispatch-report',
-        selected: signal(false),
-        showSubItem: signal(false),
-        subItems: [],
-      },
-
-      {
         icon: 'local_shipping',
         label: 'Dispatch',
         route: 'dispatch',
@@ -182,6 +173,15 @@ export class LayoutComponent {
             subItemsItems: [],
           },
         ],
+      },
+
+      {
+        icon: 'description',
+        label: 'Dispatch Report',
+        route: 'dispatch-report',
+        selected: signal(false),
+        showSubItem: signal(false),
+        subItems: [],
       },
     ];
 

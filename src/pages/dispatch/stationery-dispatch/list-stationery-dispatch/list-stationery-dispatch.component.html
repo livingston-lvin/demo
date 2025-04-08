@@ -54,11 +54,8 @@
                         </button>
                     </td>
                     <td>
-                        @if(item.isPrint){
-                        <button class="print" (click)="changePrintStatus(item.orderId,item.isPrint)">Print</button>
-                        } @else{
-                        <button class="not-print">Print</button>
-                        }
+                        <button class="isprint" [ngStyle]="{'color':item.isPrint ? 'green' : 'red'}"
+                            (click)="changePrintStatus(item.orderId)">Print</button>
                     </td>
                 </tr>
                 }

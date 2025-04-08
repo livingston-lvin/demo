@@ -26,8 +26,9 @@
         <mat-radio-button value="all_approved_orders" (change)="type.set($event.value)"><span class="type">All Approved
                 Orders</span></mat-radio-button><br>
     </mat-radio-group>
-    <div class="action-btns">
+    <br>
+    <div class="action-btns" style="margin-left: 15px;">
         <button type="button" (click)="download()">Download</button>
-        <button type="reset" (click)="reset()">Clear</button>
+        <!-- <button type="reset" (click)="reset()">Clear</button> -->
     </div>
 </div>

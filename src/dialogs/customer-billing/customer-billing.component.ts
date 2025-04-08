@@ -29,6 +29,7 @@ export class CustomerBillingComponent {
     if (data.mode === 'edit') {
       const billing = this.data.billing;
       this.form = this.fb.group({
+        id: [billing.id],
         address: [billing.address, Validators.required],
         mobileNo: [billing.mobileNo, Validators.required],
         state: [billing.state, Validators.required],

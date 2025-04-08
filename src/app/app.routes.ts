@@ -3,28 +3,22 @@ import { environment } from '../environments/environment.development';
 import { LayoutComponent } from '../components/layout/layout.component';
 import { ListItemMasterComponent } from '../pages/master/aos-user/item-master/list-item-master/list-item-master.component';
 import { CreateItemMasterComponent } from '../pages/master/aos-user/item-master/create-item-master/create-item-master.component';
-import { ViewItemMasterComponent } from '../pages/master/aos-user/item-master/view-item-master/view-item-master.component';
 import { EditItemMasterComponent } from '../pages/master/aos-user/item-master/edit-item-master/edit-item-master.component';
 import { ListItemCategoryMasterComponent } from '../pages/master/aos-user/item-category-master/list-item-category-master/list-item-category-master.component';
 import { CreateItemCategoryMasterComponent } from '../pages/master/aos-user/item-category-master/create-item-category-master/create-item-category-master.component';
-import { ViewItemCategoryMasterComponent } from '../pages/master/aos-user/item-category-master/view-item-category-master/view-item-category-master.component';
 import { EditItemCategoryMasterComponent } from '../pages/master/aos-user/item-category-master/edit-item-category-master/edit-item-category-master.component';
 import { ListUserMasterComponent } from '../pages/master/aos-user/user-master/list-user-master/list-user-master.component';
 import { CreateUserMasterComponent } from '../pages/master/aos-user/user-master/create-user-master/create-user-master.component';
-import { ViewUserMasterComponent } from '../pages/master/aos-user/user-master/view-user-master/view-user-master.component';
 import { EditUserMasterComponent } from '../pages/master/aos-user/user-master/edit-user-master/edit-user-master.component';
 import { ListGstRateMasterComponent } from '../pages/master/aos-user/gst-rate-master/list-gst-rate-master/list-gst-rate-master.component';
 import { CreateGstRateMasterComponent } from '../pages/master/aos-user/gst-rate-master/create-gst-rate-master/create-gst-rate-master.component';
-import { ViewGstRateMasterComponent } from '../pages/master/aos-user/gst-rate-master/view-gst-rate-master/view-gst-rate-master.component';
 import { EditGstRateMasterComponent } from '../pages/master/aos-user/gst-rate-master/edit-gst-rate-master/edit-gst-rate-master.component';
 import { ListCourierCompanyMasterComponent } from '../pages/master/aos-user/courier-company-master/list-courier-company-master/list-courier-company-master.component';
 import { CreateCourierCompanyMasterComponent } from '../pages/master/aos-user/courier-company-master/create-courier-company-master/create-courier-company-master.component';
-import { ViewCourierCompanyMasterComponent } from '../pages/master/aos-user/courier-company-master/view-courier-company-master/view-courier-company-master.component';
 import { EditCourierCompanyMasterComponent } from '../pages/master/aos-user/courier-company-master/edit-courier-company-master/edit-courier-company-master.component';
 import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { ListBrandMasterComponent } from '../pages/master/aos-user/brand-master/list-brand-master/list-brand-master.component';
 import { CreateBrandMasterComponent } from '../pages/master/aos-user/brand-master/create-brand-master/create-brand-master.component';
-import { ViewBrandMasterComponent } from '../pages/master/aos-user/brand-master/view-brand-master/view-brand-master.component';
 import { EditBrandMasterComponent } from '../pages/master/aos-user/brand-master/edit-brand-master/edit-brand-master.component';
 import { ListCustomerMasterComponent } from '../pages/master/customer/customer-master/list-customer-master/list-customer-master.component';
 import { CreateCustomerMasterComponent } from '../pages/master/customer/customer-master/create-customer-master/create-customer-master.component';
@@ -80,10 +74,6 @@ export const routes: Routes = [
                     component: CreateItemMasterComponent,
                   },
                   {
-                    path: `${environment.view}/:id`,
-                    component: ViewItemMasterComponent,
-                  },
-                  {
                     path: `${environment.edit}/:id`,
                     component: EditItemMasterComponent,
                   },
@@ -102,10 +92,6 @@ export const routes: Routes = [
                   {
                     path: environment.create,
                     component: CreateItemCategoryMasterComponent,
-                  },
-                  {
-                    path: `${environment.view}/:id`,
-                    component: ViewItemCategoryMasterComponent,
                   },
                   {
                     path: `${environment.edit}/:id`,
@@ -128,10 +114,6 @@ export const routes: Routes = [
                     component: CreateUserMasterComponent,
                   },
                   {
-                    path: `${environment.view}/:id`,
-                    component: ViewUserMasterComponent,
-                  },
-                  {
                     path: `${environment.edit}/:id`,
                     component: EditUserMasterComponent,
                   },
@@ -150,10 +132,6 @@ export const routes: Routes = [
                   {
                     path: environment.create,
                     component: CreateGstRateMasterComponent,
-                  },
-                  {
-                    path: `${environment.view}/:id`,
-                    component: ViewGstRateMasterComponent,
                   },
                   {
                     path: `${environment.edit}/:id`,
@@ -176,10 +154,6 @@ export const routes: Routes = [
                     component: CreateCourierCompanyMasterComponent,
                   },
                   {
-                    path: `${environment.view}/:id`,
-                    component: ViewCourierCompanyMasterComponent,
-                  },
-                  {
                     path: `${environment.edit}/:id`,
                     component: EditCourierCompanyMasterComponent,
                   },
@@ -198,10 +172,6 @@ export const routes: Routes = [
                   {
                     path: environment.create,
                     component: CreateBrandMasterComponent,
-                  },
-                  {
-                    path: `${environment.view}/:id`,
-                    component: ViewBrandMasterComponent,
                   },
                   {
                     path: `${environment.edit}/:id`,

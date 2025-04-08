@@ -1,5 +1,5 @@
 <div class="container">
-    <form [formGroup]="form" (ngSubmit)="submit()">
+    <form [formGroup]="form" (ngSubmit)="submit()" ngNativeValidate>
       <div class="input-field">
         <label for="address">Billing Address<span class="imp">*</span></label>
         <input type="text" formControlName="address" required>
@@ -20,7 +20,7 @@
       </div>
       <div class="input-field">
         <label for="pincode">Pincode<span class="imp">*</span></label>
-        <input type="text" class="input-txt" formControlName="pincode" pattern="\d{10}"
+        <input type="text" class="input-txt" formControlName="pincode" pattern="\d{6}" maxlength="6" minlength="6"
           (keydown)="validateNumberInput($event)" required>
       </div>
       <div class="action-btns">

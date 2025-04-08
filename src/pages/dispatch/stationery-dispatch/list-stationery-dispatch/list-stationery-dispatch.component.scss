@@ -196,14 +196,9 @@ img {
   }
 }
 
-.print {
-  color: green;
-  font-size: 1rem;
-  margin-left: 10px;
-}
-
-.not-print {
-  color: red;
-  font-size: 1rem;
-  margin-left: 10px;
+.isprint{
+  border: none;
+  background-color: transparent;
+  font-family: ROBOTO-MEDIUM;
+  cursor: pointer;
 }

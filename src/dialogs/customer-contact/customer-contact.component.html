@@ -1,5 +1,5 @@
 <div class="container">
-  <form [formGroup]="form" (ngSubmit)="submit()">
+  <form [formGroup]="form" (ngSubmit)="submit()" ngNativeValidate>
     <div class="input-field">
       <label for="name">Contact Person name<span class="imp">*</span></label>
       <input type="text" formControlName="name" required>
@@ -11,7 +11,7 @@
     </div>
     <div class="input-field">
       <label for="email">Email<span class="imp">*</span></label>
-      <input type="text" formControlName="email" required>
+      <input type="email" formControlName="email" required>
     </div>
 
     <div class="input-field">
@@ -24,7 +24,7 @@
     </div>
     <div class="input-field">
       <label for="remark">Remark<span class="imp">*</span></label>
-      <textarea rows="5" formControlName="remark" required></textarea>
+      <textarea style="height: 100px;" formControlName="remark" required></textarea>
     </div>
     <div class="action-btns">
       <button type="submit">Submit</button>

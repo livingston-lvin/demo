@@ -74,10 +74,11 @@ export class ReportsComponent implements OnInit {
     this.itemId = undefined;
     this.from = undefined;
     this.to = undefined;
+    this.type.set(null)
   }
 
   ngOnInit(): void {
-    this.loadData();
+    // this.loadData();
   }
 
   loadData() {

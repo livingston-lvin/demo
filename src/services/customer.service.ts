@@ -14,6 +14,18 @@ export class CustomerService {
   create(payload: Customer): Observable<HttpResponseBase> {
     return this.http.post<HttpResponseBase>(this.url, payload);
   }
+  
+  update(payload: Customer): Observable<HttpResponseBase> {
+    return this.http.put<HttpResponseBase>(this.url, payload);
+  }
+  
+  updateContact(payload: Customer): Observable<HttpResponseBase> {
+    return this.http.put<HttpResponseBase>(`${this.url}/contact`, payload);
+  }
+  
+  updateBilling(payload: Customer): Observable<HttpResponseBase> {
+    return this.http.put<HttpResponseBase>(`${this.url}/billing`, payload);
+  }
 
   getCustomers(limit: number, offset: number): Observable<any> {
     return this.http.get<any>(`${this.url}/${limit}/${offset}`);
@@ -33,6 +45,14 @@ export class CustomerService {
 
   deleteCustomer(id: number): Observable<HttpResponseBase> {
     return this.http.delete<HttpResponseBase>(`${this.url}/${id}`);
+  }
+  
+  deleteContact(id: number): Observable<HttpResponseBase> {
+    return this.http.delete<HttpResponseBase>(`${this.url}/contact/${id}`);
+  }
+  
+  deleteBilling(id: number): Observable<HttpResponseBase> {
+    return this.http.delete<HttpResponseBase>(`${this.url}/billing/${id}`);
   }
 
   search(payload: any): Observable<any> {

@@ -23,15 +23,19 @@ export class StationeryDispatchService {
     return this.http.put<any>(`${this.url}`, payload);
   }
 
-  dispatchOrder(data: number[],orderId: number): Observable<any> {
+  dispatchOrder(data: number[], orderId: number): Observable<any> {
     return this.http.post<any>(`${this.url}/dispatch/${orderId}`, data);
   }
 
   getOrderDetail(orderId: number): Observable<any> {
     return this.http.get<any>(`${this.url}/${orderId}`);
   }
-  
+
   getPosterOrderDetail(orderId: number): Observable<any> {
     return this.http.get<any>(`${this.url}/poster/${orderId}`);
+  }
+
+  changePrintStatus(orderId: number): Observable<any> {
+    return this.http.get<any>(`${this.url}/print/${orderId}`);
   }
 }

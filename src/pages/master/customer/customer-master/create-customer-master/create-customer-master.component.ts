@@ -55,9 +55,9 @@ export class CreateCustomerMasterComponent {
   ) {
     this.form = this.fb.group({
       customerName: [null, Validators.required],
-      customerLoginPageUrl: [null],
+      customerLoginPageUrl: [null, Validators.required],
       email: [null, Validators.required],
-      modeOfPayment: [null],
+      modeOfPayment: [null, Validators.required],
       shippingChargesPaidBy: [null, Validators.required],
       gstNo: [null, Validators.required],
       state: [null, Validators.required],
@@ -92,12 +92,11 @@ export class CreateCustomerMasterComponent {
       contacts: this.contacts,
       billings: this.billings,
     };
-    console.log(payload);
     if (this.form.valid) {
       this.customerService.create(payload).subscribe(
         (res) => {
           this.snackBarService.openSnackBar({
-            title:'Success',
+            title: 'Success',
             msg: 'Customer created successfully!',
             type: Success,
           });

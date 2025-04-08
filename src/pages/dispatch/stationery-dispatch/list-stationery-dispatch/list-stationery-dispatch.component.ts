@@ -26,8 +26,6 @@ import { OrderService } from '../../../../services/order.service';
   ],
 })
 export class ListStationeryDispatchComponent implements OnInit {
-
-
   items: any[] = [];
   rows: number[] = [10, 20, 30];
   limit = signal(this.rows[0]);
@@ -64,8 +62,8 @@ export class ListStationeryDispatchComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.items = res.content;
-        this.size.set(+res.totalPages);
-        this.records.set(+res.totalElements);
+          this.size.set(+res.totalPages);
+          this.records.set(+res.totalElements);
         },
         error: (err) => {
           console.log(err);
@@ -88,15 +86,18 @@ export class ListStationeryDispatchComponent implements OnInit {
 
   search() {}
 
-
   editData(id: number) {
     this.router.navigate(['/app/stationery-dispatch/edit', id]);
   }
 
-  changePrintStatus(orderId: number,isPrint: boolean) {
-    
-    }
-
-  
-
+  changePrintStatus(orderId: number) {
+    this.stationeryDispatchService.changePrintStatus(orderId).subscribe({
+      next: (res) => {
+        this.loadData();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 }

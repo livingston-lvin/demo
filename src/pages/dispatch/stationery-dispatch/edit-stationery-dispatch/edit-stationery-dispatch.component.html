@@ -52,7 +52,6 @@
             </tr>
         </table>
         <div class="btns">
-            <!-- <button class="edit">Edit</button> -->
             <button class="print" (click)="print()">Print</button>
             <button class="export">Export</button>
         </div>
@@ -93,7 +92,7 @@
                         </select>
                         }
                         @else {
-                        Dispatched
+                        <span style="padding: 150px;">Dispatched</span>
                         }
                     </td>
                     <td>{{ item.remark }}</td>
@@ -104,8 +103,8 @@
         </table>
     </div>
     <br>
-    <div class="actn-btns">
-        <button type="submit" (click)="submit()">Submit</button>&nbsp;&nbsp;
+    <div class="action-btns">
+        <button type="submit" (click)="submit()">Submit</button>
         <button type="button" (click)="cancel()">Cancel</button>
     </div>
 </div>

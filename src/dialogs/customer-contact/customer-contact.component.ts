@@ -29,6 +29,7 @@ export class CustomerContactComponent {
     if (data.mode === 'edit') {
       const contact = this.data.contact
       this.form = this.fb.group({
+        id: [contact.id],
         name: [contact.name, Validators.required],
         mobileNo: [contact.mobileNo, Validators.required],
         landLineNo: [contact.landLineNo, Validators.required],

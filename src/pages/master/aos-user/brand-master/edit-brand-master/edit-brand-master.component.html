@@ -1,13 +1,13 @@
 <h2 class="title" mat-dialog-title>Edit Brand</h2>
 <mat-dialog-content>
-    <form [formGroup]="form" ngNativeValidate>
+    <form [formGroup]="form" ngNativeValidate (ngSubmit)="submit()">
         <div class="input-field">
             <label for="name">Brand Name<span class="imp">*</span></label>
             <input type="text" class="input-txt" formControlName="name" required>
         </div>
         <br>
         <div class="action-btns">
-            <button type="submit" (click)="submit()">Update</button>
+            <button type="submit">Update</button>
             <button type="button" (click)="closeDialog('cancel')">Cancel</button>
         </div>
     </form>

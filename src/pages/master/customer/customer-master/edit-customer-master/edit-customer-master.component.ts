@@ -20,6 +20,7 @@ import { environment } from '../../../../../environments/environment.development
 import { ShortenPipe } from '../../../../../pipes/shorten.pipe';
 import { CustomerService } from '../../../../../services/customer.service';
 import { SnackbarService } from '../../../../../services/snackbar.service';
+import { AlertService } from '../../../../../services/alert.service';
 
 @Component({
   selector: 'app-edit-customer-master',
@@ -51,10 +52,12 @@ export class EditCustomerMasterComponent implements OnInit {
     private router: Router,
     private snackBarService: SnackbarService,
     private dialog: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alertService: AlertService
   ) {
     this.id = +this.route.snapshot.paramMap.get('id')!;
     this.form = this.fb.group({
+      id: [this.id, Validators.required],
       customerName: [null, Validators.required],
       customerLoginPageUrl: [null],
       email: [null, Validators.required],
@@ -121,13 +124,11 @@ export class EditCustomerMasterComponent implements OnInit {
       this.customerService.create(payload).subscribe(
         (res) => {
           this.snackBarService.openSnackBar({
-            title:'Success',
-            msg: 'User created successfully',
+            title: 'Success',
+            msg: 'Customer Updated successfully',
             type: Success,
           });
-          setTimeout(() => {
-            this.navigateToListUserPage();
-          }, 3000);
+          this.navigateToListUserPage();
         },
         (err) => {
           console.log(err);
@@ -177,9 +178,16 @@ export class EditCustomerMasterComponent implements OnInit {
     });
 
     dialog.afterClosed().subscribe(
-      (res) => {
-        if (res) {
-          this.contacts.splice(index, 1, res);
+      (response) => {
+        if (response) {
+          this.customerService.updateContact(response).subscribe((res) => {
+            this.snackBarService.openSnackBar({
+              title: 'Success',
+              msg: 'Contact updated successfully',
+              type: Success,
+            });
+            this.contacts.splice(index, 1, response);
+          });
         }
       },
       (err) => {
@@ -219,7 +227,19 @@ export class EditCustomerMasterComponent implements OnInit {
     dialog.afterClosed().subscribe(
       (res) => {
         if (res) {
-          this.billings.splice(index, 1, res);
+          this.customerService.updateBilling(res).subscribe(
+            (_) => {
+              this.snackBarService.openSnackBar({
+                title: 'Success',
+                msg: 'Billing detail updated successfully',
+                type: Success,
+              });
+              this.billings.splice(index, 1, res);
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
         }
       },
       (err) => {
@@ -229,10 +249,68 @@ export class EditCustomerMasterComponent implements OnInit {
   }
 
   removeContacts(index: number) {
-    this.contacts.splice(index, 1);
+    this.alertService
+      .alert(
+        'Warning!',
+        'Do you want delete this Contact Detail?',
+        'question',
+        'Delete'
+      )
+      .then((res) => {
+        if (res.isConfirmed) {
+          const contact = this.contacts.splice(index, 1);
+          const id = contact[0].id;
+          if (id) {
+            this.customerService.deleteContact(id).subscribe(
+              (res) => {
+                this.snackBarService.openSnackBar({
+                  title: 'Success',
+                  msg: 'Contact detail deleted successfully',
+                  type: Success,
+                });
+              },
+              (err) => {
+                console.log(err);
+              }
+            );
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   removeBillings(index: number) {
-    this.billings.splice(index, 1);
+    this.alertService
+      .alert(
+        'Warning!',
+        'Do you want delete this Customer Billing Detail?',
+        'question',
+        'Delete'
+      )
+      .then((res) => {
+        if (res.isConfirmed) {
+          const billing = this.billings.splice(index, 1);
+          const id = billing[0].id;
+          if (id) {
+            this.customerService.deleteBilling(id).subscribe(
+              (res) => {
+                this.snackBarService.openSnackBar({
+                  title: 'Success',
+                  msg: 'Billing detail deleted successfully',
+                  type: Success,
+                });
+              },
+              (err) => {
+                console.log(err);
+              }
+            );
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }

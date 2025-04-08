@@ -1,13 +1,13 @@
 <h2 class="title" mat-dialog-title>Add New Item Category</h2>
 <mat-dialog-content>
-    <form [formGroup]="form" ngNativeValidate>
+    <form [formGroup]="form" ngNativeValidate (ngSubmit)="submit()">
         <div class="input-field">
             <label for="name">Item Category Name<span class="imp">*</span></label>
             <input type="text" class="input-txt" formControlName="name" required>
         </div>
         <br>
         <div class="action-btns">
-            <button type="submit" (click)="submit()">Submit</button>
+            <button type="submit">Submit</button>
             <button type="button" (click)="closeDialog('cancel')">Cancel</button>
         </div>
     </form>
