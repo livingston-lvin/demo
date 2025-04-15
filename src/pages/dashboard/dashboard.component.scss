@@ -1,30 +1,32 @@
-.container {
-  display: flex;
-  gap: 2rem;
-  padding: 2rem;
-  flex-wrap: wrap;
+.header {
+  border-radius: 5px;
+  background-color: #fff;
+
+  h2 {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    padding: 5px 15px;
+  }
 }
 
 .left-section {
-  flex: 1;
   background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 1.5rem;
-  min-width: 300px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  display: flex;
+  gap: 20px;
+  flex: 1 1 auto;
 
   .card {
+    min-width: 150px;
     border: 1px solid #ccc;
     border-radius: 6px;
     padding: 1rem;
     text-align: center;
-    background: #fff;
+    color: #fff;
 
     .count {
-      color: blue;
       font-size: 1.8rem;
       font-weight: bold;
     }
@@ -34,11 +36,11 @@
       margin-top: 0.5rem;
       line-height: 1.2;
       font-family: ROBOTO-MEDIUM;
-      color: #555;
     }
 
     &:hover {
-      background: #f9f9f9;
+      color: #000 !important;
+      background-color: #f9f9f9 !important;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       transition: background 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;

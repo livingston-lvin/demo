@@ -99,6 +99,7 @@ export class TicketStatusComponent implements OnInit {
     this.dialog.open(ChatComponent, {
       data: { data },
       autoFocus: false,
+      width: '600px',
     });
   }
 }

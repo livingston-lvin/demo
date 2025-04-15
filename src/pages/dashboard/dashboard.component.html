@@ -1,43 +1,15 @@
 <div class="container">
-  <div class="left-section">
-    <div class="card">
-      <div class="count">0</div>
-      <div class="label">Todays Pending<br>Assign Vendors</div>
+
+  <div class="header">
+    <h2>Tickets</h2>
     </div>
-    <div class="card">
-      <div class="count">0</div>
-      <div class="label">Todays VC Orders</div>
-    </div>
-    <div class="card">
-      <div class="count">12</div>
-      <div class="label">Total Pending<br>Assign Vendors</div>
-    </div>
-    <div class="card">
-      <div class="count">2994</div>
-      <div class="label">Wo not Received</div>
-    </div>
-    <div class="card">
-      <div class="count">0</div>
-      <div class="label">Wo received but<br>not dispatch</div>
-    </div>
-  </div>
 
   <div class="left-section">
-      <div class="card red" (click)="navigate('red')">
-        <div class="count">35</div>
+    @for (item of items; track $index) {
+      <div class="card" [ngClass]="item.color" (click)="navigate(item.label)">
+        <div class="count">{{ item.count }}</div>
         <div class="label">Tickets</div>
       </div>
-      <div class="card orange">
-        <div class="count">1</div>
-        <div class="label">Tickets</div>
-      </div>
-      <div class="card green">
-        <div class="count">2</div>
-        <div class="label">Tickets</div>
-      </div>
-      <div class="card grey">
-        <div class="count">38</div>
-        <div class="label">Open Tickets</div>
-      </div>
+    }
     </div>
 </div>
