@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>Store Ticket History Details</h2>
+
+<button mat-icon-button type="button" (click)="closeDialog()" style="position: absolute; top: 8px; right: 8px;"
+    [tabindex]="-1">
+    <mat-icon>cancel</mat-icon>
+</button>
+
+<mat-dialog-content class="chat-container">
+    <div class="ticket-info">
+        <div><strong>Order Id :</strong>&nbsp;{{ 'ORD' + data.data.orderId }}</div>
+        <div><strong>Subject :</strong>&nbsp;{{ ticketStatus.subject }}</div>
+    </div>
+
+    <div class="chat-history">
+        <div *ngFor="let chat of chats" class="chat-message"
+            [ngClass]="{ 'store': !chat.isStore, 'user': chat.isStore }">
+            <div class="sender">{{ chat.isStore ? 'Store' : chat.empId }}</div>
+            <div class="timestamp">{{ chat.saveDate }}</div>
+            <div class="text">{{ chat.message }}</div>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions class="send-box">
+    <mat-form-field appearance="outline" class="message-input">
+        <textarea matInput placeholder="Type your message..." [(ngModel)]="newMessage"></textarea>
+    </mat-form-field>
+    <button mat-icon-button color="primary" [disabled]="newMessage === undefined" (click)="sendMessage()"
+        class="send-button" style="float: left;">
+        <mat-icon>send</mat-icon>
+    </button>
+</mat-dialog-actions>

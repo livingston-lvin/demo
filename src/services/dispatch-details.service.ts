@@ -23,11 +23,19 @@ export class DispatchDetailsService {
     return this.http.put<any>(`${this.url}`, payload);
   }
 
-  updateOrder(data: any,orderId: number): Observable<any> {
+  updateOrder(data: any, orderId: number): Observable<any> {
     return this.http.post<any>(`${this.url}/dispatch/${orderId}`, data);
   }
 
   getOrderDetail(orderId: number): Observable<any> {
     return this.http.get<any>(`${this.url}/${orderId}`);
+  }
+
+  getTickets(limit:number,offset:number) {
+    return this.http.get<any>(`${this.url}/tickets/${limit}/${offset}`);
+  }
+
+  send(payload: any): Observable<any> {
+    return this.http.post<any>(`${this.url}/send`, payload);
   }
 }

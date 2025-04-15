@@ -1,25 +1,61 @@
-@use "../../constants/colors.scss" as color;
-
 .container {
-  width: 100%;
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  flex-wrap: wrap;
 }
 
-.title-animation {
-  color: color.$titleAnimationColor;
-  font-family: ROBOTO-MEDIUM;
-  display: inline-block;
-  white-space: nowrap;
-  position: relative;
-  // animation: moveLeft 50s linear infinite;
-}
+.left-section {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  min-width: 300px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
 
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+    background: #fff;
 
+    .count {
+      color: blue;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
 
-@keyframes moveLeft {
-  0% {
-    transform: translateX(25%);
+    .label {
+      font-size: 14px;
+      margin-top: 0.5rem;
+      line-height: 1.2;
+      font-family: ROBOTO-MEDIUM;
+      color: #555;
+    }
+
+    &:hover {
+      background: #f9f9f9;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      transform: scale(1.02);
+    }
   }
-  100% {
-    transform: translateX(-100%);
+
+  .red {
+    background-color: #e74c3c;
+  }
+  .orange {
+    background-color: #e67e22;
+  }
+  .green {
+    background-color: #2ecc71;
+  }
+  .grey {
+    background-color: #95a5a6;
   }
 }
