@@ -102,4 +102,24 @@ export class TicketStatusComponent implements OnInit {
       width: '600px',
     });
   }
+
+  closeTicket(orderId: number) {
+    this.alertService
+      .alert('Warning!', 'Do you want close this ticket?', 'question', 'Close Ticket')
+      .then((res) => {
+        if (res.isConfirmed) {
+          this.dispatchDetailsService.closeTicket(orderId).subscribe({
+            next: (res) => {
+              this.loadData();
+            },
+            error: (err) => {
+              console.log(err);
+            },
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }

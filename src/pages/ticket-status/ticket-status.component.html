@@ -32,6 +32,8 @@
                     <th>Order Date</th>
                     <th>Emp Name</th>
                     <th>Order Status</th>
+                    <th>Subject</th>
+                    <th>Reply</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -43,10 +45,14 @@
                     <td>{{ item.saveDate }}</td>
                     <td>{{ item.employeeName }}</td>
                     <td>{{ item.storeDispatchStatus }}</td>
+                    <td>{{ item.ticket.subject }}</td>
                     <td> 
                         <button mat-icon-button (click)="openChat(item)">
                             <mat-icon style="color: #76838F;" fontSet="material-icons-outlined">comment</mat-icon>
                         </button>
+                    </td>
+                    <td> 
+                        <button class="close-ticket" type="button" (click)="closeTicket(item.orderId)">Close Ticket</button>
                     </td>
                 </tr>
                 }
