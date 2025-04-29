@@ -61,6 +61,10 @@ body {
   flex-direction: row-reverse;
 }
 
+div.mat-mdc-autocomplete-panel {
+  background-color: #fff !important;
+}
+
 .form-container {
   width: auto;
   background-color: #fff;
@@ -228,7 +232,7 @@ h3 {
     right: 40px;
     cursor: pointer;
   }
-  
+
   .close {
     position: absolute;
     top: 5px;
@@ -262,7 +266,7 @@ h3 {
     padding: 0 !important;
   }
 
-  .content{
+  .content {
     overflow: hidden !important;
   }
 }

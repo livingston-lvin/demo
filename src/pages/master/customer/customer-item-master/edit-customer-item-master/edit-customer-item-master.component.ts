@@ -12,15 +12,31 @@ import { CustomerItemService } from '../../../../../services/customer-item.servi
 import { CustomerService } from '../../../../../services/customer.service';
 import { ItemService } from '../../../../../services/item.service';
 import { HttpClient } from '@angular/common/http';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { SnackbarService } from '../../../../../services/snackbar.service';
 import { Success } from '../../../../../constants/AppData';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { Observable, startWith, map } from 'rxjs';
 
 @Component({
   selector: 'app-edit-customer-item-master',
   templateUrl: './edit-customer-item-master.component.html',
   styleUrl: './edit-customer-item-master.component.scss',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+  ],
   providers: [],
 })
 export class EditCustomerItemMasterComponent implements OnInit {
@@ -29,6 +45,7 @@ export class EditCustomerItemMasterComponent implements OnInit {
   categories: any[] = [];
   customers: any[] = [];
   id: number;
+  filteredItems!: Observable<any>;
 
   constructor(
     private fb: FormBuilder,
@@ -45,11 +62,17 @@ export class EditCustomerItemMasterComponent implements OnInit {
       customerItemId: this.id,
       item: [null, Validators.required],
       customer: [null, Validators.required],
-      aliasItemName: [null, Validators.required],
-      aliasItemCode: [null, Validators.required],
-      aliasItemPrice: [null, Validators.required],
+      itemAliasName: [null, Validators.required],
+      itemAliasCode: [null, Validators.required],
+      itemPrice: [null, Validators.required],
       minOrderQty: [null, Validators.required],
     });
+  }
+
+  private _filter(value: string): any[] {
+    return this.items.filter((item: any) =>
+      item.value.toLowerCase().includes(value.toLowerCase())
+    );
   }
 
   ngOnInit(): void {
@@ -93,6 +116,12 @@ export class EditCustomerItemMasterComponent implements OnInit {
     itemPromise
       .then((res: any) => {
         this.items = res;
+        this.filteredItems = this.form.get('item')!.valueChanges.pipe(
+          startWith(''),
+          map((value) =>
+            typeof value === 'string' ? this._filter(value) : this.items
+          )
+        );
         return customerPromise;
       })
       .then((res: any) => {
@@ -100,16 +129,16 @@ export class EditCustomerItemMasterComponent implements OnInit {
         return customerItemPromise;
       })
       .then((res: any) => {
-        let item = this.items.filter((item) => item.field === res.itemId)[0];
-        let customer = this.customers.filter(
+        let item = this.items.find((item) => +item.field === +res.itemId);
+        let customer = this.customers.find(
           (customer) => customer.field === res.customerId
-        )[0];
+        );
         this.form.patchValue({
-          item: item.value,
+          item: item,
           customer: customer.value,
-          aliasItemName: res.itemName,
-          aliasItemCode: res.itemCode,
-          aliasItemPrice: res.itemPrice,
+          itemAliasName: res.itemName,
+          itemAliasCode: res.itemCode,
+          itemPrice: res.itemPrice,
           minOrderQty: res.minOrderQty,
         });
       })
@@ -120,7 +149,14 @@ export class EditCustomerItemMasterComponent implements OnInit {
 
   submit() {
     const value = this.form.value;
-    this.customerItemService.updateCustomerItem(value).subscribe(
+    const payload = {
+      id: this.id,
+      itemCode: value.itemAliasCode,
+      itemName: value.itemAliasName,
+      itemPrice: value.itemPrice,
+      minOrderQty: value.minOrderQty,
+    };
+    this.customerItemService.updateCustomerItem(payload).subscribe(
       (res) => {
         this.snackbarService.openSnackBar({
           title: Success,
@@ -137,5 +173,9 @@ export class EditCustomerItemMasterComponent implements OnInit {
 
   navigateToListCustomerItemPage() {
     this.location.back();
+  }
+
+  displayFn(value: any) {
+    return value ? value.value : '';
   }
 }

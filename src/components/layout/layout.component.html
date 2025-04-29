@@ -1,9 +1,11 @@
 <div class="container">
     <div class="toolbar">
         <div class="header">
-            <img class="app-logo" src="/images/app-icon.png">
             @if(sideMenuOpened()){
-            <img class="app-title" src="/images/app-title.png">
+            <img class="app-title" src="./images/AIRO-FILE.png">
+            } 
+            @else {
+            <img class="app-logo" src="./images/ICON.png">
             }
             <button mat-icon-button (click)="sideMenuOpened.set(!sideMenuOpened())"
                 [title]="sideMenuOpened() ? 'Close Menu' : 'Open Menu'"><mat-icon>{{ sideMenuOpened() ?

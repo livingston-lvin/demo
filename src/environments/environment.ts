@@ -23,6 +23,7 @@ export const environment = {
   poster: 'poster',
   courierDetails: 'courier-details',
   reports: 'reports',
+  raiseTicket: 'ticket-status',
 
   list: 'list',
   create: 'create',

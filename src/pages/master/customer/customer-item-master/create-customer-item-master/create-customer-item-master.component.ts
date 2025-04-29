@@ -11,18 +11,35 @@ import { environment } from '../../../../../environments/environment.development
 import { ItemService } from '../../../../../services/item.service';
 import { CustomerService } from '../../../../../services/customer.service';
 import { CustomerItemService } from '../../../../../services/customer-item.service';
-
+import { map, Observable, startWith, tap } from 'rxjs';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-create-customer-item-master',
   templateUrl: './create-customer-item-master.component.html',
   styleUrl: './create-customer-item-master.component.scss',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+  ],
 })
 export class CreateCustomerItemMasterComponent implements OnInit {
   form: FormGroup;
   items: any[] = [];
   categories: any[] = [];
   customers: any[] = [];
+  filteredItems!: Observable<any>;
 
   constructor(
     private fb: FormBuilder,
@@ -34,14 +51,17 @@ export class CreateCustomerItemMasterComponent implements OnInit {
     this.form = this.fb.group({
       item: [null, Validators.required],
       customer: [null, Validators.required],
-      itemName: [null],
-      itemCode: [null, Validators.required],
+      itemAliasName: [null, Validators.required],
+      itemAliasCode: [null, Validators.required],
       itemPrice: [null, Validators.required],
       minOrderQty: [null, Validators.required],
-      // itemHsnCode: [null, Validators.required],
-      // priceIncGST: [null, Validators.required],
-      // gst: [null, Validators.required],
     });
+  }
+
+  private _filter(value: string): any[] {
+    return this.items.filter((item: any) =>
+      item.value.toLowerCase().includes(value.toLowerCase())
+    );
   }
 
   ngOnInit(): void {
@@ -52,6 +72,12 @@ export class CreateCustomerItemMasterComponent implements OnInit {
     this.itemService.getValidItems().subscribe(
       (res: any[]) => {
         this.items = res;
+        this.filteredItems = this.form.get('item')!.valueChanges.pipe(
+          startWith(''),
+          map((value) =>
+            typeof value === 'string' ? this._filter(value) : this.items
+          )
+        );
       },
       (err) => {
         console.log(err);
@@ -71,9 +97,12 @@ export class CreateCustomerItemMasterComponent implements OnInit {
   submit() {
     const value = this.form.value;
     const payload = {
-      ...value,
-      itemId: value.item,
-      customerId: value.customer,
+      itemId: +value.item.field,
+      customerId: +value.customer,
+      itemCode: value.itemAliasCode,
+      itemName: value.itemAliasName,
+      itemPrice: value.itemPrice,
+      minOrderQty: value.minOrderQty,
     };
     if (this.form.valid) {
       this.customerItemService.create(payload).subscribe(
@@ -97,5 +126,9 @@ export class CreateCustomerItemMasterComponent implements OnInit {
       environment.item,
       environment.list,
     ]);
+  }
+
+  displayFn(value: any) {
+    return value ? value.value : '';
   }
 }

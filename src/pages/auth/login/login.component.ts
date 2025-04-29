@@ -41,7 +41,7 @@ export class LoginComponent {
     this.authService.login(payload).subscribe(
       (res) => {
         localStorage.setItem('user', JSON.stringify(res));
-        this.router.navigate([environment.servletPath]);
+        this.router.navigate([environment.servletPath, environment.dashboard]);
       },
       (err) => {
         console.log(err);

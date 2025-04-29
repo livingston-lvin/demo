@@ -6,11 +6,12 @@
     <form [formGroup]="form" ngNativeValidate (ngSubmit)="submit()">
         <div class="input-field">
             <label for="item">AOS Item Name<span class="imp">*</span></label>
-            <select formControlName="item" required> >
-                @for (item of items; track item) {
-                <option [value]="item.field">{{ item.value }}</option>
-                }
-            </select>
+            <input type="text" placeholder="Select Item" formControlName="item" [matAutocomplete]="auto" required>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let item of filteredItems | async" [value]="item">
+                    {{ item.value }}
+                </mat-option>
+            </mat-autocomplete>
         </div>
         <div class="input-field">
             <label for="customer">Select Customer<span class="imp">*</span></label>
@@ -21,12 +22,12 @@
             </select>
         </div>
         <div class="input-field">
-            <label for="itemName">Customer Item Name Alias<span class="imp">*</span></label>
-            <input type="text" formControlName="itemName" required>
+            <label for="itemAliasName">Customer Item Name Alias<span class="imp">*</span></label>
+            <input type="text" formControlName="itemAliasName" required>
         </div>
         <div class="input-field">
-            <label for="itemCode">Customer Item Code Alias<span class="imp">*</span></label>
-            <input type="text" formControlName="itemCode" required>
+            <label for="itemAliasCode">Customer Item Code Alias<span class="imp">*</span></label>
+            <input type="text" formControlName="itemAliasCode" required>
         </div>
         <div class="input-field">
             <label for="itemPrice">Customer Item Price<span class="imp">*</span></label>
@@ -36,8 +37,6 @@
             <label for="minOrderQty">Minimum Order Qty<span class="imp">*</span></label>
             <input type="number" formControlName="minOrderQty" required>
         </div>
-        <div class="input-field"></div>
-        <div class="input-field"></div>
         <div class="action-btns">
             <button mat-flat-button type="submit">Submit</button>
             <button mat-button type="button" (click)="navigateToListCustomerItemPage()">
