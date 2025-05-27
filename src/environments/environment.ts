@@ -1,6 +1,6 @@
 export const environment = {
   servletPath: 'app',
-  url: 'http://apple.richastechpro.com/apple-stationery',
+  url: 'http://app.airoinstaserv.com/apple-stationery',
 
   dashboard: 'dashboard',
   master: 'master',
